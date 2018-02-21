@@ -11,6 +11,65 @@ class Config{
   }
 }
 
+class Ticket{
+  construct(){
+    this.oid = '';
+    this.date = '';
+    this.lotery = '';
+    this.times = [];
+    this.animals = [];
+    this.monto = 0.00;
+  }
+  Total(){
+    var cant = this.animalitos.length;
+    return monto * cant;
+  }
+}
+
+class Playing{
+  construct(){
+    this.uid = '';
+    this.datetime = '';
+    this.ticket = new Ticket();
+  }
+}
+
+class Transferens{
+  construct(){
+    this.uid = '';
+    this.bank = '';
+    this.datereport = '';
+    this.date = '';    
+    this.number = '';
+    this.observation = '';
+  }
+}
+
+class Bank{
+  construct(){
+    this.name = '';
+    this.number = '';
+    this.type = '';
+  }
+}
+
+class Person {
+  construct(){
+    this.id = '';
+    this.fullname = '';
+    this.sex = '';
+    this.date = '';
+    this.location = '';
+    this.state = '';
+    this.phone = '';
+    this.cel = '';
+    this.email = '';
+    this.bank = new Bank();
+
+  }
+}
+
+
 
 //Cargar Remotamente Objetos JSON
 function LoadRemoteJson(file, idDiv){
@@ -37,13 +96,15 @@ function LoadLocalFile(file, idDiv){
   });
 
   fetch(request)
-  .then((res) => res.text())
-  .then((data) => {
+  .then( res => { 
+    return res.text() 
+  })
+  .then( data => {
     if(idDiv == undefined) idDiv = 'divCuerpo';
     getID(idDiv).innerHTML = data;
     LoadComponentMaterialize();
   })
-  .catch((err) => {
+  .catch( err => {
     console.log(err);
   })
 }

@@ -53,13 +53,13 @@
     </style>
   </head>
 
-  <body class="light-blue lighten-5">
+  <body class="blue-grey lighten-5">
 
 
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#" onclick="LoadLocalFile('person')"><i class="material-icons left purple-text" >face</i>Datos Personales</i></a></li>
-      <li><a href="badges.html"><i class="material-icons left indigo-text" >account_balance</i>Datos Bancarios</a></li>
-      <li><a href="mobile.html"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Mi Billetera</a></li>
+      <li><a onclick="LoadUserData();LoadLocalFile('person')"><i class="material-icons left purple-text" >face</i>Personales</i></a></li>
+      <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Bancarios</a></li>
+      <li><a href="mobile.html"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
 
    </ul>
     <nav>
@@ -73,13 +73,14 @@
          </a>
 
          <ul class="right hide-on-med-and-down">
-           <li><a href="sass.html"><i class="material-icons left" >style</i>Tickes</a></li>
-           <li><a href="sass.html"><i class="material-icons left" >assignment</i>Resultados</a></li>
-           <li><a href="#" onclick="LoadLocalFile('bets')"><i class="material-icons left" >casino</i>Apostar</a></li>
-           <li><a href="sass.html"><i class="material-icons left" >payment</i>Tramites</a></li>
+           <li><a href="#"><i class="material-icons left" >style</i>Tickes</a></li>
+           <li><a href="#"><i class="material-icons left" >assignment</i>Resultados</a></li>
+           <li><a onclick="LoadLocalFile('transferens')"><i class="material-icons left" >payment</i>Tramites</a></li>
 
            <!-- <li><aclass="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">face</i>Personales<i class="material-icons right">arrow_drop_down</i></a></li> -->
-           <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">apps</i>Configuración<i class="material-icons right">arrow_drop_down</i></a></li>
+           <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
+              <i class="material-icons left">settings</i>Configuración<i class="material-icons right">arrow_drop_down</i></a>
+          </li>
 
          </ul>
          <ul id="slide-out" class="side-nav">
@@ -87,17 +88,17 @@
              <div class="background">
                <img src="img/office.jpg">
              </div>
-             <a href="#!user"><img class="circle" src="img/albert.jpg"></a>
-             <a href="#!name"><span class="white-text name">Azar en linea</span></a>
+             <a href="#!user"><img class="circle" src="img/albert.jpg" id="imgPhotoUser" /></a>
+             <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
              <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
            </div></li>
            <li><a href="sass.html"><i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
            <li><a href="sass.html"><i class="material-icons left blue-text" >assignment</i>Resultados</a></li>
            <li><div class="divider"></div></li>
-           <li><a href="sass.html"><i class="material-icons left" >payment</i>Tramites</a></li>
+           <li><a onclick="LoadLocalFile('transferens')"><i class="material-icons left" >payment</i>Tramites</a></li>
            <li><div class="divider"></div></li>
-           <li><a href="#" onclick="LoadLocalFile('person')"><i class="material-icons left purple-text" >face</i>Datos Personales</i></a></li>
-           <li><a href="#"><i class="material-icons left indigo-text" >account_balance</i>Datos Bancarios</a></li>
+           <li><a onclick="LoadUserData();LoadLocalFile('person');"><i class="material-icons left purple-text" >face</i>Datos Personales</i></a></li>
+           <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Datos Bancarios</a></li>
            <li><a href="#"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Mi Billetera</a></li>
            <li><a href="#" id="hrfCerrar"><i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>
            <!-- <li><div class="divider"></div></li>
@@ -111,9 +112,9 @@
      <div class="row" id="divCuerpo">
 
        <ul id="tabs-swipe-demo" class="tabs">
-          <li class="tab col s3"><a class="active" href="#test-swipe-1">Datos</a></li>
-          <li class="tab col s3"><a href="#test-swipe-2">Apostar</a></li>
-          <li class="tab col s3"><a href="#test-swipe-3">Ver Apuesta</a></li>
+          <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Datos</a></li>
+          <li class="tab col s3"><a href="#test-swipe-2" class="blue-text">Apostar</a></li>
+          <li class="tab col s3"><a href="#test-swipe-3" class="blue-text">Ver Apuesta</a></li>
         </ul>
         <div id="test-swipe-1" class="col s12" style="padding-left:0px; padding-top:5px">
 
@@ -173,7 +174,7 @@
                     </select>
                     <label for="cmbLoteria">Seleccionar loteria</label>
                   </div>
-                  <div class="input-field col s12">
+                  <div class="input-field col s8">
                     <select multiple>
                       <option value=0>09:00 am</option>
                       <option value=1>10:00 am</option>
@@ -188,16 +189,18 @@
                     </select>
                     <label for="cmbLoteria">Seleccionar Sorteo</label>
                   </div>
+                  <div class="col s12">
+                      <button class="col s4 btn waves-effect blue white-text darken-text-2 right"
+                      onclick="ChangeTabs('test-swipe-2')">Apostar
+                      <i class="material-icons left">casino</i>
+                    </button>
+
+                  </div>
 
                 </div>
 
-              </div>
-              <div class="row">
-                 <div class="center">
-                   <button class="btn waves-effect light-green white-text darken-text-2 pulse"
-                     onclick="ChangeTabs('test-swipe-2')">Apostar
-                     <i class="material-icons left">casino</i>
-                   </button>
+                 
+                   
                  </div>
                </div>
 
@@ -237,29 +240,21 @@
 
         <div id="test-swipe-3" class="col s12">
           <div class="row">
-            <table class="bordered striped">
+            <table class="bordered striped" id="tblApuesta" style="display:none">
               <thead>
                 <tr>
                   <th>Descripción</th>
                   <th>Monto</th>
                 </tr>
               </thead>
-
               <tbody>
-                <tr>
-                  <td>00 - BALLENA</td>
-                  <td>10 Bs.</td>
-                </tr>
-                <tr>
-                  <td>0 - DELFIN</td>
-                  <td>50 Bs.</td>
-                </tr>
+                
 
               </tbody>
               <tfoot>
                 <tr>
                   <th>Total</th>
-                  <th>60 Bs.</th>
+                  <th id="thTotal"></th>
                 </tr>
               </tfoot>
             </table>
@@ -267,7 +262,7 @@
           </div>
           <div class="row">
             <div class="center">
-              <button class="btn waves-effect green white-text darken-text-2 pulse">Jugar
+              <button class="btn waves-effect green white-text darken-text-2 pulse hide">Jugar
                 <i class="material-icons right">send</i>
               </button>
             </div>
@@ -379,15 +374,7 @@
              <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
              <script>
                // Initialize Firebase
-               var config = {
-                 apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
-                 authDomain: "azarel-1a865.firebaseapp.com",
-                 databaseURL: "https://azarel-1a865.firebaseio.com",
-                 projectId: "azarel-1a865",
-                 storageBucket: "azarel-1a865.appspot.com",
-                 messagingSenderId: "963834795291"
-               };location
-               firebase.initializeApp(config);
+              
              </script>
              <script  type="text/javascript">
               $(document).ready(function(){
@@ -401,6 +388,7 @@
                   $('.modal').modal();
                   $('select').material_select();
                   $(".button-collapse").sideNav();
+                  MakeTableAnimals();
                });
                function Presentacion(){
                  $('.tap-target').tapTarget('open');

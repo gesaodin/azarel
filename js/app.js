@@ -1,9 +1,9 @@
 let pageNumber = 1;
 let maxPageNumber = 5;
-
 let UserAPIKey = '';
 let UserAppName = '';
-
+let UserPhoto = '';
+let UserUID = '';
 
 const limitAnimals = 12;
 const pagBodyTableAnimals = getID('test-swipe-2');
@@ -11,7 +11,24 @@ const btnPerson = getID('btnPersona');
 const lblNumberAnimalsModal = getID('numberAnimals');
 const txtNumberAnimalsModal = getID('txtMonto');
 const lblEmail = getID('lblEmail');
+const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
+const imgPhotoUser = getID('imgPhotoUser');
+
+var config = {
+  apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
+  authDomain: "azarel-1a865.firebaseapp.com",
+  databaseURL: "https://azarel-1a865.firebaseio.com",
+  projectId: "azarel-1a865",
+  storageBucket: "azarel-1a865.appspot.com",
+  messagingSenderId: "963834795291"
+};
+
+
+firebase.initializeApp(config);
+const messaging = firebase.messaging();
+// Get a reference to the database service
+var database = firebase.database();
 
 const animals = [
     {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
@@ -36,37 +53,97 @@ const animals = [
   ];
 
 
-firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        UserAPIKey = user.ca.a;
-        lblEmail.innerHTML = email;
-        // ...
+      var displayName = user.displayName;
+      var email = user.email;
+      var emailVerified = user.emailVerified;
+      var photoURL = user.photoURL;
+      var isAnonymous = user.isAnonymous;
+      var uid = user.uid;
+      var providerData = user.providerData;
+      UserPhoto = photoURL;
+      UserAPIKey = user.ca.a;
+      lblEmail.innerHTML = email;
+      lblNameUser.innerHTML = displayName;
+      imgPhotoUser.src = photoURL; 
+      UserUID = uid;
     } else {
-        location.href = "index.html";
-        // User is signed out.
-        // ...
+      location.href = "index.html";
     }
 });
 
 
+//On request permission
+messaging.requestPermission()
+.then( function() {
+  console.log('Autorizando notificaciones');  
+  return messaging.getToken();
+})
+.then(token => {
+  console.log('Tokens notifications: ', token);
+})
+.catch(function(err) {
+  console.log('No se autorizarón las notificaciones.', err);
+});
 
-document.addEventListener('load', MakeTableAnimals());
+//On messaging realtime
+messaging.onMessage(function(payload){
+  console.log('onMessaging : ', payload);
+});
+
+
+
+// Get Instance ID token. Initially this makes a network call, once retrieved
+  // subsequent calls to getToken will return from cache.
+  messaging.getToken()
+  .then(function(currentToken) {
+    console.log('Obtener Token: ', currentToken);
+    if (currentToken) {
+      //sendTokenToServer(currentToken);
+      //updateUIForPushEnabled(currentToken);
+    } else {
+      // Show permission request.
+      console.log('No Instance ID token available. Request permission to generate one.');
+      // Show permission UI.
+      //updateUIForPushPermissionRequired();
+      //setTokenSentToServer(false);
+    }
+  })
+  .catch(function(err) {
+    console.log('An error occurred while retrieving token. ', err);
+    //showToken('Error retrieving Instance ID token. ', err);
+    //setTokenSentToServer(false);
+  });
+
+
+  // Callback fired if Instance ID token is updated.
+messaging.onTokenRefresh(function() {
+  messaging.getToken()
+  .then(function(refreshedToken) {
+    console.log('Token refreshed.');
+    // Indicate that the new Instance ID token has not yet been sent to the
+    // app server.
+    //setTokenSentToServer(false);
+    // Send Instance ID token to app server.
+    //sendTokenToServer(refreshedToken);
+    // ...
+  })
+  .catch(function(err) {
+    console.log('Unable to retrieve refreshed token ', err);
+    //showToken('Unable to retrieve refreshed token ', err);
+  });
+});
+
+
+
 
 //Close session for app
 hrfCerrar.addEventListener('click', e => {
   localStorage.removeItem(`firebase:authUser:${UserAPIKey}`);
 });
 
-
-
+//serviceWorker 
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){
       navigator.serviceWorker.register('js/sw.js').then(function(reg){
@@ -76,9 +153,8 @@ if('serviceWorker' in navigator){
       });
   })
 }
-//Agregar Escuchadores a los elementos
-// btnPerson.addEventListener('click', );
 
+//Agregar Escuchadores a los elementos
 function MakeTableAnimals(){
   var makeTable = "";
   var min = 0;
@@ -105,7 +181,7 @@ function MakeTableAnimals(){
 
   var page = `<div class="row">
      <div class="center">
-       <button class="btn waves-effect purple white-text darken-text-2" onclick="ChangeNumberPage()">Continuar
+       <button class="btn waves-effect blue white-text darken-text-2" onclick="ChangeNumberPage()">Continuar
          <i class="material-icons right">send</i>
        </button>
      </div>
@@ -156,3 +232,65 @@ function ShowDisplayModal(){
 }
 
 
+function writeUserData() {
+    var btn = getID('btnUserData');
+    
+    if(getID('txtcid').value == ""){
+      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      return false;
+    }
+    btn.value = 'Cargando...';
+    btn.disabled = true;
+    firebase.database().ref('competitor/' + UserUID + '/person').set({
+      cid: getID('txtcid').value,
+      fullname: getID('txtfullname').value,
+      sex : getID('cmbsex').value,
+      date: getID('txtdate').value,
+      phone: getID('txtphone').value,
+      cel : getID('txtcel').value,
+      location: getID('txtdir').value
+    })
+    .then(d => {
+      Materialize.toast('Tus datos han sido actualizados', 3000, 'rounded');
+      btn.value = 'Aceptar';
+      btn.disabled = false;
+    })
+    .catch( e => {
+      Materialize.toast('Ocurrio un error al enviar los datos', 3000, 'rounded');
+      btn.value = 'Aceptar';
+      btn.disabled = false;
+    });
+  
+}
+
+// const hrefPerson = getID('hrefPerson');
+// hrefPerson.addEventListener('click', LoadUserData());
+
+function LoadUserData(){
+  console.log('competitor/' + UserUID);
+  firebase.database().ref('competitor/' + UserUID + '/person').once('value')
+  .then(function(snapshot) {
+    
+    return snapshot.val();
+  })
+  .then(snapshot => {
+    
+    if(snapshot == null){
+      Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
+    }else{
+      getID('imgCompetitor').src = UserPhoto;
+      getID('txtcid').value = snapshot.cid
+      getID('txtfullname').value = snapshot.fullname;
+      getID('cmbsex').value = snapshot.sex;
+      getID('txtdate').value = snapshot.date;
+      getID('txtphone').value = snapshot.phone;
+      getID('txtcel').value = snapshot.cel;
+      getID('txtdir').value = snapshot.location;
+    }
+    
+  })
+  .catch(e => {
+    console.log('Cargando datos E: ', e)
+  });
+  
+}
