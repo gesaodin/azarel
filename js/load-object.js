@@ -285,41 +285,66 @@ function writeUserDataBets() {
 }
   
 function LoadTickets(){
-  return true;
-}
-
-
-//Loading data for Transferens
-function LoadUserDataTransferens(){  
   var sChild = UserUID;
+  var select = '<option value="00x">SELECCIONAR FECHA</option>';
   firebase.database().ref("competitor").child(sChild)
   .child('/bets')
   .once('value')
-  .then(function(snapshot) { 
-    var table = getID('tblBody');
-    var fil = '';
-    var saldo = 0;
-    var row = 0;
+  .then(function(snapshot) {
     snapshot.forEach(function(ele) {
-
       var key = ele.key;
-      var transf  = ele.val();
-      var text = SelectCaseStatus('P');
-      var load = 'CARGA';
-      var money = parseFloat(transf.money).toLocaleString();
-      if(transf.status != undefined)text = SelectCaseStatus(transf.status);
-
-      if(transf.load != undefined)load = 'RETIRO';
-      if(transf.bets != undefined)load = 'APUESTA';
-      row++;
-      fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
-      <td>${text}</td></tr>`;
-      saldo += parseFloat(transf.money);
+      var format = key.slice(6,8) + "-" + key.slice(4,6) + '-' + key.slice(0,4) ;
+      select += `<option value='${key}'>${format}</option>`;
+      
     });
-    table.innerHTML = fil;
+    getID('cmbPlayins').innerHTML = select;
+    cleanSelect('cmbPlayins');
+  })
+  .catch(e => {
+    console.log('Cargando datos por erros', e);
+  });
+}
 
-    getID('spsaldo').innerHTML = saldo.toLocaleString();
-    sortTable('tblMoney', 0);
+function LoadTicketsList(){
+  var id = getID('cmbPlayins').value;
+  var sChild = UserUID;
+  var ul = '<ul class="collapsible" data-collapsible="accordion" id="ulBody">';
+  var li = '';
+  firebase.database().ref("competitor").child(sChild)
+  .child('/bets/' + id)
+  .once('value')
+  .then(function(snapshot) {
+    snapshot.forEach(function(ele) {      
+      var key = ele.key;
+      var cabecera = `<table class="bordered striped">
+      <thead><tr><th>APUESTA</th><th>LOTERIA</th>
+          <th>SORTEO</th><th>MONTO</th></tr>
+      </thead><tbody id="tblBody">`;
+      var cuerpo = '';
+      var total = 0;
+      var obj = ele.val();
+      obj.forEach(o => {
+        total += o.money;
+        cuerpo += `<tr>
+          <td>${o.detail}</td>
+          <td>${o.lottery}</td>
+          <td>${o.hours}</td>
+          <td>${o.money}</td>
+        </tr>`;
+      });
+      var table = cabecera + cuerpo + `</tbody></table>`
+      li = `<li>
+        <div class="collapsible-header">
+          <i class="material-icons">library_books</i>
+          ${key} ( ${parseFloat(total).toLocaleString()} )
+        </div>
+        <div class="collapsible-body" style="padding:0px">${table}</div>
+        </li>${li}`;
+     
+    });
+    ul += li + '</ul>';
+    getID('divTickets').innerHTML = ul;
+    $('.collapsible').collapsible();
   })
   .catch(e => {
     console.log('Cargando datos por erros', e);
