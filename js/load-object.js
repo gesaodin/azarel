@@ -260,7 +260,7 @@ function writeUserDataBets() {
         detail : obj[0].innerHTML,
         money : money,
         key: newKey,                
-        status : false
+        status : 'P'
     };
     total += money;
     betsAll.push(bets);
