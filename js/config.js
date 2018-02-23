@@ -84,7 +84,13 @@ function LoadRemoteJson(file, idDiv){
 
 
 //Cargar localmente archivos y escribir en un div
-function LoadLocalFile(file, idDiv){
+function LoadLocalFile(file, idDiv, func){
+  if(idDiv == undefined){
+    idDiv = 'divCuerpo';
+  } else if(idDiv == ''){
+    idDiv = 'divCuerpo';      
+  }
+  getID(idDiv).innerHTML = LoadingViewHTML();
   var url = 'inc/' + file + ".html";
   var request = new Request(url, {
   	method: 'GET',
@@ -95,14 +101,16 @@ function LoadLocalFile(file, idDiv){
   	})
   });
 
+  
   fetch(request)
   .then( res => { 
     return res.text() 
   })
   .then( data => {
-    if(idDiv == undefined) idDiv = 'divCuerpo';
     getID(idDiv).innerHTML = data;
     LoadComponentMaterialize();
+    if(func != undefined)func();
+    
   })
   .catch( err => {
     console.log(err);

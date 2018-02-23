@@ -110,9 +110,8 @@ firebase.auth().onAuthStateChanged(user => {
         location.href = "home.html";
         // ...
     } else {
-        
-        // User is signed out.
-        // ...
+        $("#divLoading").hide();
+        $("#frmLogin").show(); 
     }
 });
 

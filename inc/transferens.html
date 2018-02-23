@@ -1,49 +1,73 @@
 
 <div class="row">
+
+        <div class="col s12 m4">
+                <div class="card horizontal">
+                  <div class="card-image">
+                    <img src="img/alert.png" style="width:100px">
+                  </div>
+                  <div class="card-stacked green">
+                    <div class="card-content white-text">
+                      <font style="font-size:16px"><b> > Notificar pago</b></font><br>
+                      <font style="font-size:12px">
+                        1.- Las transferencias serán verificadas cada 30 minutos.<br>
+                        2.- No podrá hacer retiro de premios mientras aún no se confirme la transferencia
+                      </font>
+                    </div>
+                  </div>
+                </div>
+              </div>
         <div class="col s12 m12 center">
-        <br>
-            <h5>Notificar pago</h5>
                 <div class="row">
       
                   
                   
                   <div class="input-field col s12 m6">
-                    <select >
-                      <option value="0">SELECCIONAR BANCO</option>
-                      <option value="1">BANESCO</option>
-                      <option value="1">PROVINCIAL</option>
+                    <select id='cmbName'>
+                      <option value="0">Provicial</option>
+                      <option value="1">Banesco</option>
+                      <option value="1">Venezuela</option>
                     </select>
+                    <label >Seleccionar Banco</label>
                   </div>
                   <div class="input-field col s12 m6">
+                      <select id='cmbType'>
+                        <option value="0">Transferencia</option>                        
+                        <option value="1">Deposito</option>
+                      </select>
+                      <label >Tipo de Operación</label>
+                    </div>
+                  <div class="input-field col s12 m6">
+                      <select id='cmbNameTransferens'>                        
+                        <option value="1">Banesco</option>
+                        <option value="1">Provincial</option>
+                      </select>
+                      <label >Banco de donde transfirio</label>
+                    </div>
+                  <div class="input-field col s12 m6">
       
-                    <input id="icon_fecha" type="tel" class="datepicker">
-                    <label for="icon_fecha">Fecha de la operación</label>
+                    <input id="txtDate" type="tel" class="datepicker">
+                    <label class="active" >Fecha de la operación</label>
                   </div>
                 </div>
                 <div class="input-field col s12 m6">
-                    <i class="material-icons prefix">verified_user</i>
-                    <input id="icon_cedu" type="tel" class="validate">
-                    <label for="icon_cedu">Número de operación</label>
+                    <input id="txtNumber" type="tel" class="validate">
+                    <label class="active">Número de operación</label>
                 </div>
                 <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">verified_user</i>
-                        <input id="icon_cedu" type="tel" class="validate">
-                        <label for="icon_cedu">Monto</label>
+                        <input id="txtMoney" type="tel" class="validate">
+                        <label class="active" >Monto</label>
                 </div>
 
-                <div class="row">
-                  <div class="input-field col s12 m12">
-                    <i class="material-icons prefix">location_on</i>
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Observación</label>
-                  </div>
-                </div>
-                
+                              
               </form>
             </div>
           </div>
       
           <div class="center">
-            <a class="btn waves-effect green white-text darken-text-2 pulse">Aceptar</a>
+              <a class="btn-floating waves-effect red pulse" onclick="writeUserDataTransferens()" id="btnUserDataTransferens">
+                  <i class="material-icons">create</i>
+              </a>
+
           </div>
       

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-   <title> AZAR EN LINEA - VENEZUELA </title>
+   <title> Azarel - Venezuela </title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -12,64 +12,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="manifest" href="manifest.json">
-
-    <style type="text/css">
-       .cardAnimals {
-         background: #fff;
-         border-radius: 1.2px;
-         display: inline-block;
-         height: 74px;
-         margin: 0.38rem;
-         /* padding-top: 0rem;
-         margin-top: 0rem;
-         margin-bottom: 0rem; */
-         position: relative;
-         width: 65px;
-       }
-       .cardAnimals-1 {
-         box-shadow: 0px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-         transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-       }
-
-       .cardAnimals-1:click {
-         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-       }
-       .footcard {
-         background: #4caf50;
-         border-radius: 0px;
-         display: inline-block;
-         height: 15px;
-         margin: 0rem;
-         position: relative;
-         width: 65px;
-         font-family:sans-serif;
-         font-size: 9.5px;
-         text-align: center;
-         color: white;
-         box-shadow: 0px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-         transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-       }
-
-    </style>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
   </head>
 
-  <body class="blue-grey lighten-5">
-
-
+  <body class="blue-grey lighten-5">  
+      <main>
+        <center>            
+          <!-- <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" /> -->
+          <div class="section" id="divLoading">
+              <div class="section"></div>
+              <div class="preloader-wrapper big active" id="divLogin">
+                  <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div><div class="gap-patch">
+                      <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div><br>
+            Cargando...
+         </div>
+         </center> 
+    <div id="divNav" style="display:none" >
     <ul id="dropdown1" class="dropdown-content">
-      <li><a onclick="LoadUserData();LoadLocalFile('person')"><i class="material-icons left purple-text" >face</i>Personales</i></a></li>
-      <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Bancarios</a></li>
-      <li><a href="mobile.html"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
+      <li><a onclick="LoadLocalFile('person','',LoadUserData)"><i class="material-icons left purple-text" >face</i>Personales</i></a></li>
+      <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Banco</a></li>
+      <li><a ><i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
 
    </ul>
-    <nav>
+    <nav >
        <div class="nav-wrapper  blue ">
          <a href="#" data-activates="slide-out" class="button-collapse">
-           <i class="material-icons left waves-effect">menu</i>Azar en linea</a>
+           <i class="material-icons left waves-effect">menu</i>Azarel</a>
 
          <a class="button-collapse right">
-           <i class="material-icons waves-effect waves-light left">payment</i>
-           <i class="material-icons waves-effect waves-light left" onclick="location.reload()">refresh</i>
+           <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('transferens')">payment</i>
+           <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">account_box</i>
+           <i class="material-icons waves-effect waves-light left" onclick="location.reload()">home</i>
+           
+           
          </a>
 
          <ul class="right hide-on-med-and-down">
@@ -94,306 +77,136 @@
            </div></li>
            <li><a href="sass.html"><i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
            <li><a href="sass.html"><i class="material-icons left blue-text" >assignment</i>Resultados</a></li>
-           <li><div class="divider"></div></li>
+           
+           <li><div class="divider"></div></li>           
            <li><a onclick="LoadLocalFile('transferens')"><i class="material-icons left" >payment</i>Tramites</a></li>
+           <li><a onclick="LoadLocalFile('bets');MakeTableAnimals();"><i class="material-icons left green-text" >casino</i>Apostar</a></li>
            <li><div class="divider"></div></li>
-           <li><a onclick="LoadUserData();LoadLocalFile('person');"><i class="material-icons left purple-text" >face</i>Datos Personales</i></a></li>
-           <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Datos Bancarios</a></li>
-           <li><a href="#"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Mi Billetera</a></li>
-           <li><a href="#" id="hrfCerrar"><i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>
-           <!-- <li><div class="divider"></div></li>
-           <li><a href="mobile.html"><i class="material-icons left red-text" >power_settings_new</i>Salir</a></li>
-           <li><a href="mobile.html"><i class="material-icons left teal-text" >more</i>Información</a></li> -->
+           <li><a onclick="LoadLocalFile('person','',LoadUserData);"><i class="material-icons left purple-text" >face</i>Cuenta Personales</i></a></li>
+           <li><a onclick="LoadLocalFile('bank')"><i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
+           <li><a href="#"><i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
+           
+           <li><div class="divider"></div></li>
+           <li><a href="#" id="hrfCerrar"><i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
+           <li><a href="mobile.html"><i class="material-icons left teal-text" >more</i>Información</a></li>
          </ul>
-
+         
 
        </div>
      </nav>
      <div class="row" id="divCuerpo">
 
-       <ul id="tabs-swipe-demo" class="tabs">
-          <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Datos</a></li>
-          <li class="tab col s3"><a href="#test-swipe-2" class="blue-text">Apostar</a></li>
-          <li class="tab col s3"><a href="#test-swipe-3" class="blue-text">Ver Apuesta</a></li>
-        </ul>
-        <div id="test-swipe-1" class="col s12" style="padding-left:0px; padding-top:5px">
-
-          <div class="row">
-
-            <div class="col s12 m4">
-               <div class="card horizontal">
-                 <div class="card-image">
-                   <img src="img/bolsadinero.png" style="width:100px">
-                 </div>
-                 <div class="card-stacked green">
-                   <div class="card-content white-text">
-                     <font style="font-size:16px"><b>9.000.000 Bs.</b></font><br>
-                     <font style="font-size:12px">Tu Saldo total</font>
-                   </div>
-                 </div>
-               </div>
-             </div>
-
-             <div class="col s12 m4 hide-on-small-only">
-                <div class="card horizontal">
-                  <div class="card-image">
-                    <img src="img/historial.png" style="width:100px">
-                  </div>
-                  <div class="card-stacked purple">
-                    <div class="card-content white-text">
-                      <font style="font-size:12px">
-                        El historial de apuestas le permite hacer un segumiento detallado.
-                      </font>
-                    </div>
-                  </div>
+        <div class="col s12 m4">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="img/bolsadinero.png" style="width:100px">
+              </div>
+              <div class="card-stacked green">
+                <div class="card-content white-text">
+                  <font style="font-size:16px"><b>0.000.000 Bs.</b></font><br>
+                  <font style="font-size:12px">Tu Saldo total</font>
                 </div>
               </div>
-
-
-             <div class="col s12 m4 hide-on-small-only">
-                <div class="card horizontal">
-                  <div class="card-image">
-                    <img src="img/persona.png" style="width:100px">
-                  </div>
-                  <div class="card-stacked amber">
-                    <div class="card-content white-text">
-                      <font style="font-size:12px">
-                        Los datos personales y bancarios deben ser verificados
-                      </font>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s12 m6">
-                  <div class="input-field col s12">
-                    <select id="cmbLoteria">
-                      <option value=0>LOTTOACTIVO</option>
-                      <option value=1>LAGRANJITA</option>
-                      <option value=2>RULETAACTIVA</option>
-                    </select>
-                    <label for="cmbLoteria">Seleccionar loteria</label>
-                  </div>
-                  <div class="input-field col s8">
-                    <select multiple>
-                      <option value=0>09:00 am</option>
-                      <option value=1>10:00 am</option>
-                      <option value=2>11:00 am</option>
-                      <option value=2>12:00 m</option>
-                      <option value=2>01:00 pm</option>
-                      <option value=2>03:00 pm</option>
-                      <option value=2>04:00 pm</option>
-                      <option value=2>05:00 pm</option>
-                      <option value=2>06:00 pm</option>
-                      <option value=2>07:00 pm</option>
-                    </select>
-                    <label for="cmbLoteria">Seleccionar Sorteo</label>
-                  </div>
-                  <div class="col s12">
-                      <button class="col s4 btn waves-effect blue white-text darken-text-2 right"
-                      onclick="ChangeTabs('test-swipe-2')">Apostar
-                      <i class="material-icons left">casino</i>
-                    </button>
-
-                  </div>
-
-                </div>
-
-                 
-                   
-                 </div>
-               </div>
-
-             <!-- <div class="col s12 m6">
-               <div class="card-panel green">
-                 <span class="white-text">
-                   <h5> ## - ANIMALITO</h5>
-                   Fecha y hora:
-                 </span>
-               </div>
-             </div>
-             <div class="col s12 m6">
-               <div class="card-panel blue">
-                 <span class="white-text">
-                   <h5>0 Bs.</h5>
-                   Saldo Total Disponible
-                 </span>
-               </div>
-             </div> -->
-           </div>
-
-
-
-
-
-
-
-
-
-        </div>
-        <div id="test-swipe-2" class="col s12" style="padding-left:0px; padding-top:5px" >
-
-
-          <!-- FIN DEL PRIMER TAB'S  -->
-        </div>
-
-
-        <div id="test-swipe-3" class="col s12">
-          <div class="row">
-            <table class="bordered striped" id="tblApuesta" style="display:none">
-              <thead>
-                <tr>
-                  <th>Descripción</th>
-                  <th>Monto</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>Total</th>
-                  <th id="thTotal"></th>
-                </tr>
-              </tfoot>
-            </table>
-
-          </div>
-          <div class="row">
-            <div class="center">
-              <button class="btn waves-effect green white-text darken-text-2 pulse hide">Jugar
-                <i class="material-icons right">send</i>
-              </button>
             </div>
-
           </div>
 
-
-        </div>
-
-
-
-     </div>
-
-
-
-     <div id="modAnimals" class="modal modal-fixed-footer">
-       <div class="modal-content">
-           <h6 id="numberAnimals">0 - DELFIN</h6>
-           <div class="row" id="mdlPag1">
-
-
-           </div>
-           <div class="row" id="mdlPag2" style="padding:0;display:none">
-             <div class="input-field col s6">
-               <input placeholder="Monto" id="txtMonto" type="number" class="validate">
-               <label for="txtMonto">Monto</label>
-             </div>
-             <div class="input-field col s6">
-               <input id="txtMonto" type="number" class="validate" value=0 disabled>
-               <label for="txtTotal">Total</label>
-             </div>
-           </div>
-
-
-
-       </div>
-       <div class="modal-footer green">
-         <a href="#!" class="modal-action white-text waves-effect waves-green btn-flat right"
-         onclick="ShowDisplayModal()" >Continuar</a>
-
-       </div>
-     </div>
-
-
-     <!-- Modal Structure -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-               <!-- <div class="tap-target" data-activates="menu">
-                 <div class="tap-target-content">
-                   <h5>Title</h5>
-                   <p>A bunch of text</p>
+          <div class="col s12 m4">
+            <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+             <div class="card horizontal">
+               <div class="card-image">
+                 <img src="img/historial.png" style="width:100px">
+               </div>
+               <div class="card-stacked purple">
+                 <div class="card-content white-text">
+                    <font style="font-size:16px"><b>Apostar</b></font><br>
+                   <font style="font-size:12px">
+                     Realiza tu apuesta.
+                   </font>
                  </div>
                </div>
-
-               <div class="fixed-action-btn horizontal">
-               <a id="menu" class="waves-effect waves-light btn btn-floating pulse btn-large light-green darken-4" >
-                 <i class="large material-icons">menu</i>
-               </a>
-               <ul>
-                 <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-                 <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-                 <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-                 <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-               </ul>
-             </div> -->
+             </div>
+            </a>
+           </div>
 
 
-
-
-             <!-- <footer class="page-footer blue">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col l6 s12">
-                            <h5 class="white-text">Un mundo de apuestas</h5>
-                            <p class="grey-text text-lighten-4">Apuestas en linea.</p>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="footer-copyright">
-                        <div class="container">
-                        © 2018 Copyright AzarEL
-                        <a class="grey-text text-lighten-4 right" href="#!">Otros enlaces</a>
-                        </div>
-                      </div>
-                    </footer> -->
+          <div class="col s12 m4">
+             <div class="card horizontal">
+               <div class="card-image">
+                 <img src="img/persona.png" style="width:100px">
+               </div>
+               <div class="card-stacked amber">
+                 <div class="card-content white-text">
+                    <font style="font-size:16px"><b>Datos Personales</b></font><br>
+                   <font style="font-size:12px">
+                     Verifica y/o actualiza
+                   </font>
+                 </div>
+               </div>
+             </div>
+           </div>
 
 
 
 
-
-             <!--Import jQuery before materialize.js-->
-             <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-             <script type="text/javascript" src="js/materialize.min.js"></script>
-             <script type="text/javascript" src="js/config.js"></script>
-             <script type="text/javascript" src="js/util.js"></script>
-             
-             <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-             <script>
-               // Initialize Firebase
-              
-             </script>
-             <script  type="text/javascript">
-              $(document).ready(function(){
-                
+     </div>
 
 
-                // if ($('#tabs-swipe-demo').length) {
-                //    $('#tabs-swipe-demo').tabs({ 'swipeable': true });
-                //  }
-                  $('ul.tabs').tabs();
-                  $('.modal').modal();
-                  $('select').material_select();
-                  $(".button-collapse").sideNav();
-                  MakeTableAnimals();
-               });
-               function Presentacion(){
-                 $('.tap-target').tapTarget('open');
-               }
-             </script>
-             <script type="text/javascript" src="js/app.js"></script>
-            </body>
-          </html>
+
+     <div id="modAnimals" class="modal">
+        <div class="modal-content">
+            <h6 id="numberAnimals">0 - DELFIN</h6>
+            <div class="row" id="mdlPag1" style="padding:0;display:none">
+              <div class="input-field col s6">
+                <input placeholder="Monto" id="txtMonto" type="number" class="validate">
+                <label for="txtMonto" class="active">Monto</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="txtMonto" type="number" class="validate" value=0 disabled>
+                <label for="txtTotal" class="active">Total</label>
+              </div>
+            </div> 
+        </div>
+        <div class="modal-footer green">
+          <a href="#!" 
+            class="modal-action white-text waves-effect waves-green btn-flat right"
+            onclick="AddGame()" >Aceptar
+          </a> 
+        </div>
+      </div>
+
+
+
+      <div class="tap-target" data-activates="btnAction">
+          <div class="tap-target-content">
+            <h5>Title</h5>
+            <p>A bunch of text</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+
+    <script  type="text/javascript">
+    $(document).ready(function(){
+        $('ul.tabs').tabs();
+        $('.modal').modal();
+        $('select').material_select();
+        $(".button-collapse").sideNav();
+
+      });
+      function Presentacion(){
+        $('.tap-target').tapTarget('open');
+      }
+    </script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/load-object.js"></script>
+  
+  </body>
+</html>

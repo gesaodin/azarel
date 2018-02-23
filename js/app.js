@@ -4,18 +4,17 @@ let UserAPIKey = '';
 let UserAppName = '';
 let UserPhoto = '';
 let UserUID = '';
+let ConexionUser = 0;
+let CantTime = 0; //Cantidad de Sorteos 
 
 const limitAnimals = 12;
-const pagBodyTableAnimals = getID('test-swipe-2');
 const btnPerson = getID('btnPersona');
-const lblNumberAnimalsModal = getID('numberAnimals');
-const txtNumberAnimalsModal = getID('txtMonto');
 const lblEmail = getID('lblEmail');
 const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
 const imgPhotoUser = getID('imgPhotoUser');
 
-var config = {
+var config = {  
   apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
   authDomain: "azarel-1a865.firebaseapp.com",
   databaseURL: "https://azarel-1a865.firebaseio.com",
@@ -26,9 +25,13 @@ var config = {
 
 
 firebase.initializeApp(config);
+
+// Get a reference to message
 const messaging = firebase.messaging();
 // Get a reference to the database service
 var database = firebase.database();
+
+
 
 const animals = [
     {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
@@ -68,6 +71,17 @@ const animals = [
       lblNameUser.innerHTML = displayName;
       imgPhotoUser.src = photoURL; 
       UserUID = uid;
+      $("#divLoading").hide();
+      $("#divNav").show();
+      var sChid = UserUID;
+      let starCountRef = firebase.database().ref('competitor').child(sChid);
+      starCountRef.on('value', function(snapshot) {       
+        if (ConexionUser == 0){
+          ConexionUser++;
+        } else{
+          Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
+        }
+      });
     } else {
       location.href = "index.html";
     }
@@ -76,8 +90,7 @@ const animals = [
 
 //On request permission
 messaging.requestPermission()
-.then( function() {
-  console.log('Autorizando notificaciones');  
+.then( function() {  
   return messaging.getToken();
 })
 .then(token => {
@@ -95,33 +108,34 @@ messaging.onMessage(function(payload){
 
 
 // Get Instance ID token. Initially this makes a network call, once retrieved
-  // subsequent calls to getToken will return from cache.
-  messaging.getToken()
-  .then(function(currentToken) {
-    console.log('Obtener Token: ', currentToken);
-    if (currentToken) {
-      //sendTokenToServer(currentToken);
-      //updateUIForPushEnabled(currentToken);
-    } else {
-      // Show permission request.
-      console.log('No Instance ID token available. Request permission to generate one.');
-      // Show permission UI.
-      //updateUIForPushPermissionRequired();
-      //setTokenSentToServer(false);
-    }
-  })
-  .catch(function(err) {
-    console.log('An error occurred while retrieving token. ', err);
-    //showToken('Error retrieving Instance ID token. ', err);
+// subsequent calls to getToken will return from cache.
+messaging.getToken()
+.then(function(currentToken) {
+  // console.log('Obtener Token: ', currentToken);
+  if (currentToken) {
+    //sendTokenToServer(currentToken);
+    //updateUIForPushEnabled(currentToken);
+    console.log('Obteniendo el Tokens: ', currentToken);
+  } else {
+    // Show permission request.
+    console.log('No Instance ID token available. Request permission to generate one.');
+    // Show permission UI.
+    //updateUIForPushPermissionRequired();
     //setTokenSentToServer(false);
-  });
+  }
+})
+.catch(function(err) {
+  console.log('An error occurred while retrieving token. ', err);
+  //showToken('Error retrieving Instance ID token. ', err);
+  //setTokenSentToServer(false);
+});
 
 
-  // Callback fired if Instance ID token is updated.
+ // Callback fired if Instance ID token is updated.
 messaging.onTokenRefresh(function() {
   messaging.getToken()
   .then(function(refreshedToken) {
-    console.log('Token refreshed.');
+    console.log('Token de mensajes actualizado.');
     // Indicate that the new Instance ID token has not yet been sent to the
     // app server.
     //setTokenSentToServer(false);
@@ -129,7 +143,7 @@ messaging.onTokenRefresh(function() {
     //sendTokenToServer(refreshedToken);
     // ...
   })
-  .catch(function(err) {
+  .catch(err => {
     console.log('Unable to retrieve refreshed token ', err);
     //showToken('Unable to retrieve refreshed token ', err);
   });
@@ -156,6 +170,8 @@ if('serviceWorker' in navigator){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimals(){
+  console.log('Cargando animalitos...');
+  var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
   var max = limitAnimals;
@@ -180,10 +196,8 @@ function MakeTableAnimals(){
   }
 
   var page = `<div class="row">
-     <div class="center">
-       <button class="btn waves-effect blue white-text darken-text-2" onclick="ChangeNumberPage()">Continuar
-         <i class="material-icons right">send</i>
-       </button>
+     <div class="center">       
+       <a class="btn-floating red" onclick="ChangeNumberPage()"><i class="material-icons">send</i></a>
      </div>
    </div>`;
   pagBodyTableAnimals.innerHTML = makeTable + page;
@@ -192,6 +206,8 @@ function MakeTableAnimals(){
 
 function OpenModalAnimals(id, pos){
   var animal = animals[pos];
+  var lblNumberAnimalsModal = getID('numberAnimals');
+  var txtNumberAnimalsModal = getID('txtMonto');
   lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
   txtNumberAnimalsModal.value = '';
   $('#modAnimals').modal('open');
@@ -222,6 +238,7 @@ function ChangeNumberPage(){
   }
 }
 
+
 function ChangeTabs(id){
   $('ul.tabs').tabs('select_tab', id);
 }
@@ -232,65 +249,31 @@ function ShowDisplayModal(){
 }
 
 
-function writeUserData() {
-    var btn = getID('btnUserData');
-    
-    if(getID('txtcid').value == ""){
-      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
-      return false;
-    }
-    btn.value = 'Cargando...';
-    btn.disabled = true;
-    firebase.database().ref('competitor/' + UserUID + '/person').set({
-      cid: getID('txtcid').value,
-      fullname: getID('txtfullname').value,
-      sex : getID('cmbsex').value,
-      date: getID('txtdate').value,
-      phone: getID('txtphone').value,
-      cel : getID('txtcel').value,
-      location: getID('txtdir').value
-    })
-    .then(d => {
-      Materialize.toast('Tus datos han sido actualizados', 3000, 'rounded');
-      btn.value = 'Aceptar';
-      btn.disabled = false;
-    })
-    .catch( e => {
-      Materialize.toast('Ocurrio un error al enviar los datos', 3000, 'rounded');
-      btn.value = 'Aceptar';
-      btn.disabled = false;
-    });
+
+
+
+function NotificationDiscovery(){
   
 }
 
-// const hrefPerson = getID('hrefPerson');
-// hrefPerson.addEventListener('click', LoadUserData());
-
-function LoadUserData(){
-  console.log('competitor/' + UserUID);
-  firebase.database().ref('competitor/' + UserUID + '/person').once('value')
-  .then(function(snapshot) {
-    
-    return snapshot.val();
-  })
-  .then(snapshot => {
-    
-    if(snapshot == null){
-      Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
-    }else{
-      getID('imgCompetitor').src = UserPhoto;
-      getID('txtcid').value = snapshot.cid
-      getID('txtfullname').value = snapshot.fullname;
-      getID('cmbsex').value = snapshot.sex;
-      getID('txtdate').value = snapshot.date;
-      getID('txtphone').value = snapshot.phone;
-      getID('txtcel').value = snapshot.cel;
-      getID('txtdir').value = snapshot.location;
-    }
-    
-  })
-  .catch(e => {
-    console.log('Cargando datos E: ', e)
-  });
+function LoadingViewHTML(){
+  return `<center>
+    <div class="section" id="divLoginBody">
+        <div class="section"></div>
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div><br>
+      Cargando...
+    </div>
+    </center>
+  `;
   
 }
