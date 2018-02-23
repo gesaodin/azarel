@@ -11,14 +11,27 @@ class Config{
   }
 }
 
+// {
+//   Bets : {
+//     FECHA : [{
+//       LOTSORNUMERO : [{
+//         uid : userID,
+//         numero: string,
+//         fechatiempo: timestamp,
+//         monto : float,
+//       }]
+//     }]
+//   }
+// }
+
 class Ticket{
   construct(){
-    this.oid = '';
     this.date = '';
     this.lotery = '';
-    this.times = [];
-    this.animals = [];
+    this.hours = '';
+    this.animals = '';
     this.monto = 0.00;
+    this.status = false;
   }
   Total(){
     var cant = this.animalitos.length;
@@ -28,7 +41,6 @@ class Ticket{
 
 class Playing{
   construct(){
-    this.uid = '';
     this.datetime = '';
     this.ticket = new Ticket();
   }

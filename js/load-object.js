@@ -121,21 +121,26 @@ function writeUserDataTransferens() {
     }
     Materialize.toast('Enviando actualización...', 2000, 'rounded');
     btn.classList.add('disabled');
-    firebase.database().ref('transferens').child(UserUID).push({
+
+
+    var newPostKey = firebase.database().ref().child('transferens').push().key;
+    var transferens = {
       name : getID('cmbName').value,
       type : getID('cmbType').value,
       bank : getID('cmbNameTransferens').value,
       date : getID('txtDate').value,
       number : getID('txtNumber').value,
-      datereal : Date.now(),
+      datereal : firebase.database.ServerValue.TIMESTAMP,
       money : parseFloat(getID('txtMoney').value)
-    })
+    };
+
+    var updates = {};
+    updates[`/transferens/${UserUID}/${newPostKey}`] = transferens;
+    updates[`/competitor/${UserUID}/money/assigned/${newPostKey}`] = transferens;
+  
+    firebase.database().ref().update(updates)
     .then(d => {
       Materialize.toast('Saldo abonado a su monedero', 3000, 'rounded');
-      firebase.database().ref('competitor').child(UserUID).child('money/assigned').push({
-        value : parseFloat(getID('txtMoney').value),
-        datereal : Date.now()
-      }).catch(d => console.log('Error asignando saldo'));
       getID('txtDate').value = '';
       getID('txtNumber').value = '';
       getID('txtMoney').value = '';
@@ -176,3 +181,65 @@ function writeUserDataTransferens() {
   }
 
 
+  /**
+   * Object Bets
+   * By Azarel
+   */
+//Write Data Bets for user
+function writeUserDataBets() {
+  if(UserPlayingActive == ''){
+    Materialize.toast('Intente mas tarde', 3000, 'rounded');
+    return false;
+  }
+  
+  // btn.classList.add('disabled');
+  
+ 
+  var fil = getID('tblBody');
+  if(fil == null || fil.length == 0 )return false;
+  fil = fil.rows;
+
+  
+  var betsAll = [];
+  var updates = {};
+    
+  for (let i = 0; i < fil.length; i++) {
+    var obj = fil[i].cells;
+    var number = obj[0].innerHTML.split(" ");
+    var keyTag = obj[1].innerHTML + obj[2].innerHTML + number[0];
+    var money = obj[3].innerHTML;
+    var betsTag = {
+      uid: UserUID,
+      money: money,      
+      datereal : firebase.database.ServerValue.TIMESTAMP
+    }
+    var refString = `/bets/${UserPlayingActive}/${keyTag}`;
+    var newKey = firebase.database().ref().child(refString).push(betsTag).key;
+    
+    var bets = {  
+        datereal : firebase.database.ServerValue.TIMESTAMP,
+        lottery : obj[1].innerHTML,
+        hours: obj[2].innerHTML,
+        number : number[0],
+        detail : obj[0].innerHTML,
+        money : money,
+        key: newKey,                
+        status : false
+    };
+    betsAll.push(bets);
+    
+    
+  }
+
+  var refString = `/competitor/${UserUID}/bets/${UserPlayingActive}`;
+  firebase.database().ref().child(refString).push(betsAll)
+  .then(d => {
+    console.log('Exito en tu jugada');
+  });
+  getID('btnGame').classList.add('hide');
+  getID('tblBody').innerHTML = '';
+  getID('spsaldo').innerHTML = '0';
+  Materialize.toast('Te deseamos suerte', 3000, 'rounded');
+  console.log(betsAll);
+}
+  

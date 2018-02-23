@@ -9,6 +9,7 @@ let ConexionUser = 0;
 let CantTime = 0; //Cantidad de Sorteos 
 let TokenNotification = '';
 let MoneyGame = 0;
+let UserPlayingActive = '';
 
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
@@ -80,12 +81,12 @@ const animals = [
       var sChid = UserUID;
       let starCountRef = firebase.database().ref('competitor').child(sChid).child('money/assigned');
       starCountRef.on('value', function(snapshot) {  
-        
+        saldo = 0;
         snapshot.forEach(e => {
-          var money = e.val();
-          saldo += parseFloat(money.value);
+          var assigned = e.val();
+          saldo += parseFloat(assigned.money);
         });
-        getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
+        if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
         UserMoney = saldo.toLocaleString() + ' Bs.';
         if (ConexionUser == 0){
           ConexionUser++;
@@ -93,13 +94,26 @@ const animals = [
           Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
         }
       });
-
+      readPlayingDay();
       SendTokenOnServer(email, TokenNotification);
     } else {
       location.href = "index.html";
     }
 });
 
+
+function readPlayingDay(){
+  var ref = firebase.database().ref('playing')
+  .orderByChild('orderby').limitToLast(1);
+  ref.once('value', e => {    
+    e.forEach(element => {
+      var key = element.key;
+      var obj = element.val();
+      UserPlayingActive = obj.date;  
+    });
+    
+  });
+}
 
 //On request permission
 messaging.requestPermission()
@@ -259,6 +273,11 @@ function ChangeNumberPage(){
 
 
 function ChangeTabs(id){
+  var hours = getValuesSelectMultiple('cmbHours');
+  if(hours.length == 0){
+    Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
+    return true;
+  }
   $('ul.tabs').tabs('select_tab', id);
 
 }
@@ -273,6 +292,10 @@ function AddGame(){
   var monto = getID('txtMonto').value;
   if ( monto == '')return true;
   var hours = getValuesSelectMultiple('cmbHours');
+  if(hours.length == 0){
+    Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
+    return true;
+  }
   MoneyGame = MoneyGame + (parseFloat(monto) * hours.length);
   var animals = getID('numberAnimals').innerHTML;
   var lottery = getID('cmbLottery').value;
@@ -297,11 +320,10 @@ function getValuesSelectMultiple(id){
   var x = getID(id);
   var hours = [];
   for (var i = 0; i < x.options.length; i++) {
-     if(x.options[i].selected == true){
+     if(x.options[i].selected == true && x.options[i].value != "00x"){
           hours.push(x.options[i].value);
       }
   }
-  console.log(hours);
   return hours;
 }
 
@@ -331,11 +353,20 @@ function LoadingViewHTML(){
   
 }
 
-function GetTimeStamp(d){
-  var dateTime = new Date(); 
-  if(d != undefined) dateTime = new Date(d);
-  var mes = dateTime.getMonth() + 1;
-  var dateString = dateTime.getDay() + '/' + mes + '/' + dateTime.getFullYear(); 
-  var timeString = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
-  return dateString + ' ' + timeString;
+function GetTimeStamp(dateString){
+  if(dateString != undefined) {  
+    var dateString = new Date(dateString);
+    return dateString.toLocaleString();
+  }else{    
+    return (new Date()).toLocaleString();
+  } 
+}
+
+function GetDateStampServer(d){
+  var offsetRef = firebase.database().ref(".info/serverTimeOffset");
+  offsetRef.on("value", function(snap) {
+    var offset = snap.val();
+    var d = new Date().getTime() + offset;
+    console.log(GetTimeStamp(d));
+  });
 }

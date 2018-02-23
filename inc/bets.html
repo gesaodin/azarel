@@ -75,6 +75,7 @@
                </div>
                <div class="input-field col s10">
                  <select multiple id="cmbHours">
+                    <option value='00x' disabled>---------</option>
                    <option value='9AM'>09:00 am</option>
                    <option value='10AM'>10:00 am</option>
                    <option value='11AM'>11:00 am</option>
@@ -172,7 +173,8 @@
        </div>
        <div class="row">
          <div class="center">
-           <button class="btn waves-effect green white-text darken-text-2 pulse hide" id="btnGame">Jugar
+           <button class="btn waves-effect green white-text darken-text-2 pulse hide" 
+              id="btnGame" onclick="writeUserDataBets()">Jugar
              <i class="material-icons left">casino</i>
            </button>
          </div>
