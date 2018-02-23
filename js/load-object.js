@@ -155,31 +155,61 @@ function writeUserDataTransferens() {
   //Loading data for Transferens
   function LoadUserDataTransferens(){  
     var sChild = UserUID;
-    firebase.database().ref("transferens").child(sChild).once('value')
+    firebase.database().ref("competitor").child(sChild)
+    .child('/money/assigned')
+    .once('value')
     .then(function(snapshot) { 
       var table = getID('tblBody');
       var fil = '';
       var saldo = 0;
+      var row = 0;
       snapshot.forEach(function(ele) {
+
         var key = ele.key;
         var transf  = ele.val();
-        var text = 'Pendiente';
+        var text = SelectCaseStatus('P');
         var load = 'CARGA';
         var money = parseFloat(transf.money).toLocaleString();
-        if(transf.status != undefined)text = transf.status;
+        if(transf.status != undefined)text = SelectCaseStatus(transf.status);
+
         if(transf.load != undefined)load = 'RETIRO';
-        fil += `<tr><td>${load}</td><td>${money}</td>
-        <td><span class="new badge blue left" data-badge-caption="${text}"></span></td></tr>`;
+        if(transf.bets != undefined)load = 'APUESTA';
+        row++;
+        fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
+        <td>${text}</td></tr>`;
         saldo += parseFloat(transf.money);
       });
-      table.innerHTML = fil;  
-      getID('spsaldo').innerHTML = saldo.toLocaleString();    
+      table.innerHTML = fil;
+
+      getID('spsaldo').innerHTML = saldo.toLocaleString();
+      sortTable('tblMoney', 0);
     })
     .catch(e => {
       console.log('Cargando datos por erros', e);
     });
   }
 
+  function SelectCaseStatus(key){
+    var status = '';
+    switch (key) {
+      case 'P':
+        status = `<span class="new badge blue left" data-badge-caption="Pendiente"></span>`;
+        break;
+      case 'A':
+        status = `<span class="new badge green left" data-badge-caption="Aprobado"></span>`;
+        break;
+      case 'R':
+        status = `<span class="new badge red left" data-badge-caption="Rechazado"></span>`;
+        break;
+      case 'E':
+        status = `<span class="new badge orange left" data-badge-caption="Ejecutada"></span>`;
+        break;
+      default:
+        status = `<span class="new badge blue left" data-badge-caption="Pendiente"></span>`;
+        break;
+    }
+    return status;
+  }
 
   /**
    * Object Bets
@@ -198,7 +228,7 @@ function writeUserDataBets() {
   var fil = getID('tblBody');
   if(fil == null || fil.length == 0 )return false;
   fil = fil.rows;
-
+  var total = 0;
   
   var betsAll = [];
   var updates = {};
@@ -207,7 +237,7 @@ function writeUserDataBets() {
     var obj = fil[i].cells;
     var number = obj[0].innerHTML.split(" ");
     var keyTag = obj[1].innerHTML + obj[2].innerHTML + number[0];
-    var money = obj[3].innerHTML;
+    var money = parseFloat(obj[4].innerHTML);
     var betsTag = {
       uid: UserUID,
       money: money,      
@@ -226,20 +256,72 @@ function writeUserDataBets() {
         key: newKey,                
         status : false
     };
+    total += money;
     betsAll.push(bets);
-    
-    
   }
 
+ 
+
   var refString = `/competitor/${UserUID}/bets/${UserPlayingActive}`;
-  firebase.database().ref().child(refString).push(betsAll)
-  .then(d => {
-    console.log('Exito en tu jugada');
-  });
+  var ticket = firebase.database().ref().child(refString).push(betsAll).key;
+  var deduction = {
+    money : total * -1,
+    ticket : ticket,
+    bets: UserPlayingActive,
+    datereal: firebase.database.ServerValue.TIMESTAMP,
+    status : 'E'
+  }
+  var dedKey = firebase.database().ref('competitor')
+  .child(UserUID).child('money/assigned').push(deduction).key;
+
   getID('btnGame').classList.add('hide');
   getID('tblBody').innerHTML = '';
   getID('spsaldo').innerHTML = '0';
-  Materialize.toast('Te deseamos suerte', 3000, 'rounded');
-  console.log(betsAll);
+  cleanSelect('cmbHours');
+  getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
+  $("#modAlert").modal("open");
+  return true;
+  
 }
   
+function LoadTickets(){
+  return true;
+}
+
+
+//Loading data for Transferens
+function LoadUserDataTransferens(){  
+  var sChild = UserUID;
+  firebase.database().ref("competitor").child(sChild)
+  .child('/bets')
+  .once('value')
+  .then(function(snapshot) { 
+    var table = getID('tblBody');
+    var fil = '';
+    var saldo = 0;
+    var row = 0;
+    snapshot.forEach(function(ele) {
+
+      var key = ele.key;
+      var transf  = ele.val();
+      var text = SelectCaseStatus('P');
+      var load = 'CARGA';
+      var money = parseFloat(transf.money).toLocaleString();
+      if(transf.status != undefined)text = SelectCaseStatus(transf.status);
+
+      if(transf.load != undefined)load = 'RETIRO';
+      if(transf.bets != undefined)load = 'APUESTA';
+      row++;
+      fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
+      <td>${text}</td></tr>`;
+      saldo += parseFloat(transf.money);
+    });
+    table.innerHTML = fil;
+
+    getID('spsaldo').innerHTML = saldo.toLocaleString();
+    sortTable('tblMoney', 0);
+  })
+  .catch(e => {
+    console.log('Cargando datos por erros', e);
+  });
+}

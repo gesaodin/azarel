@@ -1,7 +1,7 @@
 
 
     <ul id="tabs-swipe-demo" class="tabs white">
-       <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Datos</a></li>
+       <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Sorteo</a></li>
        <li class="tab col s3"><a href="#test-swipe-2" class="blue-text">Apostar</a></li>
        <li class="tab col s3"><a href="#test-swipe-3" class="blue-text">Ver Apuesta</a></li>
      </ul>
@@ -66,6 +66,7 @@
            <div class="row">
              <div class="col s12 m4">
                <div class="input-field col s12">
+                <form id="frmLottery">
                  <select id="cmbLottery">
                    <option value='LOTAC'>LOTTOACTIVO</option>
                    <option value='LGRAN'>LAGRANJITA</option>
@@ -95,8 +96,8 @@
 
                </div>
 
-
-             </div>
+              </form>
+             </div> <!-- Fin de sorteo -->
 
               
                 
@@ -152,6 +153,7 @@
                     <th>LOTERIA</th>
                     <th>SORTEO</th>
                     <th>MONTO</th>
+                    <th style="display:none">MONTO</th>
                   </tr>
                 </thead>
                 <tbody id="tblBody">

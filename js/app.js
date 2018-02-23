@@ -5,6 +5,7 @@ let UserAppName = '';
 let UserPhoto = '';
 let UserUID = '';
 let UserMoney = '';
+let UserMoneyTotal = 0;
 let ConexionUser = 0;
 let CantTime = 0; //Cantidad de Sorteos 
 let TokenNotification = '';
@@ -79,7 +80,8 @@ const animals = [
       $("#divLoading").hide();
       $("#divNav").show();
       var sChid = UserUID;
-      let starCountRef = firebase.database().ref('competitor').child(sChid).child('money/assigned');
+      let starCountRef = firebase.database().ref('competitor')
+      .child(sChid).child('money/assigned');
       starCountRef.on('value', function(snapshot) {  
         saldo = 0;
         snapshot.forEach(e => {
@@ -88,6 +90,7 @@ const animals = [
         });
         if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
         UserMoney = saldo.toLocaleString() + ' Bs.';
+        UserMoneyTotal = saldo;
         if (ConexionUser == 0){
           ConexionUser++;
         } else{
@@ -272,11 +275,13 @@ function ChangeNumberPage(){
 }
 
 
-function ChangeTabs(id){
-  var hours = getValuesSelectMultiple('cmbHours');
-  if(hours.length == 0){
-    Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
-    return true;
+function ChangeTabs(id, val){
+  if (val == undefined){
+    var hours = getValuesSelectMultiple('cmbHours');
+    if(hours.length == 0){
+      Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
+      return true;
+    }
   }
   $('ul.tabs').tabs('select_tab', id);
 
@@ -308,12 +313,15 @@ function AddGame(){
               <td>${lottery}</td>
               <td>${elem}</td>
               <td>${parseFloat(monto).toLocaleString()}</td>
+              <td style="display:none">${parseFloat(monto)}</td>            
           </tr>`;
   }
   //console.log(fil);
   table.innerHTML += fil;  
   getID('spsaldo').innerHTML = MoneyGame.toLocaleString();
   getID('btnGame').classList.remove('hide');
+  Materialize.toast('Verifica tu lista de apuestas', 3000, 'rounded');
+  return false;
 }
 
 function getValuesSelectMultiple(id){
@@ -325,6 +333,12 @@ function getValuesSelectMultiple(id){
       }
   }
   return hours;
+}
+
+function cleanSelect(id){
+  var select = $('#'+ id);
+  select.prop('selectedIndex', 0);
+  select.material_select();  
 }
 
 function NotificationDiscovery(){

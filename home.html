@@ -56,7 +56,7 @@
          </a>
 
          <ul class="right hide-on-med-and-down">
-           <li><a href="#"><i class="material-icons left" >style</i>Tickes</a></li>
+           <li><a onclick="LoadLocalFile('ticket','',LoadTickets);"><i class="material-icons left" >style</i>Tickes</a></li>
            <li><a href="#"><i class="material-icons left" >assignment</i>Resultados</a></li>
            <li><a onclick="LoadLocalFile('transferens')"><i class="material-icons left" >payment</i>Tramites</a></li>
 
@@ -81,7 +81,7 @@
 
            <li><div class="divider"></div></li>
            <li><a onclick="LoadLocalFile('bets','',MakeTableAnimals);"><i class="material-icons left green-text" >casino</i>Apostar</a></li>
-           <li><a href="sass.html"><i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
+           <li><a onclick="LoadLocalFile('ticket','',LoadTickets);"><i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
            
            
            <li><div class="divider"></div></li>
@@ -169,16 +169,31 @@
                 <input placeholder="Monto" id="txtMonto" type="number" class="validate">
                 <label for="txtMonto" class="active">Monto</label>
               </div>
-              <!-- <div class="input-field col s6">
-                <input id="txtTotal" type="number" class="validate" value=0 disabled>
-                <label for="txtTotal" class="active">Total</label>
-              </div> -->
             </div> 
         </div>
         <div class="modal-footer green">
           <a href="#!" 
             class="modal-action modal-close white-text waves-effect waves-green btn-flat right"
             onclick="AddGame()" >Aceptar
+          </a> 
+        </div>
+      </div>
+
+      <div id="modAlert" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h6 id="numberAnimals">Mensaje</h6>            
+              <div class="input-field col s12" id="modAlertBody">
+                
+              </div>            
+        </div>
+        <div class="modal-footer green">
+          <a href="#!" 
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="ChangeTabs('test-swipe-1', true)">Aceptar
+          </a> 
+          <a href="#!" 
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="LoadLocalFile('ticket','',LoadTickets);">Ir a tickets
           </a> 
         </div>
       </div>

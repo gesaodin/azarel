@@ -1,0 +1,94 @@
+[debug] [2018-02-23T02:01:58.790Z] ----------------------------------------------------------------------
+[debug] [2018-02-23T02:01:58.792Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2018-02-23T02:01:58.792Z] CLI Version:   3.17.4
+[debug] [2018-02-23T02:01:58.792Z] Platform:      linux
+[debug] [2018-02-23T02:01:58.792Z] Node Version:  v9.5.0
+[debug] [2018-02-23T02:01:58.792Z] Time:          Thu Feb 22 2018 22:01:58 GMT-0400 (-04)
+[debug] [2018-02-23T02:01:58.792Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-23T02:01:58.879Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-23T02:01:58.879Z] > authorizing via signed-in user
+[debug] [2018-02-23T02:01:58.880Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+  
+ Thu Feb 22 2018 22:01:58 GMT-0400 (-04)
+[debug] [2018-02-23T02:02:01.309Z] <<< HTTP RESPONSE 401
+[debug] [2018-02-23T02:02:01.309Z] <<< HTTP RESPONSE BODY
+[info] 
+[warn] ⚠  Your CLI authentication needs to be updated to take advantage of new features.
+[warn] ⚠  Please run firebase login --reauth
+[info] 
+[debug] [2018-02-23T02:02:01.310Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] [2018-02-23T02:02:01.311Z] > authorizing via signed-in user
+[debug] [2018-02-23T02:02:01.311Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-23T02:02:01.311Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/vxc9vCBZ8vaxsLFCS58kRqKw24-3hNvTmSzKkJ5dkhCHgG29cTKN25TN1MjlREY_',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Feb 22 2018 22:02:01 GMT-0400 (-04)
+[debug] [2018-02-23T02:02:03.134Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-23T02:02:03.221Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+  
+ Thu Feb 22 2018 22:02:03 GMT-0400 (-04)
+[debug] [2018-02-23T02:02:04.233Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-23T02:02:04.233Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+  
+ Thu Feb 22 2018 22:02:04 GMT-0400 (-04)
+[debug] [2018-02-23T02:02:05.347Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'azarel-1a865'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing  directory for upload...
+[debug] [2018-02-23T02:02:08.761Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/azarel-1a865/uploads/-L69ddOzGib--y_ZQjGI?fileCount=279&message=  
+  
+ Thu Feb 22 2018 22:02:08 GMT-0400 (-04)
+[debug] [2018-02-23T02:05:42.387Z] Error: socket hang up
+    at createHangUpError (_http_client.js:330:15)
+    at TLSSocket.socketOnEnd (_http_client.js:423:23)
+    at TLSSocket.emit (events.js:165:20)
+    at endReadableNT (_stream_readable.js:1101:12)
+    at process._tickCallback (internal/process/next_tick.js:152:19)
+[error] 
+[error] Error: Server Error. socket hang up
+[debug] [2018-02-23T02:07:08.906Z] ----------------------------------------------------------------------
+[debug] [2018-02-23T02:07:08.908Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2018-02-23T02:07:08.908Z] CLI Version:   3.17.4
+[debug] [2018-02-23T02:07:08.908Z] Platform:      linux
+[debug] [2018-02-23T02:07:08.908Z] Node Version:  v9.5.0
+[debug] [2018-02-23T02:07:08.909Z] Time:          Thu Feb 22 2018 22:07:08 GMT-0400 (-04)
+[debug] [2018-02-23T02:07:08.909Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-23T02:07:08.916Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-23T02:07:08.917Z] > authorizing via signed-in user
+[debug] [2018-02-23T02:07:08.918Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-23T02:07:08.918Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/vxc9vCBZ8vaxsLFCS58kRqKw24-3hNvTmSzKkJ5dkhCHgG29cTKN25TN1MjlREY_',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Feb 22 2018 22:07:08 GMT-0400 (-04)
+[debug] [2018-02-23T02:07:09.450Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-23T02:07:09.483Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+  
+ Thu Feb 22 2018 22:07:09 GMT-0400 (-04)
+[debug] [2018-02-23T02:07:10.988Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-23T02:07:10.989Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+  
+ Thu Feb 22 2018 22:07:10 GMT-0400 (-04)
+[debug] [2018-02-23T02:07:13.876Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'azarel-1a865'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing  directory for upload...
+[debug] [2018-02-23T02:07:18.420Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/azarel-1a865/uploads/-L69eop-jHaq3XrJg0Te?fileCount=279&message=  
+  
+ Thu Feb 22 2018 22:07:18 GMT-0400 (-04)
+[debug] [2018-02-23T02:14:12.807Z] Error: read ECONNRESET
+    at _errnoException (util.js:1003:13)
+    at TLSWrap.onread (net.js:623:25)
+[error] 
+[error] Error: Server Error. read ECONNRESET
