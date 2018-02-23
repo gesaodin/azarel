@@ -204,6 +204,12 @@ function writeUserDataTransferens() {
       case 'E':
         status = `<span class="new badge orange left" data-badge-caption="Ejecutada"></span>`;
         break;
+      case 'G':
+        status = `<span class="new badge green left" data-badge-caption="Ganó"></span>`;
+        break;
+      case 'N':
+        status = `<span class="new badge red left" data-badge-caption="No Ganó"></span>`;
+        break;
       default:
         status = `<span class="new badge blue left" data-badge-caption="Pendiente"></span>`;
         break;
@@ -317,19 +323,21 @@ function LoadTicketsList(){
     snapshot.forEach(function(ele) {      
       var key = ele.key;
       var cabecera = `<table class="bordered striped">
-      <thead><tr><th>APUESTA</th><th>LOTERIA</th>
-          <th>SORTEO</th><th>MONTO</th></tr>
+      <thead><tr><th>Jugada</th><th>Sorteo</th>
+          <th>Monto</th><th>¿Premiado?</th></tr>
       </thead><tbody id="tblBody">`;
       var cuerpo = '';
       var total = 0;
+      var fecha = '';
       var obj = ele.val();
       obj.forEach(o => {
         total += o.money;
+        fecha = o.datereal;
         cuerpo += `<tr>
           <td>${o.detail}</td>
-          <td>${o.lottery}</td>
-          <td>${o.hours}</td>
-          <td>${o.money}</td>
+          <td>${o.lottery} ${o.hours}</td>
+          <td>${parseFloat(o.money).toLocaleString()}</td>
+          <td>${SelectCaseStatus('G')}</td>
         </tr>`;
       });
       var table = cabecera + cuerpo + `</tbody></table>`
@@ -338,7 +346,9 @@ function LoadTicketsList(){
           <i class="material-icons">library_books</i>
           ${key} ( ${parseFloat(total).toLocaleString()} )
         </div>
-        <div class="collapsible-body" style="padding:0px">${table}</div>
+        <div class="collapsible-body white" style="padding:2px">
+        <p align='center'>Fecha y hora: ${GetTimeStamp(fecha)}</p>
+        ${table}</div>
         </li>${li}`;
      
     });
