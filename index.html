@@ -64,37 +64,31 @@
           Cargando...
        </div>
   
-         
+       <img src="img/azarel.png" style="width:100px">
         <div class="container" style="display:none" id='frmLogin'>
-          <div class="z-depth-1 white row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+          <div class="z-depth-1 white row" style="display: inline-block; padding: 10px 28px 20px 28px; border: 1px solid #EEE;">
             
-            <form class="col s12" method="post" >
-              <div class='row'>
-                <div class='col s12'>
-                    
-                    <h5 class="indigo-text">Azarel</h5>
-              </div>
-  
-              <div class='row'>
+            
+              <div class='row'>                        
                 <div class='input-field col s12'>
+                  <i class="material-icons prefix">account_circle</i>
                   <input class='validate' type='email' id='txtEmail' />
-                  <label for='email'>Correo Electrónico</label>
+                  <label class="active">Correo Electrónico</label>
                 </div>
               
                 <div class='input-field col s12'>
+                  <i class="material-icons prefix">vpn_key</i>
                   <input class='validate' type='password' id='txtPassword' />
-                  <label for='password'>Clave</label>
+                  <label class="active">Clave</label>
                 </div>
-                <label style='float: right;'>
-                  <a class='pink-text' href='#!'><b>¿Olvido su clave?</b></a>
-                </label>
+                
               </div>
   
               
               <center>
                 
-                  <button type='button' id='btnRegister' class='col s6 btn waves-effect blue hide'>Registrar</button>
-                  <div class="preloader-wrapper small" id="divLogin">
+                  <button type='button' id='btnLoadRegister' class='col s6 btn waves-effect blue'>Registrarse</button>
+                  <div class="preloader-wrapper small active" id="divLoginBegin" style="display:none">
                       <div class="spinner-layer spinner-green-only">
                         <div class="circle-clipper left">
                           <div class="circle"></div>
@@ -107,12 +101,13 @@
                     </div>
                   <button type='button' id='btnLogin' class='col s4 btn waves-effect indigo right'>Iniciar sesión</button>
                   <!-- <a class="col s12 waves-effect waves-light social google">Iniciar con Google</a> -->
-                  <br>
-                  <a class="col s12 waves-effect waves-light btn red" id="btnGoogle">Iniciar con Google</a>
+                  
               </center>
-            </form>
+            
           </div>
         </div>
+        <br>
+        <a class="col s12 waves-effect waves-light btn red" id="btnGoogle">Iniciar con Google</a>
 
         
         <!-- <a href="#!">Crear usuario</a> -->
@@ -134,13 +129,12 @@
     var config = {
       apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
       authDomain: "azarel-1a865.firebaseapp.com",
-      databaseURL: "https://azarel-1a865.firebaseio.com",
       projectId: "azarel-1a865",
       storageBucket: "azarel-1a865.appspot.com",
       messagingSenderId: "963834795291"
     };
     firebase.initializeApp(config);
-    firebase.auth().languageCode = 'sp';
+    
 
 
   </script>

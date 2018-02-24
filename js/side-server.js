@@ -15,3 +15,16 @@ function writePlayingDay(d) {
     });  
 }
 
+function selectPrize(sdate, lottery, hours, number){
+  sdate = '20180225';
+  lottery = 'LOTACT';
+  hours = '9AM';
+}
+
+
+function readPlayin(sdate, lottery, hours){
+  sdate = '20180225';
+  lottery = 'LOTACT';
+  hours = '9AM';
+  
+}

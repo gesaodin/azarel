@@ -81,17 +81,55 @@ class Person {
   }
 }
 
-
+let Ddd;
+function operar(){
+  getCollectiondb('bets/20180225')
+  .then( d => {
+    console.log('JSON ', d);
+    for (key in d){
+      var hijo = d[key]; 
+      for (k in hijo){
+        var obj = hijo[k];
+        console.log('Monto: ', obj.money, ' UID: ', obj.uid);
+      }
+    }
+    
+  }).catch( e => {
+    console.log(e);
+  });
+}
 
 //Cargar Remotamente Objetos JSON
-function LoadRemoteJson(file, idDiv){
-  fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    return data;
-  })
-  .catch((err)=> console.log(err));
+function getCollectiondb(collection){
+  return new Promise( function (resolv, reject){
+    firebase.auth().currentUser.getIdToken(true)
+    .then(e => {
+      var url = `https://azarel-1a865.firebaseio.com/${collection}.json?orderBy="$key"&startAt="LOTAC10AM"&endAt="LOTAC10AM\uf8ff"&auth=${e}`;
+      var request = new Request(url, {
+        method: 'GET',
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'text/json',
+        })
+      });
+      fetch(request)
+      .then((res) => {
+        return res.json();
+      })
+      .then(r => {
+        return resolv(r);
+        console.log(r);
+      })
+      .catch((err) =>{
+        
+        console.log('Huy que error: ', err);
+        return reject(err);
+      });
+    });
+  });
+  
 
+  
 }
 
 

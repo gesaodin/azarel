@@ -4,28 +4,18 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var txtEmail = document.getElementById("txtEmail");
 var txtPassword = document.getElementById("txtPassword");
 var btnLogin = document.getElementById("btnLogin");
+var btnLoadRegister = document.getElementById("btnLoadRegister");
 
-var btnRegister = document.getElementById("btnRegister");
 var btnGoogle = document.getElementById("btnGoogle");
+
 
 var divLogin = document.getElementById("divLogin");
 
-//Register new User
-btnRegister.addEventListener('click', e => {    
-    var email = txtEmail.value;
-    var password = txtPassword.value;
-    HideButton();
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(data => {
-        location.href = "home.html";
-    })
-    .catch(error => {
-        ShowButton();
-        ClearText();
-        ErrorCodeMessage(error);
-    }); 
-})
+//Register new User
+btnLoadRegister.addEventListener('click', e => {    
+    location.href = 'register.html';
+});
 
 //Listener Login on authorization
 btnLogin.addEventListener('click', e => {    
@@ -45,13 +35,14 @@ btnLogin.addEventListener('click', e => {
 
 //Init Google Session
 btnGoogle.addEventListener('click', e => {
+    HideButton();
     firebase.auth().signInWithPopup(provider)
     .then( result => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        Materialize.toast('Si se pudo loguear', 3000, 'rounded');
+        
         return user;
         // ...
     })   
@@ -63,7 +54,9 @@ btnGoogle.addEventListener('click', e => {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        Materialize.toast(errorMessage, 3000, 'rounded');
+        ClearText();
+        ShowButton();
+        ErrorCodeMessage(error);
         // ...
     });
 
@@ -71,15 +64,17 @@ btnGoogle.addEventListener('click', e => {
 
 
 function HideButton(){
-    divLogin.classList.add('active');
+    $("#divLoginBegin").show();
     btnLogin.classList.add('hide');
-    btnRegister.classList.add('hide');
+    btnLoadRegister.classList.add('disabled');
+    btnGoogle.classList.add('disabled');
 }
 
 function ShowButton(){
-    divLogin.classList.remove('active');
+    $("#divLoginBegin").hide();    
     btnLogin.classList.remove('hide');
-    btnRegister.classList.remove('hide');
+    btnLoadRegister.classList.remove('disabled');
+    btnGoogle.classList.remove('disabled');
 }
 //Clean Forms
 function ClearText(){

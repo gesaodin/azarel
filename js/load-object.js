@@ -10,8 +10,7 @@ function writeUserDataPerson() {
     }
     Materialize.toast('Enviando actualización...', 2000, 'rounded');
     btn.classList.add('disabled');
-    var sChild = 'competitor/' + UserUID + '/person'; 
-    firebase.database().ref(sChild).set({
+    var person = {
       cid: getID('txtcid').value,
       fullname: getID('txtfullname').value,
       sex : getID('cmbsex').value,
@@ -19,7 +18,10 @@ function writeUserDataPerson() {
       phone: getID('txtphone').value,
       cel : getID('txtcel').value,
       location: getID('txtdir').value
-    })
+    };
+
+    var sChild = 'competitor/' + UserUID + '/person'; 
+    firebase.database().ref(sChild).set(person)
     .then(d => {
       Materialize.toast('Tus datos han sido actualizados', 4000, 'rounded');    
       btn.classList.remove('disabled');
@@ -28,10 +30,13 @@ function writeUserDataPerson() {
       Materialize.toast('Ocurrio un error al enviar los datos', 4000, 'rounded');      
       btn.classList.remove('disabled');
     });  
+
+
 }
 
 //Loading for data personal
 function LoadUserData(){
+
     var sChild = UserUID + '/person';
     firebase.database().ref("competitor").child(sChild).once('value')
     .then(function(snapshot) {
@@ -54,7 +59,9 @@ function LoadUserData(){
     .catch(e => {
       console.log('Cargando datos E: ', e)
     });
+
   }
+
 
 
 //Write Data Bank for user
@@ -171,7 +178,6 @@ function writeUserDataTransferens() {
         var load = 'CARGA';
         var money = parseFloat(transf.money).toLocaleString();
         if(transf.status != undefined)text = SelectCaseStatus(transf.status);
-
         if(transf.load != undefined)load = 'RETIRO';
         if(transf.bets != undefined)load = 'APUESTA';
         row++;
@@ -189,33 +195,7 @@ function writeUserDataTransferens() {
     });
   }
 
-  function SelectCaseStatus(key){
-    var status = '';
-    switch (key) {
-      case 'P':
-        status = `<span class="new badge blue left" data-badge-caption="Pendiente"></span>`;
-        break;
-      case 'A':
-        status = `<span class="new badge green left" data-badge-caption="Aprobado"></span>`;
-        break;
-      case 'R':
-        status = `<span class="new badge red left" data-badge-caption="Rechazado"></span>`;
-        break;
-      case 'E':
-        status = `<span class="new badge orange left" data-badge-caption="Ejecutada"></span>`;
-        break;
-      case 'G':
-        status = `<span class="new badge green left" data-badge-caption="Ganó"></span>`;
-        break;
-      case 'N':
-        status = `<span class="new badge red left" data-badge-caption="No Ganó"></span>`;
-        break;
-      default:
-        status = `<span class="new badge blue left" data-badge-caption="Pendiente"></span>`;
-        break;
-    }
-    return status;
-  }
+
 
   /**
    * Object Bets
@@ -337,7 +317,7 @@ function LoadTicketsList(){
           <td>${o.detail}</td>
           <td>${o.lottery} ${o.hours}</td>
           <td>${parseFloat(o.money).toLocaleString()}</td>
-          <td>${SelectCaseStatus('G')}</td>
+          <td>${SelectCaseStatus(o.status)}</td>
         </tr>`;
       });
       var table = cabecera + cuerpo + `</tbody></table>`

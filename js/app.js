@@ -35,7 +35,7 @@ firebase.initializeApp(config);
 const messaging = firebase.messaging();
 // Get a reference to the database service
 var database = firebase.database();
-
+var dbfirestore = firebase.firestore();
 
 
 const animals = [
@@ -80,9 +80,9 @@ const animals = [
       $("#divLoading").hide();
       $("#divNav").show();
       var sChid = UserUID;
-      let starCountRef = firebase.database().ref('competitor')
+      let starCountRef = database.ref('competitor')
       .child(sChid).child('money/assigned');
-      starCountRef.on('value', function(snapshot) {  
+      starCountRef.once('value', function(snapshot) {  
         saldo = 0;
         snapshot.forEach(e => {
           var assigned = e.val();
@@ -104,10 +104,25 @@ const animals = [
     }
 });
 
+function readNotification(){
+  var ref = database.ref('notification')
+  .child(UserUID)
+  .limitToLast(1)
+  .once(d => {
+    $("#divNotifications").show();
+  })
+  .then(d => {
+
+  })
+  .catch(e => {
+    console.log('Error de notificaciones: ', e);
+  });
+
+}
 
 function readPlayingDay(){
   var ref = firebase.database().ref('playing')
-  .orderByChild('orderby').limitToLast(1);
+  .limitToLast(1);
   ref.once('value', e => {    
     e.forEach(element => {
       var key = element.key;
@@ -383,4 +398,32 @@ function GetDateStampServer(d){
     var d = new Date().getTime() + offset;
     console.log(GetTimeStamp(d));
   });
+}
+
+function SelectCaseStatus(key){
+  var status = '';
+  switch (key) {
+    case 'P':
+      status = `<span class="new badge blue rigth" data-badge-caption="Pendiente"></span>`;
+      break;
+    case 'A':
+      status = `<span class="new badge green rigth" data-badge-caption="Aprobado"></span>`;
+      break;
+    case 'R':
+      status = `<span class="new badge red rigth" data-badge-caption="Rechazado"></span>`;
+      break;
+    case 'E':
+      status = `<span class="new badge orange rigth" data-badge-caption="Ejecutada"></span>`;
+      break;
+    case 'G':
+      status = `<span class="new badge green rigth" data-badge-caption="Ganó"></span>`;
+      break;
+    case 'N':
+      status = `<span class="new badge red rigth" data-badge-caption="No Ganó"></span>`;
+      break;
+    default:
+      status = `<span class="new badge blue rigth" data-badge-caption="Pendiente"></span>`;
+      break;
+  }
+  return status;
 }
