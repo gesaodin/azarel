@@ -9,50 +9,60 @@
 
        <div class="row">
 
-         <div class="col s12 m4">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="img/bolsadinero.png" style="width:100px">
-              </div>
-              <div class="card-stacked green">
-                <div class="card-content white-text">
-                  <font style="font-size:16px"><b>0.000.000 Bs.</b></font><br>
-                  <font style="font-size:12px">Tu Saldo total</font>
+          <div class="col s12 m4">
+              <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
+                <div class="card horizontal">
+                  <div class="card-image">
+                    <img src="img/bolsadinero.png" style="width:100px">
+                  </div>
+                  <div class="card-stacked green">
+                    <div class="card-content white-text">
+                      <font style="font-size:16px"><b id="totalmoney"></b></font><br>
+                      <font style="font-size:12px">Tu saldo actual</font>
+                    </div>
+                  </div>
                 </div>
+                </a>
               </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4 hide-on-small-only">
-             <div class="card horizontal">
-               <div class="card-image">
-                 <img src="img/historial.png" style="width:100px">
-               </div>
-               <div class="card-stacked purple">
-                 <div class="card-content white-text">
-                   <font style="font-size:12px">
-                     El historial de apuestas.
-                   </font>
+    
+              <div class="col s12 m4 hide-on-small-only">
+                <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+                 <div class="card horizontal">
+                   <div class="card-image">
+                     <img src="img/historial.png" style="width:100px">
+                   </div>
+                   <div class="card-stacked purple">
+                     <div class="card-content white-text">
+                        <font style="font-size:16px"><b>Apostar</b></font><br>
+                       <font style="font-size:12px">
+                         Realiza tu apuesta.
+                       </font>
+                     </div>
+                   </div>
                  </div>
+                </a>
                </div>
-             </div>
-           </div>
-
-
-          <div class="col s12 m4 hide-on-small-only">
-             <div class="card horizontal">
-               <div class="card-image">
-                 <img src="img/persona.png" style="width:100px">
-               </div>
-               <div class="card-stacked amber">
-                 <div class="card-content white-text">
-                   <font style="font-size:12px">
-                     Los datos personales y bancarios deben ser verificados
-                   </font>
+    
+    
+              <div class="col s12 m4 hide-on-small-only">
+                <a onclick="LoadLocalFile('person','',LoadUserData);">
+                 <div class="card horizontal">
+                   <div class="card-image">
+                     <img src="img/persona.png" style="width:100px">
+                   </div>
+                   <div class="card-stacked amber">
+                     <div class="card-content white-text">
+                        <font style="font-size:16px"><b>Datos Personales</b></font><br>
+                       <font style="font-size:12px">
+                         Verifica y/o actualiza
+                       </font>
+                     </div>
+                   </div>
                  </div>
+                 </a>
                </div>
-             </div>
-           </div>
+
+               
            <div class="row">
              <div class="col s12 m4">
                <div class="input-field col s12">
@@ -128,24 +138,41 @@
 
      <div id="test-swipe-3" class="col s12">
        <div class="row">
-         <table class="bordered striped" id="tblApuesta" style="display:none">
-           <thead>
-             <tr>
-               <th>Descripción</th>
-               <th>Monto</th>
-             </tr>
-           </thead>
-           <tbody>
-             
+            
+                <div class="collection">
+                    <a href="#!" class="collection-item">Monto total <span class="new badge green" data-badge-caption="Bs." id="spsaldo">0 </span></a>
+                    
+                </div>
+            
+            <table class="bordered striped" id="tblApuesta">
+                <thead>
+                  <tr>
+                    <th>APUESTA</th>
+                    <th>LOTERIA</th>
+                    <th>SORTEO</th>
+                    <th>MONTO</th>
+                  </tr>
+                </thead>
+                <tbody id="tblBody">
+                  <tr>
+                    <td>00 - DELFIN</td>
+                    <td>LAC</td>
+                    <td>9:00AM</td>
+                    <td><font color='green'><b>15000</b></font></td>
+                  </tr>
+     
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>TOTAL</th>
+                    <th id="thTotal"></th>
+                  </tr>
+                </tfoot>
+              </table>
+       
 
-           </tbody>
-           <tfoot>
-             <tr>
-               <th>Total</th>
-               <th id="thTotal"></th>
-             </tr>
-           </tfoot>
-         </table>
 
        </div>
        <div class="row">

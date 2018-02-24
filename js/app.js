@@ -4,8 +4,11 @@ let UserAPIKey = '';
 let UserAppName = '';
 let UserPhoto = '';
 let UserUID = '';
+let UserMoney = '';
 let ConexionUser = 0;
 let CantTime = 0; //Cantidad de Sorteos 
+let TokenNotification = '';
+
 
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
@@ -65,6 +68,7 @@ const animals = [
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+      var saldo = 0;
       UserPhoto = photoURL;
       UserAPIKey = user.ca.a;
       lblEmail.innerHTML = email;
@@ -74,14 +78,23 @@ const animals = [
       $("#divLoading").hide();
       $("#divNav").show();
       var sChid = UserUID;
-      let starCountRef = firebase.database().ref('competitor').child(sChid);
-      starCountRef.on('value', function(snapshot) {       
+      let starCountRef = firebase.database().ref('competitor').child(sChid).child('money/assigned');
+      starCountRef.on('value', function(snapshot) {  
+        
+        snapshot.forEach(e => {
+          var money = e.val();
+          saldo += parseFloat(money.value);
+        });
+        getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
+        UserMoney = saldo.toLocaleString() + ' Bs.';
         if (ConexionUser == 0){
           ConexionUser++;
         } else{
           Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
         }
       });
+
+      SendTokenOnServer(email, TokenNotification);
     } else {
       location.href = "index.html";
     }
@@ -91,10 +104,11 @@ const animals = [
 //On request permission
 messaging.requestPermission()
 .then( function() {  
+  TokenNotification = messaging.getToken();
   return messaging.getToken();
 })
 .then(token => {
-  console.log('Tokens notifications: ', token);
+  console.log('Tokens notifications verificado: ');
 })
 .catch(function(err) {
   console.log('No se autorizarón las notificaciones.', err);
@@ -105,23 +119,26 @@ messaging.onMessage(function(payload){
   console.log('onMessaging : ', payload);
 });
 
+function SendTokenOnServer(email, token){
+  
+  firebase.database().ref('chat').child(UserUID).set({
+    email : email,
+    token : token,
+    status: false
+  }).catch( e => {
+    Materialize.toast('Es posible que no reciba notificaciones', 3000, 'rounded');
+  });
+}
 
 
 // Get Instance ID token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
 messaging.getToken()
 .then(function(currentToken) {
-  // console.log('Obtener Token: ', currentToken);
-  if (currentToken) {
-    //sendTokenToServer(currentToken);
-    //updateUIForPushEnabled(currentToken);
-    console.log('Obteniendo el Tokens: ', currentToken);
-  } else {
-    // Show permission request.
-    console.log('No Instance ID token available. Request permission to generate one.');
-    // Show permission UI.
-    //updateUIForPushPermissionRequired();
-    //setTokenSentToServer(false);
+  if (currentToken) {   
+    TokenNotification = currentToken;
+  } else { 
+    console.log('No Instance ID token available. Request permission to generate one.'); 
   }
 })
 .catch(function(err) {
@@ -140,8 +157,9 @@ messaging.onTokenRefresh(function() {
     // app server.
     //setTokenSentToServer(false);
     // Send Instance ID token to app server.
-    //sendTokenToServer(refreshedToken);
+    SendTokenOnServer(refreshedToken);
     // ...
+    
   })
   .catch(err => {
     console.log('Unable to retrieve refreshed token ', err);
@@ -201,6 +219,7 @@ function MakeTableAnimals(){
      </div>
    </div>`;
   pagBodyTableAnimals.innerHTML = makeTable + page;
+  getID('totalmoney').innerHTML = UserMoney;
   $('#pag1').show();
 }
 
@@ -276,4 +295,13 @@ function LoadingViewHTML(){
     </center>
   `;
   
+}
+
+function GetTimeStamp(d){
+  var dateTime = new Date(); 
+  if(d != undefined) dateTime = new Date(d);
+  var mes = dateTime.getMonth() + 1;
+  var dateString = dateTime.getDay() + '/' + mes + '/' + dateTime.getFullYear(); 
+  var timeString = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
+  return dateString + ' ' + timeString;
 }

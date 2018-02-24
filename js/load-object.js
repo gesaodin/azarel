@@ -83,24 +83,27 @@ function writeUserDataBank() {
     });
   }
   
+  
   //Loading data for bank
   function LoadUserDataBank(){  
     var sChild = UserUID + '/bank';
+    
     firebase.database().ref("competitor").child(sChild).once('value')
     .then(function(snapshot) {      
       return snapshot.val();
     })
     .then(snapshot => {      
+      console.log(snapshot);  
       if(snapshot == null){
         Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
-      }else{        
-        getID('cmbName').value = snapshot.name
-        getID('cmbTypeBank').value = snapshot.type;
+      }else{                
+        $('#cmbName').val(snapshot.name);
+        $('#cmbType').val(snapshot.type);
         getID('txtNumber').value = snapshot.number;        
-      }      
+      }     
     })
     .catch(e => {
-      console.log('Cargando datos E: ', e)
+      console.log('Error cargando: ');
     });
   }
 
@@ -118,16 +121,24 @@ function writeUserDataTransferens() {
     }
     Materialize.toast('Enviando actualización...', 2000, 'rounded');
     btn.classList.add('disabled');
-    firebase.database().ref('transferens').child(UserUID).set({
+    firebase.database().ref('transferens').child(UserUID).push({
       name : getID('cmbName').value,
       type : getID('cmbType').value,
+      bank : getID('cmbNameTransferens').value,
       date : getID('txtDate').value,
       number : getID('txtNumber').value,
-      money : getID('txtMoney').value,
-      status: false
+      datereal : Date.now(),
+      money : parseFloat(getID('txtMoney').value)
     })
     .then(d => {
-      Materialize.toast('Tus datos han sido actualizados', 3000, 'rounded');
+      Materialize.toast('Saldo abonado a su monedero', 3000, 'rounded');
+      firebase.database().ref('competitor').child(UserUID).child('money/assigned').push({
+        value : parseFloat(getID('txtMoney').value),
+        datereal : Date.now()
+      }).catch(d => console.log('Error asignando saldo'));
+      getID('txtDate').value = '';
+      getID('txtNumber').value = '';
+      getID('txtMoney').value = '';
       btn.classList.remove('disabled');
     })
     .catch( e => {
@@ -140,17 +151,28 @@ function writeUserDataTransferens() {
   function LoadUserDataTransferens(){  
     var sChild = UserUID;
     firebase.database().ref("transferens").child(sChild).once('value')
-    .then(function(snapshot) {      
-      return snapshot.val();
-    })
-    .then(snapshot => {      
-      if(snapshot == null){
-        Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
-      }else{        
-        
-      }      
+    .then(function(snapshot) { 
+      var table = getID('tblBody');
+      var fil = '';
+      var saldo = 0;
+      snapshot.forEach(function(ele) {
+        var key = ele.key;
+        var transf  = ele.val();
+        var text = 'Pendiente';
+        var load = 'CARGA';
+        var money = parseFloat(transf.money).toLocaleString();
+        if(transf.status != undefined)text = transf.status;
+        if(transf.load != undefined)load = 'RETIRO';
+        fil += `<tr><td>${load}</td><td>${money}</td>
+        <td><span class="new badge blue left" data-badge-caption="${text}"></span></td></tr>`;
+        saldo += parseFloat(transf.money);
+      });
+      table.innerHTML = fil;  
+      getID('spsaldo').innerHTML = saldo.toLocaleString();    
     })
     .catch(e => {
-      console.log('Cargando datos E: ', e)
+      console.log('Cargando datos por erros', e);
     });
   }
+
+
