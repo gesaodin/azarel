@@ -8,7 +8,7 @@ let UserMoney = '';
 let ConexionUser = 0;
 let CantTime = 0; //Cantidad de Sorteos 
 let TokenNotification = '';
-
+let MoneyGame = 0;
 
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
@@ -260,6 +260,7 @@ function ChangeNumberPage(){
 
 function ChangeTabs(id){
   $('ul.tabs').tabs('select_tab', id);
+
 }
 
 function ShowDisplayModal(){
@@ -268,8 +269,41 @@ function ShowDisplayModal(){
 }
 
 
+function AddGame(){
+  var monto = getID('txtMonto').value;
+  if ( monto == '')return true;
+  var hours = getValuesSelectMultiple('cmbHours');
+  MoneyGame = MoneyGame + (parseFloat(monto) * hours.length);
+  var animals = getID('numberAnimals').innerHTML;
+  var lottery = getID('cmbLottery').value;
+  var fil = '';
+  var table = getID('tblBody');
+  for (var i = 0; i < hours.length; i++) {
+    var elem = hours[i];
+    
+    fil += `<tr><td>${animals}</td>
+              <td>${lottery}</td>
+              <td>${elem}</td>
+              <td>${parseFloat(monto).toLocaleString()}</td>
+          </tr>`;
+  }
+  //console.log(fil);
+  table.innerHTML += fil;  
+  getID('spsaldo').innerHTML = MoneyGame.toLocaleString();
+  getID('btnGame').classList.remove('hide');
+}
 
-
+function getValuesSelectMultiple(id){
+  var x = getID(id);
+  var hours = [];
+  for (var i = 0; i < x.options.length; i++) {
+     if(x.options[i].selected == true){
+          hours.push(x.options[i].value);
+      }
+  }
+  console.log(hours);
+  return hours;
+}
 
 function NotificationDiscovery(){
   

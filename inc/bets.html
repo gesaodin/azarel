@@ -66,25 +66,25 @@
            <div class="row">
              <div class="col s12 m4">
                <div class="input-field col s12">
-                 <select id="cmbLoteria">
-                   <option value=0>LOTTOACTIVO</option>
-                   <option value=1>LAGRANJITA</option>
-                   <option value=2>RULETAACTIVA</option>
+                 <select id="cmbLottery">
+                   <option value='LOTAC'>LOTTOACTIVO</option>
+                   <option value='LGRAN'>LAGRANJITA</option>
+                   <option value='RULET'>RULETAACTIVA</option>
                  </select>
                  <label for="cmbLoteria">Seleccionar loteria</label>
                </div>
                <div class="input-field col s10">
-                 <select multiple>
-                   <option value=0>09:00 am</option>
-                   <option value=1>10:00 am</option>
-                   <option value=2>11:00 am</option>
-                   <option value=2>12:00 m</option>
-                   <option value=2>01:00 pm</option>
-                   <option value=2>03:00 pm</option>
-                   <option value=2>04:00 pm</option>
-                   <option value=2>05:00 pm</option>
-                   <option value=2>06:00 pm</option>
-                   <option value=2>07:00 pm</option>
+                 <select multiple id="cmbHours">
+                   <option value='9AM'>09:00 am</option>
+                   <option value='10AM'>10:00 am</option>
+                   <option value='11AM'>11:00 am</option>
+                   <option value='12M'>12:00 m</option>
+                   <option value='1PM'>01:00 pm</option>
+                   <option value='3PM'>03:00 pm</option>
+                   <option value='4PM'>04:00 pm</option>
+                   <option value='5PM'>05:00 pm</option>
+                   <option value='6PM'>06:00 pm</option>
+                   <option value='7PM'>07:00 pm</option>
                  </select>
                  <label for="cmbLoteria">Seleccionar Sorteo</label>
                </div>
@@ -154,12 +154,7 @@
                   </tr>
                 </thead>
                 <tbody id="tblBody">
-                  <tr>
-                    <td>00 - DELFIN</td>
-                    <td>LAC</td>
-                    <td>9:00AM</td>
-                    <td><font color='green'><b>15000</b></font></td>
-                  </tr>
+                  
      
                 </tbody>
                 <tfoot>
@@ -177,8 +172,8 @@
        </div>
        <div class="row">
          <div class="center">
-           <button class="btn waves-effect green white-text darken-text-2 pulse hide">Jugar
-             <i class="material-icons right">send</i>
+           <button class="btn waves-effect green white-text darken-text-2 pulse hide" id="btnGame">Jugar
+             <i class="material-icons left">casino</i>
            </button>
          </div>
 
