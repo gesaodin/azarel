@@ -80,23 +80,7 @@ const animals = [
       $("#divLoading").hide();
       $("#divNav").show();
       var sChid = UserUID;
-      let starCountRef = database.ref('competitor')
-      .child(sChid).child('money/assigned');
-      starCountRef.once('value', function(snapshot) {  
-        saldo = 0;
-        snapshot.forEach(e => {
-          var assigned = e.val();
-          saldo += parseFloat(assigned.money);
-        });
-        if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
-        UserMoney = saldo.toLocaleString() + ' Bs.';
-        UserMoneyTotal = saldo;
-        if (ConexionUser == 0){
-          ConexionUser++;
-        } else{
-          Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
-        }
-      });
+      LoadMoneyTotal();
       readPlayingDay();
       SendTokenOnServer(email, TokenNotification);
     } else {

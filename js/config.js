@@ -11,19 +11,6 @@ class Config{
   }
 }
 
-// {
-//   Bets : {
-//     FECHA : [{
-//       LOTSORNUMERO : [{
-//         uid : userID,
-//         numero: string,
-//         fechatiempo: timestamp,
-//         monto : float,
-//       }]
-//     }]
-//   }
-// }
-
 class Ticket{
   construct(){
     this.date = '';

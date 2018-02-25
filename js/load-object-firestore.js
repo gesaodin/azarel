@@ -105,6 +105,61 @@ function writeUserDataBank() {
             btn.classList.remove('disabled');
         });
   }
+
+  function addNewData(){
+//     var citiesRef = dbfirestore.collection("competitor").doc(UserUID).collection("bets");
+
+//     var query = citiesRef.where("key", "==", "wD2idEhWvdmELCmGIZ1w");
+//     query.get().then(d => {
+//         console.log(d);
+//         d.forEach(element => {
+//          console.log('Element ', element.id);   
+//         });
+//     });  
+    var dateplay = '20180225';
+    var playing = 'LOTAC10AM09';
+    dbfirestore.collection('bets').doc(dateplay)
+    .collection(playing)
+    .get().then( doc => {
+        var winnerAll = [];        
+        var total = 0;
+        
+        doc.forEach(d => {
+            var money = d.data().bets.money;
+            var winner = {
+                uid: d.data().bets.uid,
+                money : money,
+                playin: playing, 
+                status : 'P'
+            }
+            total += parseFloat(money);
+            winnerAll.push(winner);
+        });
+        
+        var winn = {
+            timestamp : firebase.firestore.FieldValue.serverTimestamp(),
+            date : dateplay,
+            playin : playing,
+            prize : winnerAll,
+            money : total * 30
+        };
+        dbfirestore.collection('winner').add(winn)
+        .then( doc => {
+            console.log('Winer finished... ');
+            return doc.id;
+        }).catch(e => {
+            console.log('Err winner: ', e);            
+        })
+    });
+  }
+  function winners(id){
+    dbfirestore.collection('competitor').doc(id)
+    .get().then( doc => {        
+        
+            console.log(doc.data().person.fullname);
+        
+    });
+  }
   
   
   //Loading data for bank
@@ -178,6 +233,8 @@ function writeUserDataTransferens() {
         console.log('Error: ', e);
     })
   }
+
+
   
   //Loading data for Transferens
   function LoadUserDataTransferens(){  
@@ -192,18 +249,18 @@ function writeUserDataTransferens() {
             var row = 0;
             snapshot.forEach(function(ele) {
 
-            var key = ele.key;
-            var transf  = element.data();
-            var text = SelectCaseStatus('P');
-            var load = 'CARGA';
-            var money = parseFloat(transf.money).toLocaleString();
-            if(transf.status != undefined)text = SelectCaseStatus(transf.status);
-            if(transf.load != undefined)load = 'RETIRO';
-            if(transf.bets != undefined)load = 'APUESTA';
-            row++;
-            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
-            <td style="text-align:right">${text}</td></tr>`;
-            saldo += parseFloat(transf.money);
+                var key = ele.key;
+                var transf  = ele.data();
+                var text = SelectCaseStatus('P');
+                var load = 'CARGA';
+                var money = parseFloat(transf.money).toLocaleString();
+                if(transf.status != undefined)text = SelectCaseStatus(transf.status);
+                if(transf.load != undefined)load = 'RETIRO';
+                if(transf.bets != undefined)load = 'APUESTA';
+                row++;
+                fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
+                <td style="text-align:right">${text}</td></tr>`;
+                saldo += parseFloat(transf.money);
             });
             table.innerHTML = fil;
 
@@ -212,4 +269,136 @@ function writeUserDataTransferens() {
         });
     })
 
+  }
+
+
+
+  /**
+   * **************************
+   * Write Bets
+   * **************************
+   */
+//Write Data Bets for user
+async function writeUserDataBets() {
+    if(UserPlayingActive == ''){
+      Materialize.toast('Intente mas tarde', 3000, 'rounded');
+      return false;
+    }
+    
+    // btn.classList.add('disabled');
+    
+   
+    var fil = getID('tblBody');
+    if(fil == null || fil.length == 0 )return false;
+    fil = fil.rows;
+    var total = 0;
+    
+    var betsAll = [];
+    var updates = {};
+    var keyTag = '';
+    for (let i = 0; i < fil.length; i++) {
+        var obj = fil[i].cells;
+        var number = obj[0].innerHTML.split(" ");
+        keyTag = obj[1].innerHTML + obj[2].innerHTML + number[0];
+        var money = parseFloat(obj[4].innerHTML);
+        var betsTag = {
+            uid: UserUID,
+            money: money,      
+            timestamp : firebase.firestore.FieldValue.serverTimestamp()
+        }
+
+        var newKey = await getIDBets(UserPlayingActive, keyTag, betsTag); 
+        var bets = {              
+            lottery : obj[1].innerHTML,
+            hours: obj[2].innerHTML,
+            number : number[0],
+            detail : obj[0].innerHTML,
+            money : money,
+            key: newKey,                
+            status : 'P'
+        };
+        total += money;
+        betsAll.push(bets);
+    }
+    console.log(betsAll);
+    var objbets = {
+        playing : UserPlayingActive,
+        data: betsAll,
+        timestamp : firebase.firestore.FieldValue.serverTimestamp()
+    };
+    var ticket = await getIDTickets(UserPlayingActive, keyTag, objbets);
+
+
+    var deduction = {
+        money : total * -1,
+        ticket : ticket,
+        bets: UserPlayingActive,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        status : 'E'
+    }
+    dbfirestore.collection("competitor")
+    .doc(UserUID).collection("money").add(deduction)
+    .then(d => {        
+        
+    }).catch(e => {
+        console.log('Bets Error: ', e);
+        
+    })
+
+    getID('btnGame').classList.add('hide');
+    getID('tblBody').innerHTML = '';
+    getID('spsaldo').innerHTML = '0';
+    cleanSelect('cmbHours');
+    getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
+    $("#modAlert").modal("open");
+    
+    return true;
+  
+}
+
+function getIDBets(playin, tag, bets){
+    return new Promise(resolv => {
+        dbfirestore.collection("bets")
+        .doc(playin).collection(tag).add({bets})
+        .then(d => {        
+            return resolv(d.id);
+        }).catch(e => {
+            console.log('Bets Error: ', e);
+            return resolv(e);
+        })
+    });
+}
+
+function getIDTickets(playin, tag, betsAll){
+    return new Promise(resolv =>{
+        dbfirestore.collection("competitor").doc(UserUID).collection("bets").add(betsAll)
+        .then(d => {        
+            return resolv(d.id);
+        }).catch(e => {
+            console.log('Bets Error: ', e);
+            return resolv(e);
+        })
+    });
+}
+
+
+
+function LoadMoneyTotal(){
+    // let starCountRef = database.ref('competitor')
+    // .child(sChid).child('money/assigned');
+    // starCountRef.once('value', function(snapshot) {  
+    //   saldo = 0;
+    //   snapshot.forEach(e => {
+    //     var assigned = e.val();
+    //     saldo += parseFloat(assigned.money);
+    //   });
+    //   if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
+    //   UserMoney = saldo.toLocaleString() + ' Bs.';
+    //   UserMoneyTotal = saldo;
+    //   if (ConexionUser == 0){
+    //     ConexionUser++;
+    //   } else{
+    //     Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
+    //   }
+    // });
   }
