@@ -318,6 +318,7 @@ function AddGame(){
   //console.log(fil);
   table.innerHTML += fil;  
   getID('spsaldo').innerHTML = MoneyGame.toLocaleString();
+  getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
   getID('btnGame').classList.remove('hide');
   Materialize.toast('Verifica tu lista de apuestas', 3000, 'rounded');
   return false;
@@ -364,6 +365,12 @@ function LoadingViewHTML(){
     </center>
   `;
   
+}
+
+function LoadIndeterminate(){
+  return `<div class="progress">
+      <div class="indeterminate"></div>
+    </div>`;
 }
 
 function GetTimeStamp(dateString){

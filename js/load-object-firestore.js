@@ -240,34 +240,33 @@ function writeUserDataTransferens() {
   function LoadUserDataTransferens(){  
     dbfirestore.collection("competitor")
     .doc(UserUID).collection("money")
+    .orderBy('timestamp', "desc")
     .get()
-    .then(snapshot => {
-        snapshot.forEach(element => {
-            var table = getID('tblBody');
-            var fil = '';
-            var saldo = 0;
-            var row = 0;
-            snapshot.forEach(function(ele) {
-
-                var key = ele.key;
-                var transf  = ele.data();
-                var text = SelectCaseStatus('P');
-                var load = 'CARGA';
-                var money = parseFloat(transf.money).toLocaleString();
-                if(transf.status != undefined)text = SelectCaseStatus(transf.status);
-                if(transf.load != undefined)load = 'RETIRO';
-                if(transf.bets != undefined)load = 'APUESTA';
-                row++;
-                fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
-                <td style="text-align:right">${text}</td></tr>`;
-                saldo += parseFloat(transf.money);
-            });
-            table.innerHTML = fil;
-
-            getID('spsaldo').innerHTML = saldo.toLocaleString();
-            sortTable('tblMoney', 0);
+    .then(snapshot => {        
+        var table = getID('tblBody');
+        var fil = '';
+        var saldo = 0;
+        var row = 0;
+        snapshot.forEach(function(ele) {
+            var key = ele.key;
+            var transf  = ele.data();
+            var text = SelectCaseStatus('P');
+            var load = 'CARGA';
+            var money = parseFloat(transf.money).toLocaleString();
+            if(transf.status != undefined)text = SelectCaseStatus(transf.status);
+            if(transf.load != undefined)load = 'RETIRO';
+            if(transf.bets != undefined)load = 'APUESTA';
+            row++;
+            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
+            <td style="text-align:right">${text}</td></tr>`;
+            saldo += parseFloat(transf.money);
         });
-    })
+        table.innerHTML = fil;
+        getID('spsaldo').innerHTML = saldo.toLocaleString();                   
+        return snapshot;        
+    }).catch( e => {
+
+    });
 
   }
 
@@ -280,14 +279,20 @@ function writeUserDataTransferens() {
    */
 //Write Data Bets for user
 async function writeUserDataBets() {
+    var btn = getID('btnGame');
+    var btnAcept= getID('btnAcept');
+    var btnGo = getID('btnGo');
     if(UserPlayingActive == ''){
       Materialize.toast('Intente mas tarde', 3000, 'rounded');
       return false;
     }
+    var loadhtml = LoadIndeterminate();
+    getID('modAlertBody').innerHTML = `<center>${loadhtml}<br>Cargando...</center>`;
     
-    // btn.classList.add('disabled');
-    
-   
+    $("#modAlert").modal("open");
+    btn.classList.add('disabled');   
+    btnAcept.classList.add('disabled');
+    btnGo.classList.add('disabled');
     var fil = getID('tblBody');
     if(fil == null || fil.length == 0 )return false;
     fil = fil.rows;
@@ -320,7 +325,7 @@ async function writeUserDataBets() {
         total += money;
         betsAll.push(bets);
     }
-    console.log(betsAll);
+   
     var objbets = {
         playing : UserPlayingActive,
         data: betsAll,
@@ -348,9 +353,12 @@ async function writeUserDataBets() {
     getID('btnGame').classList.add('hide');
     getID('tblBody').innerHTML = '';
     getID('spsaldo').innerHTML = '0';
+    getID('thTotal').innerHTML = '0 Bs.';
     cleanSelect('cmbHours');
     getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
-    $("#modAlert").modal("open");
+    btn.classList.remove('disabled');   
+    btnAcept.classList.remove('disabled');
+    btnGo.classList.remove('disabled');
     
     return true;
   
@@ -384,21 +392,26 @@ function getIDTickets(playin, tag, betsAll){
 
 
 function LoadMoneyTotal(){
-    // let starCountRef = database.ref('competitor')
-    // .child(sChid).child('money/assigned');
-    // starCountRef.once('value', function(snapshot) {  
-    //   saldo = 0;
-    //   snapshot.forEach(e => {
-    //     var assigned = e.val();
-    //     saldo += parseFloat(assigned.money);
-    //   });
-    //   if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
-    //   UserMoney = saldo.toLocaleString() + ' Bs.';
-    //   UserMoneyTotal = saldo;
-    //   if (ConexionUser == 0){
-    //     ConexionUser++;
-    //   } else{
-    //     Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
-    //   }
-    // });
+
+    dbfirestore.collection("competitor").doc(UserUID).collection("money")
+        .get()
+        .then(snap => {        
+            saldo = 0;
+            snap.forEach(ele => {                
+                var assigned = ele.data();
+                saldo += parseFloat(assigned.money);
+            });
+            if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
+            UserMoney = saldo.toLocaleString() + ' Bs.';
+            UserMoneyTotal = saldo;
+            if (ConexionUser == 0){
+                ConexionUser++;
+            } else{
+                Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
+            }
+        }).catch(e => {
+            
+            
+        })
+
   }
