@@ -117,7 +117,7 @@ function writeUserDataBank() {
 //         });
 //     });  
     var dateplay = '20180225';
-    var playing = 'LOTAC10AM09';
+    var playing = 'LOTAC9AM10';
     dbfirestore.collection('bets').doc(dateplay)
     .collection(playing)
     .get().then( doc => {
@@ -245,24 +245,29 @@ function writeUserDataTransferens() {
     .then(snapshot => {        
         var table = getID('tblBody');
         var fil = '';
-        var saldo = 0;
+        var balance = 0;
+        var deferred = 0;
         var row = 0;
         snapshot.forEach(function(ele) {
             var key = ele.key;
             var transf  = ele.data();
             var text = SelectCaseStatus('P');
             var load = 'CARGA';
-            var money = parseFloat(transf.money).toLocaleString();
-            if(transf.status != undefined)text = SelectCaseStatus(transf.status);
+            var money = parseFloat(transf.money);
+            if(transf.status != undefined){
+                text = SelectCaseStatus(transf.status);
+                if(transf.status == 'P')deferred += money;               
+            }
             if(transf.load != undefined)load = 'RETIRO';
             if(transf.bets != undefined)load = 'APUESTA';
             row++;
-            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money}</td>
+            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money.toLocaleString()}</td>
             <td style="text-align:right">${text}</td></tr>`;
-            saldo += parseFloat(transf.money);
+            balance += money;
         });
         table.innerHTML = fil;
-        getID('spsaldo').innerHTML = saldo.toLocaleString();                   
+        getID('spbalance').innerHTML = balance.toLocaleString();                   
+        getID('spdeferred').innerHTML = deferred.toLocaleString(); 
         return snapshot;        
     }).catch( e => {
 

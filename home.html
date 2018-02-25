@@ -211,21 +211,25 @@
 
 
 
-      <div class="tap-target" data-activates="btnAction">
-          <div class="tap-target-content">
-            <h5>Title</h5>
-            <p>A bunch of text</p>
-          </div>
-        </div>
-
       </div>
 
 
-      <div class="fixed-action-btn " id="divNotifications" style="display:none">
-        <a class="btn-floating btn-large red pulse">
+      <div class="fixed-action-btn ">
+        <a class="waves-effect waves-light btn btn-floating orange" id="divNotifications">
           <i class="material-icons">notifications</i>
         </a>        
       </div>
+
+      <!-- <a id="divNotifications" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a> -->
+
+      <div class="tap-target blue" data-activates="divNotifications">
+          <div class="tap-target-content white-text">
+            <h5>Felicitaciones</h5>
+            <p class="white-text">Reclama tu premio</p>
+          </div>
+        </div>
+
+
 
 
     </main>
@@ -244,7 +248,7 @@
         $('.modal').modal();
         $('select').material_select();
         $(".button-collapse").sideNav();
-
+        $('.tap-target').tapTarget('open');
       });
       function Presentacion(){
         $('.tap-target').tapTarget('open');
