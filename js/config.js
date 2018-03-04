@@ -155,31 +155,7 @@ function LoadLocalFile(file, idDiv, func){
 }
 
 function LoadComponentMaterialize(){
-  var pipsSlider = document.getElementById('test-slider');
-        noUiSlider.create(pipsSlider, {
-          range: {
-              'min': 100,
-              '10%': 200,
-             // '20%': 300,
-              '30%': 400,          
-              //'40%': 500,
-              '50%': 600,
-             // '60%': 700,
-              '70%': 800,
-             // '80%': 900,
-              'max': 1000
-          },
-          snap: true,
-            start: [ 100 ],
-            format: wNumb({
-              decimals: 0
-            }),
-            pips: { mode: 'count', values: 6  }
-        });
-        
-        pipsSlider.noUiSlider.on('update', function( values, handle ){
-          getID('txtMonto').value = values[handle];
-        });
+  
 
   $('ul.tabs').tabs();
   $('select').material_select();
@@ -201,4 +177,45 @@ function LoadComponentMaterialize(){
     closeOnSelect: false // Close upon selecting a date,
   });
   $('.button-collapse').sideNav('hide');
+}
+
+function LoadComponentGeneral(){
+  var pipsSlider = document.getElementById('test-slider');
+  noUiSlider.create(pipsSlider, {
+    range: {
+        'min': 100,
+        '10%': 200,
+        // '20%': 300,
+        '30%': 400,          
+        //'40%': 500,
+        '50%': 600,
+        // '60%': 700,
+        '70%': 800,
+        // '80%': 900,
+        'max': 1000
+    },
+    snap: true,
+      start: [ 100 ],
+      format: wNumb({
+        decimals: 0
+      }),
+      pips: { mode: 'count', values: 6  }
+  });
+  
+  pipsSlider.noUiSlider.on('update', function( values, handle ){
+    getID('txtMonto').value = values[handle];
+  });
+  
+  $('ul.tabs').tabs();
+        $('.modal').modal();
+        $('select').material_select();
+        $('.button-collapse').sideNav({
+            menuWidth: 260, // Default is 300
+            //edge: 'right', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true, // Choose whether you can drag to open on touch screens
+            onOpen: function(el) { /* Do Stuff */ }, 
+            onClose: function(el) { /* Do Stuff */ }
+          }
+        );
 }

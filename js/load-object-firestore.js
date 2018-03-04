@@ -420,3 +420,25 @@ function LoadMoneyTotal(){
         })
 
   }
+
+
+  function LoadTickets(){
+    var sChild = UserUID;
+    var select = '<option value="00x">SELECCIONAR FECHA</option>';
+    firebase.database().ref("competitor").child(sChild)
+    .child('/bets')
+    .once('value')
+    .then(function(snapshot) {
+      snapshot.forEach(function(ele) {
+        var key = ele.key;
+        var format = key.slice(6,8) + "-" + key.slice(4,6) + '-' + key.slice(0,4) ;
+        select += `<option value='${key}'>${format}</option>`;
+        
+      });
+      getID('cmbPlayins').innerHTML = select;
+      cleanSelect('cmbPlayins');
+    })
+    .catch(e => {
+      console.log('Cargando datos por erros', e);
+    });
+  }

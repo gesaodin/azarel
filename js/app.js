@@ -88,6 +88,8 @@ const animals = [
     }
 });
 
+
+
 function readNotification(){
   var ref = database.ref('notification')
   .child(UserUID)
