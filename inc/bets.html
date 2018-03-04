@@ -1,188 +1,157 @@
-
-
-    <ul id="tabs-swipe-demo" class="tabs white">
-       <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Sorteo</a></li>
-       <li class="tab col s3"><a href="#test-swipe-2" class="blue-text">Apostar</a></li>
-       <li class="tab col s3"><a href="#test-swipe-3" class="blue-text">Ver Apuesta</a></li>
-     </ul>
-     <div id="test-swipe-1" class="col s12" style="padding-left:0px; padding-top:5px">
-
-       <div class="row">
-
-          <div class="col s12 m4">
-              <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
-                <div class="card horizontal">
-                  <div class="card-image">
-                    <img src="img/bolsadinero.png" style="width:100px">
-                  </div>
-                  <div class="card-stacked green">
-                    <div class="card-content white-text">
-                      <font style="font-size:16px"><b id="totalmoney"></b></font><br>
-                      <font style="font-size:12px">Tu saldo actual</font>
-                    </div>
-                  </div>
-                </div>
-                </a>
-              </div>
-    
-              <div class="col s12 m4 hide-on-small-only">
-                <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+<ul class="tabs white">
+        <li class="tab col s3"><a class="active blue-text" href="#test-swipe-1">Sorteo</a></li>
+        <li class="tab col s3"><a href="#test-swipe-2" class="blue-text">Apostar</a></li>
+        <li class="tab col s3"><a href="#test-swipe-3" class="blue-text">Jugar</a></li>
+      </ul>
+      <div id="test-swipe-1" style="padding-left:0px; padding-top:5px">
+ 
+        <div class="row">
+ 
+           <div class="col s12 m4">
+             <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
                  <div class="card horizontal">
-                   <div class="card-image">
-                     <img src="img/historial.png" style="width:100px">
-                   </div>
-                   <div class="card-stacked purple">
-                     <div class="card-content white-text">
-                        <font style="font-size:16px"><b>Apostar</b></font><br>
-                       <font style="font-size:12px">
-                         Realiza tu apuesta.
-                       </font>
-                     </div>
-                   </div>
+                 <div class="card-image">
+                     <i class="material-icons green-text" style="font-size:70px">business_center</i>
                  </div>
-                </a>
-               </div>
-    
-    
-              <div class="col s12 m4 hide-on-small-only">
-                <a onclick="LoadLocalFile('person','',LoadUserData);">
-                 <div class="card horizontal">
-                   <div class="card-image">
-                     <img src="img/persona.png" style="width:100px">
-                   </div>
-                   <div class="card-stacked amber">
-                     <div class="card-content white-text">
-                        <font style="font-size:16px"><b>Datos Personales</b></font><br>
-                       <font style="font-size:12px">
-                         Verifica y/o actualiza
-                       </font>
+                 <div class="card-stacked green" >
+                     <div class="card-content white-text" style="padding:10px">
+                     <font style="font-size:16px"><b id="totalmoney">
+                         Cargando...
+                     </b></font><br>
+                     <font style="font-size:12px">Tu saldo actual</font>
                      </div>
-                   </div>
+                 </div>
                  </div>
                  </a>
-               </div>
-
-               
-           <div class="row">
-             <div class="col s12 m4">
-               <div class="input-field col s12">
-                <form id="frmLottery">
-                 <select id="cmbLottery">
-                   <option value='LOTAC'>LOTTOACTIVO</option>
-                   <option value='LGRAN'>LAGRANJITA</option>
-                   <option value='RULET'>RULETAACTIVA</option>
-                 </select>
-                 <label for="cmbLoteria">Seleccionar loteria</label>
-               </div>
-               <div class="input-field col s10">
-                 <select multiple id="cmbHours">
-                    <option value='00x' disabled>---------</option>
-                   <option value='9AM'>09:00 am</option>
-                   <option value='10AM'>10:00 am</option>
-                   <option value='11AM'>11:00 am</option>
-                   <option value='12M'>12:00 m</option>
-                   <option value='1PM'>01:00 pm</option>
-                   <option value='3PM'>03:00 pm</option>
-                   <option value='4PM'>04:00 pm</option>
-                   <option value='5PM'>05:00 pm</option>
-                   <option value='6PM'>06:00 pm</option>
-                   <option value='7PM'>07:00 pm</option>
-                 </select>
-                 <label for="cmbLoteria">Seleccionar Sorteo</label>
-               </div>
-               
-               <div class="input-field col s2" >
-                   <a class="btn-floating red" onclick="ChangeTabs('test-swipe-2')"><i class="material-icons">send</i></a>
-
-               </div>
-
-              </form>
-             </div> <!-- Fin de sorteo -->
-
-              
-                
-              </div>
-            </div>
-
-          <!-- <div class="col s12 m6">
-            <div class="card-panel green">
-              <span class="white-text">
-                <h5> ## - ANIMALITO</h5>
-                Fecha y hora:
-              </span>
-            </div>
-          </div>
-          <div class="col s12 m6">
-            <div class="card-panel blue">
-              <span class="white-text">
-                <h5>0 Bs.</h5>
-                Saldo Total Disponible
-              </span>
-            </div>
-          </div> -->
-        </div>
-
-
-
-
-
-
-
-
-
-     </div>
-     <div id="test-swipe-2" class="col s12" style="padding-left:0px; padding-top:5px" >
-
-
-       <!-- FIN DEL PRIMER TAB'S  -->
-     </div>
-
-
-     <div id="test-swipe-3" class="col s12">
-       <div class="row">
-            
-                <div class="collection">
-                    <a href="#!" class="collection-item">Monto total <span class="new badge green" data-badge-caption="Bs." id="spsaldo">0 </span></a>
-                    
+             </div><!-- End Target -->
+ 
+            <div class="row">
+               <form id="frmLottery">
+              <div class="col s12 m4">
+                <div class="input-field col s12">
+                 
+                  <select id="cmbLottery">
+                    <option value='LOTAC'>LOTTOACTIVO</option>
+                    <option value='LGRAN'>LAGRANJITA</option>
+                    <option value='RULET'>RULETAACTIVA</option>
+                  </select>
+                  <label for="cmbLoteria">Seleccionar loteria</label>
                 </div>
-            
-            <table class="bordered striped" id="tblApuesta">
-                <thead>
-                  <tr>
-                    <th>APUESTA</th>
-                    <th>LOTERIA</th>
-                    <th>SORTEO</th>
-                    <th>MONTO</th>
-                    <th style="display:none">MONTO</th>
-                  </tr>
-                </thead>
-                <tbody id="tblBody">
-                  
-     
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th>TOTAL</th>
-                    <th id="thTotal">0 Bs.</th>
-                  </tr>
-                </tfoot>
-              </table>
-       
-
-
-       </div>
-       <div class="row">
-         <div class="center">
-           <button class="btn waves-effect green white-text darken-text-2 pulse hide" 
-              id="btnGame" onclick="writeUserDataBets()">Jugar
-             <i class="material-icons left">casino</i>
-           </button>
+                <div class="input-field col s10">
+                  <select multiple id="cmbHours">
+                     <option value='00x' disabled>---------</option>
+                    <option value='9AM'>09:00 am</option>
+                    <option value='10AM'>10:00 am</option>
+                    <option value='11AM'>11:00 am</option>
+                    <option value='12M'>12:00 m</option>
+                    <option value='1PM'>01:00 pm</option>
+                    <option value='3PM'>03:00 pm</option>
+                    <option value='4PM'>04:00 pm</option>
+                    <option value='5PM'>05:00 pm</option>
+                    <option value='6PM'>06:00 pm</option>
+                    <option value='7PM'>07:00 pm</option>
+                  </select>
+                  <label for="cmbLoteria">Seleccionar Sorteo</label>
+                </div>
+                
+                <div class="input-field col s2" >
+                    <a class="btn-floating red" onclick="ChangeTabs('test-swipe-2')"><i class="material-icons">send</i></a>
+ 
+                </div>
+                </div>
+               </form>
+              </div> <!-- Fin de sorteo -->
+ 
+               
+                 
+               </div>
+             </div>
+ 
+           <!-- <div class="col s12 m6">
+             <div class="card-panel green">
+               <span class="white-text">
+                 <h5> ## - ANIMALITO</h5>
+                 Fecha y hora:
+               </span>
+             </div>
+           </div>
+           <div class="col s12 m6">
+             <div class="card-panel blue">
+               <span class="white-text">
+                 <h5>0 Bs.</h5>
+                 Saldo Total Disponible
+               </span>
+             </div>
+           </div> -->
          </div>
-
-       </div>
-
-
-     </div>
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+      </div>
+      <div id="test-swipe-2" style="padding-left:0px; padding-top:5px" >
+ 
+ 
+        <!-- FIN DEL PRIMER TAB'S  -->
+      </div>
+ 
+ 
+      <div id="test-swipe-3"  style="padding-left:0px; padding-top:5px">
+        <div class="row">
+           <div class="col s12 m12 l12">
+               <div class="collection">
+                   <a href="#!" class="collection-item">Monto total 
+                     <span class="new badge green" data-badge-caption="Bs." id="spsaldo">0 </span>
+                   </a>
+                   
+               </div>
+           </div>
+             
+                 
+             
+             <table class="bordered striped" id="tblApuesta">
+                 <thead>
+                   <tr>
+                     <th>APUESTA</th>
+                     <th>LOTERIA</th>
+                     <th>SORTEO</th>
+                     <th>MONTO</th>
+                     <th style="display:none">MONTO</th>
+                   </tr>
+                 </thead>
+                 <tbody id="tblBody">
+                   
+      
+                 </tbody>
+                 <tfoot>
+                   <tr>
+                     <th></th>
+                     <th></th>
+                     <th>TOTAL</th>
+                     <th id="thTotal">0 Bs.</th>
+                   </tr>
+                 </tfoot>
+               </table>
+        
+ 
+ 
+        </div>
+        <div class="row">
+          <div class="center">
+            <button class="btn waves-effect green white-text darken-text-2 pulse hide" 
+               id="btnGame" onclick="writeUserDataBets()">Jugar
+              <i class="material-icons left">casino</i>
+            </button>
+          </div>
+ 
+        </div>
+ 
+ 
+      </div>
+ 
+ 

@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"  media="screen,projection"/>
+    
 
     <!--Let browser know website is optimized for mobile-->
     <meta charset="UTF-8">
@@ -15,8 +17,8 @@
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
   </head>
 
-  <body class="blue-grey lighten-5">  
-      <main>
+  <body >  
+      
         <center>            
           <!-- <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" /> -->
           <div class="section" id="divLoading">
@@ -36,140 +38,149 @@
          </div>
          </center> 
     <div id="divNav" style="display:none" >
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a onclick="LoadLocalFile('person','',LoadUserData)"><i class="material-icons left purple-text" >face</i>Personales</i></a></li>
-      <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)"><i class="material-icons left indigo-text" >account_balance</i>Banco</a></li>
-      <li><a ><i class="material-icons left yellow-text"  onclick="LoadLocalFile('money')">chrome_reader_mode</i>Monedero</a></li>
+        <header>
+            
+                <div class="navbar-fixed ">
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper blue">
+                            <a href="#!" class="brand-logo center hide-on-small-only">Azarel</a>
+                                <a href="#" data-activates="slide-out" class="button-collapse">
+                                        <i class="material-icons left waves-effect">menu</i>Azarel</a>
+                             
+                                      <a class="button-collapse right">
+                                        <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('transferens')">payment</i>
+                                        <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">account_box</i>
+                                        <i class="material-icons waves-effect waves-light left" onclick="location.reload()">home</i>
+                                      </a>
+                             
+                                      <ul class="right hide-on-med-and-down">
+                                        <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
+                                          <i class="material-icons left" >style</i>Tickes</a></li>
+                                        <li><a onclick="LoadLocalFile('result')">
+                                          <i class="material-icons left" >assignment</i>Resultados</a></li>
+                                        <li><a onclick="LoadLocalFile('home')">
+                                          <i class="material-icons left" >home</i>Principal</a></li>
+                             
+                                      
+                             
+                                      </ul>
+                        </div>
+                    </nav>
 
-   </ul>
-    <nav >
-       <div class="nav-wrapper  blue">
-         <a href="#" data-activates="slide-out" class="button-collapse">
-           <i class="material-icons left waves-effect">menu</i>Azarel</a>
-
-         <a class="button-collapse right">
-           <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('transferens')">payment</i>
-           <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">account_box</i>
-           <i class="material-icons waves-effect waves-light left" onclick="location.reload()">home</i>
-         </a>
-
-         <ul class="right hide-on-med-and-down">
-           <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
-             <i class="material-icons left" >style</i>Tickes</a></li>
-           <li><a onclick="LoadLocalFile('result')">
-             <i class="material-icons left" >assignment</i>Resultados</a></li>
-           <li><a onclick="LoadLocalFile('transferens')">
-             <i class="material-icons left" >payment</i>Tramites</a></li>
-
-           <!-- <li><aclass="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons left">face</i>Personales<i class="material-icons right">arrow_drop_down</i></a></li> -->
-           <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
-              <i class="material-icons left">settings</i>
-              Configuración<i class="material-icons right">arrow_drop_down</i></a>
-          </li>
-
-         </ul>
-         <ul id="slide-out" class="side-nav">
-           <li><div class="user-view">
-             <div class="background">
-               <img src="img/office.jpg">
-             </div>
-             <a href="#!user"><img class="circle" src="img/albert.jpg" id="imgPhotoUser" /></a>
-             <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
-             <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
-           </div></li>
-           
-           <li><a onclick="LoadLocalFile('result')">
-             <i class="material-icons left blue-text" >assignment</i>Resultados</a></li>
-           <li><a onclick="LoadLocalFile('transferens')">
-             <i class="material-icons left" >payment</i>Tramites</a></li>
-
-           <li><div class="divider"></div></li>
-           <li><a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
-             <i class="material-icons left green-text" >casino</i>Apostar</a></li>
-           <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
-             <i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
-           
-           
-           <li><div class="divider"></div></li>
-           <li><a onclick="LoadLocalFile('person','',LoadUserData);">
-              <i class="material-icons left purple-text" >face</i>Cuenta Personales</i></a></li>
-           <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)">
-              <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
-           <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)">
-             <i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
-           
-           <li><div class="divider"></div></li>
-           <li><a id="hrfCerrar">
-             <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
-           <li><a onclick="LoadLocalFile('info')"><i class="material-icons left teal-text" >more</i>
-            Información</a></li>
-         </ul>
-         
-
-       </div>
-     </nav>
-     <div class="row" id="divCuerpo">
-      <br>
-        <div class="col s12 m4">
-          <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
-            <div class="card horizontal">
-              <div class="card-image">
-                <i class="material-icons green-text" style="font-size:70px">business_center</i>
-              </div>
-              <div class="card-stacked green" >
-                <div class="card-content white-text" style="padding:10px">
-                  <font style="font-size:16px"><b id="totalmoney">
-                    Cargando...
-                  </b></font><br>
-                  <font style="font-size:12px">Tu saldo actual</font>
-                </div>
-              </div>
+                  
+               
             </div>
-            </a>
-          </div>
+          </header>
+          <main>
+                
+                  <div class="row">
+                          <div  class="col l3 hide-on-med-only" >
+                              <ul id="slide-out" class="side-nav fixed">
+                                  <li><div class="user-view">
+                                    <div class="background">
+                                      <img src="img/office.jpg">
+                                    </div>
+                                    <a href="#!user"><img class="circle" src="img/albert.jpg" id="imgPhotoUser" /></a>
+                                    <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
+                                    <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
+                                  </div></li>
+                                  
+                                  <li ><a onclick="LoadLocalFile('result')">
+                                    <i class="material-icons left blue-text" >assignment</i>Resultados</a></li>
+                                  <li><a onclick="LoadLocalFile('transferens')">
+                                    <i class="material-icons left" >payment</i>Tramites</a></li>
+                       
+                                  <li class="hide-on-med-only"><div class="divider"></div></li>
+                                  <li><a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+                                    <i class="material-icons left green-text" >casino</i>Apostar</a></li>
+                                  <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
+                                    <i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
+                                  
+                                  
+                                  <li><div class="divider"></div></li>
+                                  <li><a onclick="LoadLocalFile('person','',LoadUserData);">
+                                     <i class="material-icons left purple-text" >face</i>Cuenta Personales</i></a></li>
+                                  <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)">
+                                     <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
+                                  <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)">
+                                    <i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
+                                  
+                                  <li><div class="divider"></div></li>
+                                  <li><a id="hrfCerrar">
+                                    <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
+                                  <li><a onclick="LoadLocalFile('info')"><i class="material-icons left teal-text" >more</i>
+                                   Información</a></li>
+                              </ul>
+                          </div>
+                          <div class="col s12 m9 l9"  id="divCuerpo">
+                            <br>
+                              <div class="col s12 m4" style="padding-top:0px">
+                                  <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
+                                      <div class="card horizontal">
+                                      <div class="card-image">
+                                          <i class="material-icons green-text" style="font-size:70px">business_center</i>
+                                      </div>
+                                      <div class="card-stacked green" >
+                                          <div class="card-content white-text" style="padding:10px">
+                                          <font style="font-size:16px"><b id="totalmoney">
+                                              Cargando...
+                                          </b></font><br>
+                                          <font style="font-size:12px">Tu saldo actual</font>
+                                          </div>
+                                      </div>
+                                      </div>
+                                      </a>
+                                  </div><!-- End Target -->
+                                  <div class="col s12 m4">
+                                          <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+                                           <div class="card horizontal">
+                                             <div class="card-image">
+                                                <i class="material-icons purple-text" style="font-size:70px">casino</i>
+                                             </div>
+                                             <div class="card-stacked purple">
+                                               <div class="card-content white-text" style="padding:10px">
+                                                  <font style="font-size:16px"><b>Apostar</b></font><br>
+                                                 <font style="font-size:12px">
+                                                   Realiza tu apuesta.
+                                                 </font>
+                                               </div>
+                                             </div>
+                                           </div>
+                                          </a>
+                                         </div>
+                              
+                              
+                                        <div class="col s12 m4">
+                                          <a onclick="LoadLocalFile('person','',LoadUserData);">
+                                           <div class="card horizontal">
+                                             <div class="card-image">
+                                               <i class="material-icons amber-text" style="font-size:70px">account_box</i>
+                                             </div>
+                                             <div class="card-stacked amber">
+                                               <div class="card-content white-text" style="padding:10px">
+                                                  <font style="font-size:16px"><b>Datos Personales</b></font><br>
+                                                 <font style="font-size:12px">
+                                                   Verifica y/o actualiza
+                                                 </font>
+                                               </div>
+                                             </div>
+                                           </div>
+                                           </a>
+                                         </div>
+      
+                                
+                          </div> <!-- Fin de div left -->
+                                    
+                      </div>
+                      
+                    </main>
 
-          <div class="col s12 m4">
-            <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
-             <div class="card horizontal">
-               <div class="card-image">
-                  <i class="material-icons purple-text" style="font-size:70px">casino</i>
-               </div>
-               <div class="card-stacked purple">
-                 <div class="card-content white-text" style="padding:10px">
-                    <font style="font-size:16px"><b>Apostar</b></font><br>
-                   <font style="font-size:12px">
-                     Realiza tu apuesta.
-                   </font>
-                 </div>
-               </div>
-             </div>
-            </a>
-           </div>
-
-
-          <div class="col s12 m4">
-            <a onclick="LoadLocalFile('person','',LoadUserData);">
-             <div class="card horizontal">
-               <div class="card-image">
-                 <i class="material-icons amber-text" style="font-size:70px">account_box</i>
-               </div>
-               <div class="card-stacked amber">
-                 <div class="card-content white-text" style="padding:10px">
-                    <font style="font-size:16px"><b>Datos Personales</b></font><br>
-                   <font style="font-size:12px">
-                     Verifica y/o actualiza
-                   </font>
-                 </div>
-               </div>
-             </div>
-             </a>
-           </div>
 
 
 
-
-     </div>
-
+   
+   
+                      
 
 
      <div id="modAnimals" class="modal modal-fixed-footer">
@@ -179,6 +190,10 @@
               <div class="input-field col s12">
                 <input placeholder="Monto" id="txtMonto" type="number" class="validate">
                 <label for="txtMonto" class="active">Monto</label>
+              </div>
+              <div class="col s12">
+                 
+                  <div id="test-slider"></div>
               </div>
             </div> 
         </div>
@@ -214,7 +229,7 @@
       </div>
 
 
-      <div class="fixed-action-btn ">
+      <div class="fixed-action-btn " style="display:none">
         <a class="waves-effect waves-light btn btn-floating orange" id="divNotifications">
           <i class="material-icons">notifications</i>
         </a>        
@@ -232,10 +247,18 @@
 
 
 
-    </main>
+
+        
+
+
+    
     <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/wnumb.js"></script>
+    <script type="text/javascript" src="js/nouislider.min.js"></script>
+    
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     
@@ -244,11 +267,23 @@
 
     <script  type="text/javascript">
     $(document).ready(function(){
+      //var slider = document.getElementById('test-slider');
+
+       
         $('ul.tabs').tabs();
         $('.modal').modal();
         $('select').material_select();
-        $(".button-collapse").sideNav();
-        $('.tap-target').tapTarget('open');
+        $('.button-collapse').sideNav({
+            menuWidth: 260, // Default is 300
+            //edge: 'right', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true, // Choose whether you can drag to open on touch screens
+            onOpen: function(el) { /* Do Stuff */ }, 
+            onClose: function(el) { /* Do Stuff */ }
+          }
+        );
+        //$('.tap-target').tapTarget('open');
+        
       });
       function Presentacion(){
         $('.tap-target').tapTarget('open');

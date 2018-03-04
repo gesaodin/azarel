@@ -155,9 +155,34 @@ function LoadLocalFile(file, idDiv, func){
 }
 
 function LoadComponentMaterialize(){
-  $('select').material_select();
-  $('.carousel.carousel-slider').carousel({fullWidth: true});
+  var pipsSlider = document.getElementById('test-slider');
+        noUiSlider.create(pipsSlider, {
+          range: {
+              'min': 100,
+              '10%': 200,
+             // '20%': 300,
+              '30%': 400,          
+              //'40%': 500,
+              '50%': 600,
+             // '60%': 700,
+              '70%': 800,
+             // '80%': 900,
+              'max': 1000
+          },
+          snap: true,
+            start: [ 100 ],
+            format: wNumb({
+              decimals: 0
+            }),
+            pips: { mode: 'count', values: 6  }
+        });
+        
+        pipsSlider.noUiSlider.on('update', function( values, handle ){
+          getID('txtMonto').value = values[handle];
+        });
+
   $('ul.tabs').tabs();
+  $('select').material_select();
   $('.collapsible').collapsible();
   $(".dropdown-button").dropdown({
     constrainWidth: false, // Does not change width of dropdown to that of the activator
@@ -167,7 +192,6 @@ function LoadComponentMaterialize(){
     alignment: 'left', // Displays dropdown with edge aligned to the left of button
     stopPropagation: false // Stops event propagation
   });
-
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 100, // Creates a dropdown of 15 years to control year,

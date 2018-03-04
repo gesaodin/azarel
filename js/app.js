@@ -210,7 +210,7 @@ function MakeTableAnimals(){
   var min = 0;
   var max = limitAnimals;
   for (var i = 1; i < maxPageNumber; i++) {
-    var pag = `<div class="row" id="pag${i}" style="display:none">`;
+    var pag = `<div class="row" id="pag${i}" style="display:none;padding-left:0px">`;
     var icon = "";
     if (max > animals.length) max = animals.length;
     for (var j = min; j < max; j++) {
@@ -218,7 +218,8 @@ function MakeTableAnimals(){
       icon += `
       <div class="col s3 m1">
         <div class="cardAnimals cardAnimals-1 ">
-        <img src="img/${animal.key}.jpeg" width="65px" onclick="OpenModalAnimals('${animal.key}', ${j})">
+        <img src="img/${animal.key}.jpeg" width="65px" 
+          onclick="OpenModalAnimals('${animal.key}', ${j})">
         <div class="footcard ">${animal.value}</div>
         </div>
       </div>`;
@@ -234,9 +235,12 @@ function MakeTableAnimals(){
        <a class="btn-floating red" onclick="ChangeNumberPage()"><i class="material-icons">send</i></a>
      </div>
    </div>`;
-  pagBodyTableAnimals.innerHTML = makeTable + page;
-  getID('totalmoney').innerHTML = UserMoney;
+  pagBodyTableAnimals.innerHTML = `<div class="col s12 m12 l12">${makeTable}${page}</div>`;
+  // getID('totalmoney').innerHTML = UserMoney;
   $('#pag1').show();
+  console.log("Pasando...");
+  
+
 }
 
 function OpenModalAnimals(id, pos){

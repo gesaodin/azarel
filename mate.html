@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <title>Document</title>
+</head>
+<body>
+  <header>
+      <div class="row">
+          <div class="navbar-fixed">
+              <nav>
+                  <div class="nav-wrapper blue">
+                      <a href="#!" class="brand-logo center hide-on-small-only">Azarel</a>
+                          <a href="#" data-activates="slide-out" class="button-collapse">
+                                  <i class="material-icons left waves-effect">menu</i>Azarel</a>
+                       
+                                <a class="button-collapse right">
+                                  <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('transferens')">payment</i>
+                                  <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">account_box</i>
+                                  <i class="material-icons waves-effect waves-light left" onclick="location.reload()">home</i>
+                                </a>
+                       
+                                <ul class="right hide-on-med-and-down">
+                                  <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
+                                    <i class="material-icons left" >style</i>Tickes</a></li>
+                                  <li><a onclick="LoadLocalFile('result')">
+                                    <i class="material-icons left" >assignment</i>Resultados</a></li>
+                                  <li><a onclick="LoadLocalFile('home')">
+                                    <i class="material-icons left" >home</i>Principal</a></li>
+                       
+                                
+                       
+                                </ul>
+                  </div>
+              </nav>
+              
+          </div>
+          <ul id="slide-out" class="side-nav fixed">
+              <li><div class="user-view">
+                <div class="background">
+                  <img src="img/office.jpg">
+                </div>
+                <a href="#!user"><img class="circle" src="img/albert.jpg" id="imgPhotoUser" /></a>
+                <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
+                <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
+              </div></li>
+              
+              <li ><a onclick="LoadLocalFile('result')">
+                <i class="material-icons left blue-text" >assignment</i>Resultados</a></li>
+              <li><a onclick="LoadLocalFile('transferens')">
+                <i class="material-icons left" >payment</i>Tramites</a></li>
+   
+              <li class="hide-on-med-only"><div class="divider"></div></li>
+              <li><a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+                <i class="material-icons left green-text" >casino</i>Apostar</a></li>
+              <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
+                <i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
+              
+              
+              <li><div class="divider"></div></li>
+              <li><a onclick="LoadLocalFile('person','',LoadUserData);">
+                 <i class="material-icons left purple-text" >face</i>Cuenta Personales</i></a></li>
+              <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)">
+                 <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
+              <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)">
+                <i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
+              
+              <li><div class="divider"></div></li>
+              <li><a id="hrfCerrar">
+                <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
+              <li><a onclick="LoadLocalFile('info')"><i class="material-icons left teal-text" >more</i>
+               Información</a></li>
+            </ul>
+      </div>
+    </header>
+    <main>
+            
+            <div  class="col l3 hide-on-small-only hide-on-med-only" >
+                    
+            </div>
+            <div class="col s12 m12 l9"  id="divCuerpo" style="padding-left:-10px">
+                <div class="col s12 m4">
+                    <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
+                        <div class="card horizontal">
+                        <div class="card-image">
+                            <i class="material-icons green-text" style="font-size:70px">business_center</i>
+                        </div>
+                        <div class="card-stacked green" >
+                            <div class="card-content white-text" style="padding:10px">
+                            <font style="font-size:16px"><b id="totalmoney">
+                                Cargando...
+                            </b></font><br>
+                            <font style="font-size:12px">Tu saldo actual</font>
+                            </div>
+                        </div>
+                        </div>
+                        </a>
+                    </div><!-- End Target -->
+                    <div class="col s12 m4">
+                            <a onclick="LoadLocalFile('bets','',MakeTableAnimals);">
+                              <div class="card horizontal">
+                                <div class="card-image">
+                                  <i class="material-icons purple-text" style="font-size:70px">casino</i>
+                                </div>
+                                <div class="card-stacked purple">
+                                  <div class="card-content white-text" style="padding:10px">
+                                    <font style="font-size:16px"><b>Apostar</b></font><br>
+                                    <font style="font-size:12px">
+                                      Realiza tu apuesta.
+                                    </font>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                            </div>
+                
+                
+                          <div class="col s12 m4">
+                            <a onclick="LoadLocalFile('person','',LoadUserData);">
+                              <div class="card horizontal">
+                                <div class="card-image">
+                                  <i class="material-icons amber-text" style="font-size:70px">account_box</i>
+                                </div>
+                                <div class="card-stacked amber">
+                                  <div class="card-content white-text" style="padding:10px">
+                                    <font style="font-size:16px"><b>Datos Personales</b></font><br>
+                                    <font style="font-size:12px">
+                                      Verifica y/o actualiza
+                                    </font>
+                                  </div>
+                                </div>
+                              </div>
+                              </a>
+                            </div>
+
+                  
+            </div> <!-- Fin de div left -->
+                      
+        
+      </main>
+      <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        $(".button-collapse").sideNav();
+    </script>
+</body>
+</html>
