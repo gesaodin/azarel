@@ -122,6 +122,7 @@ function getCollectiondb(collection){
 
 //Cargar localmente archivos y escribir en un div
 function LoadLocalFile(file, idDiv, func){
+  $("#divClaims").hide();
   if(idDiv == undefined){
     idDiv = 'divCuerpo';
   } else if(idDiv == ''){
@@ -156,7 +157,7 @@ function LoadLocalFile(file, idDiv, func){
 
 function LoadComponentMaterialize(){
   
-
+  
   $('ul.tabs').tabs();
   $('select').material_select();
   $('.collapsible').collapsible();
@@ -177,6 +178,7 @@ function LoadComponentMaterialize(){
     closeOnSelect: false // Close upon selecting a date,
   });
   $('.button-collapse').sideNav('hide');
+
 }
 
 function LoadComponentGeneral(){
@@ -185,21 +187,22 @@ function LoadComponentGeneral(){
     range: {
         'min': 100,
         '10%': 200,
-        // '20%': 300,
-        '30%': 400,          
-        //'40%': 500,
+        '20%': 300,
+        '30%': 400,
+        '40%': 500,          
         '50%': 600,
-        // '60%': 700,
+        '60%': 700,
         '70%': 800,
-        // '80%': 900,
-        'max': 1000
+        '80%': 900,
+        '100%': 1000,
+        'max': 1200
     },
     snap: true,
       start: [ 100 ],
       format: wNumb({
         decimals: 0
       }),
-      pips: { mode: 'count', values: 6  }
+      pips: { mode: 'count', values: 5  }
   });
   
   pipsSlider.noUiSlider.on('update', function( values, handle ){

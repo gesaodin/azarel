@@ -81,6 +81,7 @@ const animals = [
       $("#divNav").show();
       var sChid = UserUID;
       LoadMoneyTotal();
+      LoadClaims();
       readPlayingDay();
       SendTokenOnServer(email, TokenNotification);
     } else {
@@ -193,6 +194,12 @@ hrfCerrar.addEventListener('click', e => {
   localStorage.removeItem(`firebase:authUser:${UserAPIKey}`);
 });
 
+function LoadHomeAll(){
+  LoadMoneyTotal();
+  LoadClaims();
+  readPlayingDay();
+}
+
 //serviceWorker 
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){
@@ -238,7 +245,7 @@ function MakeTableAnimals(){
      </div>
    </div>`;
   pagBodyTableAnimals.innerHTML = `<div class="col s12 m12 l12">${makeTable}${page}</div>`;
-  // getID('totalmoney').innerHTML = UserMoney;
+  getID('totalmoney').innerHTML = UserMoney;
   $('#pag1').show();
   console.log("Pasando...");
   
@@ -413,13 +420,13 @@ function SelectCaseStatus(key){
       status = `<span class="new badge orange rigth" data-badge-caption="Ejecutada"></span>`;
       break;
     case 'G':
-      status = `<span class="new badge green rigth" data-badge-caption="Ganó"></span>`;
+      status = `<span class="new badge green rigth" data-badge-caption="Premiado"></span>`;
       break;
     case 'N':
       status = `<span class="new badge red rigth" data-badge-caption="No Ganó"></span>`;
       break;
     default:
-      status = `<span class="new badge blue rigth" data-badge-caption="Pendiente"></span>`;
+      status = `<span class="new badge blue rigth" data-badge-caption="Sin Premio"></span>`;
       break;
   }
   return status;

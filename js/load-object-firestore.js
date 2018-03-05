@@ -106,61 +106,7 @@ function writeUserDataBank() {
         });
   }
 
-  function addNewData(){
-//     var citiesRef = dbfirestore.collection("competitor").doc(UserUID).collection("bets");
 
-//     var query = citiesRef.where("key", "==", "wD2idEhWvdmELCmGIZ1w");
-//     query.get().then(d => {
-//         console.log(d);
-//         d.forEach(element => {
-//          console.log('Element ', element.id);   
-//         });
-//     });  
-    var dateplay = '20180225';
-    var playing = 'LOTAC9AM10';
-    dbfirestore.collection('bets').doc(dateplay)
-    .collection(playing)
-    .get().then( doc => {
-        var winnerAll = [];        
-        var total = 0;
-        
-        doc.forEach(d => {
-            var money = d.data().bets.money;
-            var winner = {
-                uid: d.data().bets.uid,
-                money : money,
-                playin: playing, 
-                status : 'P'
-            }
-            total += parseFloat(money);
-            winnerAll.push(winner);
-        });
-        
-        var winn = {
-            timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-            date : dateplay,
-            playin : playing,
-            prize : winnerAll,
-            money : total * 30
-        };
-        dbfirestore.collection('winner').add(winn)
-        .then( doc => {
-            console.log('Winer finished... ');
-            return doc.id;
-        }).catch(e => {
-            console.log('Err winner: ', e);            
-        })
-    });
-  }
-  function winners(id){
-    dbfirestore.collection('competitor').doc(id)
-    .get().then( doc => {        
-        
-            console.log(doc.data().person.fullname);
-        
-    });
-  }
-  
   
   //Loading data for bank
   function LoadUserDataBank(){  
@@ -235,9 +181,57 @@ function writeUserDataTransferens() {
   }
 
 
+  /**
+   * **************************
+   * Write Transaction
+   * **************************
+   */
+//Write Data Transferens for user
+function wClaimsTransf() {
+    
+    
+    if(getID('txtMoney').value == ""){
+      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      return false;
+    }
+    Materialize.toast('Enviando información...', 2000, 'rounded');
+    
+    var transferens = {
+        uid : UserUID,
+        timestamp : firebase.firestore.FieldValue.serverTimestamp(),
+        money : parseFloat(getID('txtMoney').value),
+        status : 'P'
+    };
+    dbfirestore.collection("claimstransf").
+    add(transferens)
+    .then(d => {
+        var detail = {
+            money : transferens.money * -1,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            status : 'P',
+            type: 'R',
+            load : 'R' //Assigned
+        }
+        dbfirestore.collection("competitor").doc(UserUID)
+        .collection("money").doc(d.id).set(detail)
+        .then(d => {
+            Materialize.toast('Solicitud en proceso...', 2000, 'rounded');
+            LoadUserDataTransferens();
+        })
+        .catch(e => {
+            console.log('Error: ', e);
+        })
+    })
+    .catch(e => {
+        console.log('Error: ', e);
+    })
+  }
+
+
   
   //Loading data for Transferens
-  function LoadUserDataTransferens(){  
+  function LoadUserDataTransferens(){
+    
     dbfirestore.collection("competitor")
     .doc(UserUID).collection("money")
     .orderBy('timestamp', "desc")
@@ -248,8 +242,9 @@ function writeUserDataTransferens() {
         var balance = 0;
         var deferred = 0;
         var row = 0;
+        
         snapshot.forEach(function(ele) {
-            var key = ele.key;
+            var key = ele.id;    
             var transf  = ele.data();
             var text = SelectCaseStatus('P');
             var load = 'CARGA';
@@ -267,7 +262,8 @@ function writeUserDataTransferens() {
         });
         table.innerHTML = fil;
         getID('spbalance').innerHTML = balance.toLocaleString();                   
-        getID('spdeferred').innerHTML = deferred.toLocaleString(); 
+        getID('spdeferred').innerHTML = deferred.toLocaleString();
+        
         return snapshot;        
     }).catch( e => {
 
@@ -275,7 +271,10 @@ function writeUserDataTransferens() {
 
   }
 
-
+  function GetTransferensMoney(){
+    $("#modAlertTransf").modal();
+    $("#modAlertTransf").modal("open");
+  }
 
   /**
    * **************************
@@ -325,7 +324,7 @@ async function writeUserDataBets() {
             detail : obj[0].innerHTML,
             money : money,
             key: newKey,                
-            status : 'P'
+            status : 'S'
         };
         total += money;
         betsAll.push(bets);
@@ -397,48 +396,142 @@ function getIDTickets(playin, tag, betsAll){
 
 
 function LoadMoneyTotal(){
-
     dbfirestore.collection("competitor").doc(UserUID).collection("money")
-        .get()
-        .then(snap => {        
-            saldo = 0;
-            snap.forEach(ele => {                
-                var assigned = ele.data();
-                saldo += parseFloat(assigned.money);
-            });
-            if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
-            UserMoney = saldo.toLocaleString() + ' Bs.';
-            UserMoneyTotal = saldo;
-            if (ConexionUser == 0){
-                ConexionUser++;
-            } else{
-                Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
-            }
-        }).catch(e => {
-            
-            
-        })
-
+    .get()
+    .then(snap => {        
+        saldo = 0;
+        snap.forEach(ele => {                
+            var assigned = ele.data();
+            saldo += parseFloat(assigned.money);
+        });
+        if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
+        UserMoney = saldo.toLocaleString() + ' Bs.';
+        UserMoneyTotal = saldo;
+        if (ConexionUser == 0){
+            ConexionUser++;
+        } else{
+            Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
+        }
+    });
   }
 
 
-  function LoadTickets(){
-    var sChild = UserUID;
-    var select = '<option value="00x">SELECCIONAR FECHA</option>';
-    firebase.database().ref("competitor").child(sChild)
-    .child('/bets')
-    .once('value')
-    .then(function(snapshot) {
-      snapshot.forEach(function(ele) {
-        var key = ele.key;
-        var format = key.slice(6,8) + "-" + key.slice(4,6) + '-' + key.slice(0,4) ;
-        select += `<option value='${key}'>${format}</option>`;
-        
-      });
-      getID('cmbPlayins').innerHTML = select;
-      cleanSelect('cmbPlayins');
+ //Load Tickets
+  function LoadTicketsList(){
+    var ul = '<ul class="collapsible" data-collapsible="accordion" id="ulBody">';
+    var li = '';
+    
+    dbfirestore.collection("competitor").doc(UserUID).collection("bets")
+    .orderBy("timestamp", "desc").get()
+    .then(snapshot => {        
+        snapshot.forEach(function(ele) {        
+            var key = ele.id;
+            var cabecera = `<table class="bordered striped">
+            <thead><tr><th>Jugada</th><th>Sorteo</th>
+                <th>Monto</th><th valing="rigth">¿Premiado?</th></tr>
+            </thead><tbody id="tblBody">`;
+            var body = '';
+            var total = 0;        
+            var obj = ele.data().data;
+            var date = ele.data().timestamp;
+            var datestring = ele.data().playing;
+            var format = datestring.slice(6,8) + "-" + datestring.slice(4,6) + '-' + datestring.slice(0,4) ;
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                total += o.money;
+                body += `<tr>
+                <td>${o.detail}</td>
+                <td>${o.lottery} ${o.hours}</td>
+                <td>${parseFloat(o.money).toLocaleString()}</td>
+                <td>${SelectCaseStatus(o.status)}</td>
+                </tr>`;
+            }
+            
+            var table = cabecera + body + `</tbody></table>`
+            li = `<li>
+            <div class="collapsible-header">
+                <i class="material-icons">local_offer</i>
+                
+                ${key.substring(0,6)}... ${format} <br> ${parseFloat(total).toLocaleString()} Bs.
+                
+                <span class="new badge white rigth" data-badge-caption="">
+                    <a href="#" onclick="OpenModalAlertMail()">
+                        <i class="material-icons waves-effect waves-light red-text">email</i>                    
+                    </a>
+                </span>        
+                 
+            </div>
+            <div class="collapsible-body blue lighten-5" style="padding:2px">
+            <p align='center'>Fecha y hora: ${GetTimeStamp(date)}</p>
+            ${table}</div>
+            </li>${li}`;  
+        });
+      ul += li + '</ul>';
+      getID('divTickets').innerHTML = ul;
+      $('.collapsible').collapsible();
     })
     .catch(e => {
       console.log('Cargando datos por erros', e);
     });
+  }
+
+
+  function LoadTickets(){
+    //the version firestore no disponible
+        
+    $("#searchticket").hide();
+    LoadTicketsList();
+  }
+
+  function OpenModalAlertMail(){
+    getID('modAlertBodyMail').innerHTML = `¿Desea enviar el ticket a su correo?`;
+    $("#modAlertMail").modal("open");
+  }
+
+  function LoadClaims(){
+    dbfirestore
+    .collection('competitor')
+    .doc(UserUID).collection("winner").where("status", "==", "P")
+    .get()
+    .then(snap => {
+        var status = false;
+        snap.forEach(e =>{
+            status = true;
+        });
+        if (status){
+            $("#divClaims").show();
+            $('.tap-target').tapTarget('open');
+        }
+        
+    })
+    .catch(e => {
+
+    })
+  }
+
+  function ClaimsPrize(){
+    $("#divClaims").hide();
+    dbfirestore
+    .collection('competitor')
+    .doc(UserUID).collection("winner").where("status", "==", "P")
+    .get()
+    .then(snap => {
+
+    })
+    .catch(e => {
+
+    })
+  }
+
+  function PrizeUpdate(){
+    dbfirestore
+    .collection('competitor')
+    .doc(UserUID).collection("winner").doc('sXZt7Hxld7WqEK1hzbev')
+    .update({status:"A"})
+    .then(doc => {
+        Materialize.toast('Tu premio ha sido abonado', 4000, 'rounded');            
+    })
+    .catch(e => {
+        Materialize.toast('Ocurrio un error de conexión', 4000, 'rounded');        
+    })
   }

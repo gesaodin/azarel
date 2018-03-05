@@ -58,7 +58,7 @@
                                           <i class="material-icons left" >style</i>Tickes</a></li>
                                         <li><a onclick="LoadLocalFile('result')">
                                           <i class="material-icons left" >assignment</i>Resultados</a></li>
-                                        <li><a onclick="LoadLocalFile('home', '', LoadMoneyTotal)">
+                                        <li><a onclick="LoadLocalFile('home', '', LoadHomeAll)">
                                           <i class="material-icons left" >home</i>Principal</a></li>
                              
                                       
@@ -107,7 +107,7 @@
                     <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)" class="waves-effect">
                         <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
                     <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)" class="waves-effect">
-                      <i class="material-icons left yellow-text" >chrome_reader_mode</i>Monedero</a></li>
+                      <i class="material-icons left pink-text" >chrome_reader_mode</i>Monedero</a></li>
                     
                     <li><div class="divider"></div></li>
                     <li><a id="hrfCerrar" class="waves-effect">
@@ -122,7 +122,7 @@
                     <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
                         <div class="card horizontal">
                         <div class="card-image">
-                            <i class="material-icons green-text" style="font-size:70px">business_center</i>
+                            <i class="material-icons green-text" style="font-size:70px">chrome_reader_mode</i>
                         </div>
                         <div class="card-stacked green" >
                             <div class="card-content white-text" style="padding:10px">
@@ -228,25 +228,44 @@
         </div>
       </div>
 
+      <div id="modAlertMail" class="modal">
+        <div class="modal-content">
+            <h6 id="numberAnimals">Mensaje</h6>            
+              <div class="input-field col s12" id="modAlertBodyMail">
+                
+              </div>            
+        </div>
+        <div class="modal-footer green">
+          <a href="#!" id="btnAcept"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="">No
+          </a> 
+          <a href="#!" id="btnGo"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="">Si
+          </a> 
+        </div>
+      </div>
+
 
 
       </div>
 
 
-      <div class="fixed-action-btn " style="display:none">
-        <a class="waves-effect waves-light btn btn-floating orange" id="divNotifications">
-          <i class="material-icons">notifications</i>
+      <div class="fixed-action-btn" style="display:none" id="divClaims">
+        <a onclick="LoadLocalFile('claims','',ClaimsPrize);" class="waves-effect waves-light btn btn-floating orange" id="divNotifications">
+          <i class="material-icons">star_half</i>
         </a>        
       </div>
 
       <!-- <a id="divNotifications" class="waves-effect waves-light btn btn-floating" ><i class="material-icons">menu</i></a> -->
 
-      <div class="tap-target blue" data-activates="divNotifications">
-          <div class="tap-target-content white-text">
-            <h5>Felicitaciones</h5>
-            <p class="white-text">Reclama tu premio</p>
-          </div>
+      <div class="tap-target orange" data-activates="divNotifications">
+        <div class="tap-target-content white-text">
+          <h5>Felicitaciones has ganado</h5>
+          <p class="white-text">Reclama tu premio</p>
         </div>
+      </div>
 
 
 
@@ -270,14 +289,9 @@
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
 
     <script  type="text/javascript">
-    $(document).ready(function(){
-        LoadComponentGeneral();
-       
-        
+      $(document).ready(function(){
+        LoadComponentGeneral();        
       });
-      function Presentacion(){
-        $('.tap-target').tapTarget('open');
-      }
     </script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/load-object-firestore.js"></script>
