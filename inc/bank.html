@@ -21,10 +21,8 @@
                 <div class="row">
       
                   <div class="input-field col s12 m6">
-                    <select id="cmbName">
-                      <option value="0">---------------</option>
-                      <option value="1">BANESCO</option>
-                      <option value="1">PROVINCIAL</option>
+                    <select id="cmbName" onchange="AssignedBank()">
+                      
                     </select>
                     <label>Seleccionar un banco</label>
                   </div>
@@ -39,7 +37,7 @@
                     <label>Seleccionar tipo de cuenta</label>
                     </div>
                     <div class="input-field col s12 m6">                           
-                            <input id="txtNumber" type="tel" class="validate">
+                            <input id="txtNumber" type="tel" class="validate" maxlength="20">
                             <label class="active" >Número de cuenta</label>
                         </div>   
                 </div>

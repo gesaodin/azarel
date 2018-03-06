@@ -29,7 +29,7 @@ function readPlayin(sdate, lottery, hours){
   
 }
 
-function addNewData(){
+function assignedPrize(){
   //     var citiesRef = dbfirestore.collection("competitor").doc(UserUID).collection("bets");
   
   //     var query = citiesRef.where("key", "==", "wD2idEhWvdmELCmGIZ1w");

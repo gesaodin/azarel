@@ -110,6 +110,7 @@ function writeUserDataBank() {
   
   //Loading data for bank
   function LoadUserDataBank(){  
+    LoadCmbBank('cmbName');
     dbfirestore.collection("competitor")
     .doc(UserUID)
     .get()
@@ -118,8 +119,8 @@ function writeUserDataBank() {
         if(bank == undefined){
             Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
         }else{            
-            $('#cmbName').val(bank.name);
-            $('#cmbType').val(bank.type);
+            getPosBank(bank.name, 'cmbName');
+            getPosCmb(bank.type,'cmbType');
             getID('txtNumber').value = bank.number;      
         }
     })
@@ -170,6 +171,12 @@ function writeUserDataTransferens() {
         .collection("money").doc(d.id).set(detail)
         .then(d => {
             Materialize.toast('Registro exitoso...', 2000, 'rounded');
+            getID('txtDate').value = '';
+            getID('txtNumber').value = '';
+            getID('txtMoney').value = '';
+            cleanSelect('cmbName');
+            cleanSelect('cmbNameTransferens');
+            btn.classList.remove('disabled');
         })
         .catch(e => {
             console.log('Error: ', e);
@@ -232,11 +239,12 @@ function wClaimsTransf() {
   //Loading data for Transferens
   function LoadUserDataTransferens(){
     
+
     dbfirestore.collection("competitor")
     .doc(UserUID).collection("money")
     .orderBy('timestamp', "desc")
     .get()
-    .then(snapshot => {        
+    .then(snapshot => {
         var table = getID('tblBody');
         var fil = '';
         var balance = 0;
@@ -516,7 +524,7 @@ function LoadMoneyTotal(){
     .doc(UserUID).collection("winner").where("status", "==", "P")
     .get()
     .then(snap => {
-
+        console.log();
     })
     .catch(e => {
 

@@ -431,3 +431,85 @@ function SelectCaseStatus(key){
   }
   return status;
 }
+
+
+function AssignedBank(){
+  $("#txtNumber").val($("#cmbName").val());
+}
+
+
+var Banks = [
+  {key: 0, code: "0", value: "---------------"},
+  {key: 1, code: "0156", value: "100%BANCO"},
+  {key: 2, code: "0196", value: "ABN AMRO BANK"},
+  {key: 3, code: "0172", value: "BANCAMIGA BANCO MICROFINANCIERO, C.A."},
+  {key: 4, code: "0171", value: "BANCO ACTIVO BANCO COMERCIAL, C.A."},
+  {key: 5, code: "0166", value: "BANCO AGRICOLA"},
+  {key: 6, code: "0175", value: "BANCO BICENTENARIO"},
+  {key: 7, code: "0128", value: "BANCO CARONI, C.A. BANCO UNIVERSAL"},
+  {key: 8, code: "0164", value: "BANCO DE DESARROLLO DEL MICROEMPRESARIO"},
+  {key: 9, code: "0102", value: "BANCO DE VENEZUELA S.A.I.C.A."},
+  {key: 10, code: "0114", value: "BANCO DEL CARIBE C.A."},
+  {key: 11, code: "0149", value: "BANCO DEL PUEBLO SOBERANO C.A."},
+  {key: 12, code: "0163", value: "BANCO DEL TESORO"},
+  {key: 13, code: "0176", value: "BANCO ESPIRITO SANTO, S.A."},
+  {key: 14, code: "0115", value: "BANCO EXTERIOR C.A."},
+  //{key: 0, code: "0003", value: "BANCO INDUSTRIAL DE VENEZUELA."},
+  {key: 15, code: "0173", value: "BANCO INTERNACIONAL DE DESARROLLO, C.A."},
+  {key: 16, code: "0105", value: "BANCO MERCANTIL C.A."},
+  {key: 17, code: "0191", value: "BANCO NACIONAL DE CREDITO"},
+  {key: 18, code: "0116", value: "BANCO OCCIDENTAL DE DESCUENTO."},
+  {key: 19, code: "0138", value: "BANCO PLAZA"},
+  {key: 20, code: "0108", value: "BANCO PROVINCIAL BBVA"},
+  {key: 21, code: "0104", value: "BANCO VENEZOLANO DE CREDITO S.A."},
+  {key: 22, code: "0168", value: "BANCRECER S.A. BANCO DE DESARROLLO"},
+  {key: 23, code: "0134", value: "BANESCO BANCO UNIVERSAL"},
+  {key: 24, code: "0177", value: "BANFANB"},
+  {key: 25, code: "0146", value: "BANGENTE"},
+  {key: 26, code: "0174", value: "BANPLUS BANCO COMERCIAL C.A"},
+  {key: 27, code: "0190", value: "CITIBANK."},
+  {key: 28, code: "0121", value: "CORP BANCA."},
+  {key: 29, code: "0157", value: "DELSUR BANCO UNIVERSAL"},
+  {key: 30, code: "0151", value: "FONDO COMUN"},
+  {key: 31, code: "0601", value: "INSTITUTO MUNICIPAL DE CR&#201;DITO POPULAR"},
+  {key: 32, code: "0169", value: "MIBANCO BANCO DE DESARROLLO, C.A."},
+  {key: 33, code: "0137", value: "SOFITASA"}
+];
+
+function LoadCmbTransferens(){
+  LoadCmbBank('cmbName');
+  LoadCmbBank('cmbNameTransferens');
+}
+
+
+function LoadCmbBank(id){
+  
+  var Cmb = '';
+  var select = $('#'+ id);
+  for (let i = 0; i < Banks.length; i++) {
+    const bank = Banks[i];
+    Cmb += `<option value="${bank.code}">${bank.value}</option>`;    
+  }
+  getID(id).innerHTML = Cmb;
+  select.prop('selectedIndex', 0);  
+  select.material_select(); 
+}
+
+function getPosBank(code, id){
+  var key = 0;
+  for (let i = 0; i < Banks.length; i++) {    
+    if(Banks[i].code == code){
+      var select = $("#" + id);
+      select.prop('selectedIndex',  Banks[i].key);  
+      select.material_select(); 
+      return false;
+    }
+  }
+  cleanSelect(id);
+}
+
+function getPosCmb(value, id){
+  var select = $("#" + id);
+  select.prop('selectedIndex', value);  
+  select.material_select(); 
+}
