@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,8 +5,8 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/nouislider.min.css"  media="screen,projection"/>
     
 
     <!--Let browser know website is optimized for mobile-->
@@ -15,11 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="manifest" href="manifest.json">
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
-  </head>
+</head>
 
-  <body >  
-      
-        <center>            
+  <body > 
+
+ <center>            
           <!-- <img class="responsive-img" style="width: 250px;" src="https://i.imgur.com/ax0NCsK.gif" /> -->
           <div class="section" id="divLoading">
               <div class="section"></div>
@@ -268,33 +267,44 @@
       </div>
 
 
-
-
-
-        
-
-
-    
-    <!--Import jQuery before materialize.js-->
-    <!-- <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/wnumb.js"></script>
-    <script type="text/javascript" src="js/nouislider.min.js"></script>
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/wnumb.js"></script>
+    <script type="text/javascript" src="../js/nouislider.min.js"></script>
     
-    <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="../js/config.js"></script>
+    <script type="text/javascript" src="../js/util.js"></script>
     
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
 
-    <script  type="text/javascript">
-      $(document).ready(function(){
-        LoadComponentGeneral();        
-      });
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/load-object-firestore.js"></script>
+    <script type="text/javascript" src="../js/side-server.js"></script>  
+    <script type="text/javascript">
+            $(document).ready(function(){
+              //var slider = document.getElementById('test-slider');
+
+               
+                $('ul.tabs').tabs();
+                $('.modal').modal();
+                $('select').material_select();
+                $('.button-collapse').sideNav({
+                    menuWidth: 260, // Default is 300
+                    //edge: 'right', // Choose the horizontal origin
+                    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                    draggable: true, // Choose whether you can drag to open on touch screens
+                    onOpen: function(el) { /* Do Stuff */ }, 
+                    onClose: function(el) { /* Do Stuff */ }
+                  }
+                );
+                //$('.tap-target').tapTarget('open');
+                
+              });
+              function Presentacion(){
+                $('.tap-target').tapTarget('open');
+              }
+      </script>
     </script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/load-object-firestore.js"></script>
-    <script type="text/javascript" src="js/side-server.js"></script>  
   </body>
 </html>
