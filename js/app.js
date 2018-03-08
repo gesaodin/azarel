@@ -236,18 +236,51 @@ function MakeTableAnimals(){
     makeTable += pag + icon + "</div>";
   }
 
-  var page = `<div class="row">
+  var page = `<div class="row hide-on-large-only hide-on-med-and-up">
      <div class="center">       
        <a class="btn-floating red" onclick="ChangeNumberPage()"><i class="material-icons">send</i></a>
      </div>
    </div>`;
-  pagBodyTableAnimals.innerHTML = `<div class="col s12 m12 l12">${makeTable}${page}</div>`;
+  pagBodyTableAnimals.innerHTML = `<div class="col s12 hide-on-large-only hide-on-med-and-up">${makeTable}${page}</div>`;
   getID('totalmoney').innerHTML = UserMoney;
   $('#pag1').show();
-  console.log("Pasando...");
-  
-
+  MakeTableAnimalsWeb(); 
 }
+
+
+//Agregar Escuchadores a los elementos
+function MakeTableAnimalsWeb(){
+  console.log('Cargando animalitos Web...');
+  var pagBodyTableAnimals = getID('test-swipe-2');
+  var makeTable = "";
+  var min = 0;
+  var max = animals.length;
+ 
+    var pag = `<div class="row" id="pagWeb" style="padding-left:0px">`;
+    var icon = "";
+    
+    for (var j = min; j < max; j++) {
+      var animal = animals[j];
+      icon += `
+      <div class="col m3 l1 ">
+        <div class="cardAnimals cardAnimals-1 ">
+        <img src="img/${animal.key}.jpeg" width="65px" 
+          onclick="OpenModalAnimals('${animal.key}', ${j})">
+        <div class="footcard ">${animal.value}</div>
+        </div>
+      </div>`;
+
+    }
+
+    makeTable += pag + icon + "</div>";
+
+
+ 
+  pagBodyTableAnimals.innerHTML += `<div class="col m12 l12 hide-on-small-only">${makeTable}</div>`;
+  // getID('totalmoney').innerHTML = UserMoney;
+  $('#pagWeb').show();  
+}
+
 
 function OpenModalAnimals(id, pos){
   var animal = animals[pos];
