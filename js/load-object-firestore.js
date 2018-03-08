@@ -263,6 +263,12 @@ function wClaimsTransf() {
             }
             if(transf.load != undefined)load = 'RETIRO';
             if(transf.bets != undefined)load = 'APUESTA';
+            var stype = transf.type == undefined?'': transf.type;
+            if(stype == 'G'){
+                load = 'PREMIO';
+            }
+            
+            
             row++;
             fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money.toLocaleString()}</td>
             <td style="text-align:right">${text}</td></tr>`;
@@ -506,7 +512,8 @@ function LoadMoneyTotal(){
         snap.forEach(e =>{
             status = true;
             var prize = e.data();
-            Prize.push(prize);
+            prize.key = e.id;
+            Prize.push(prize);                    
         });
         if (status){
             $("#divClaims").show();
@@ -520,28 +527,102 @@ function LoadMoneyTotal(){
   }
 
   function ClaimsPrize(){
-    $("#divClaims").hide();
-    dbfirestore
-    .collection('competitor')
-    .doc(UserUID).collection("winner").where("status", "==", "P")
+    var maxprize = Prize.length;
+    var contents = '<ul class="collection">';
+    var body = '';
+    
+    for (let i = 0; i < Prize.length; i++) {
+        const prize = Prize[i];
+        var img = prize.playin.split("M");
+        body += `<li class="collection-item avatar blue  lighten-5">
+        <img src="img/${img[1]}.jpeg" alt="" class="circle">
+        <span class="title">${prize.dateplay}</span>
+        <p>${prize.playin} 
+        <br> ${prize.money} Bs.
+        </p>
+        <a class="secondary-content btn-floating green waves-effect waves-light" onclick="SignedPrize('${prize.id}','${prize.key}')">
+        <i class="material-icons">thumb_up</i></a>
+      </li>`;
+
+    }
+    contents += body + '</ul>';
+    getID('divClaimsList').innerHTML = contents;
+  }
+
+  function SignedPrize(idPostkey, idWinn){
+    var postKey = '';
+    var postData = {};
+    var moneyPost = 0;
+    dbfirestore.collection('competitor').doc(UserUID)
+    .collection('bets').where('playing', '==', '20180225')
     .get()
-    .then(snap => {
-        console.log();
-    })
-    .catch(e => {
+    .then((snap) => {
+        snap.forEach(doc => {
+            var id = doc.id;
+            
+            var data = doc.data();
+            var elem = data.data;
+            for(var i = 0; i < elem.length; i++){
+                var key = elem[i].key;
+                if(key == idPostkey){
+                    postKey = id;
+                    moneyPost = elem[i].money;
+                    elem[i].status = "G";
+                    postData = {
+                        data : elem,
+                        playing : data.playing,
+                        timestamp : data.timestamp
+                    };
+                }
+                
+            }
+
+        });
+        console.log('ID: ', postKey, ' DATA: ', postData);
+        updateBets(postKey, postData);
+        updateWinner(idWinn);
+        updateMoney(moneyPost);
 
     })
   }
 
-  function PrizeUpdate(){
-    dbfirestore
-    .collection('competitor')
-    .doc(UserUID).collection("winner").doc('sXZt7Hxld7WqEK1hzbev')
-    .update({status:"A"})
-    .then(doc => {
-        Materialize.toast('Tu premio ha sido abonado', 4000, 'rounded');            
+  function updateBets(postKey, postData){
+    dbfirestore.collection('competitor').doc(UserUID)
+    .collection('bets').doc(postKey)
+    .update(postData)
+    .then( d => {        
+        console.log('Premio exitoso...');
+    }).catch(e => {
+        console.log('Err. de Bets...')
+    });
+  }
+
+  function updateWinner(postKey){
+    
+    console.log(postKey);
+    dbfirestore.collection('competitor').doc(UserUID)
+    .collection('winner').doc(postKey)
+    .update({'status' : 'A'})
+    .then( d => {        
+        console.log('XP...');
+    }).catch(e => {
+        console.log('Err. Winner...')
+    });
+  }
+
+  function updateMoney(money){
+    var detail = {
+        money : money * 30,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        status : 'A',
+        type:'G' //Assigned
+    }
+    dbfirestore.collection("competitor").doc(UserUID)
+    .collection("money").add(detail)
+    .then(d => {
+        Materialize.toast('Felicitaciones, verifica el monedero...', 2000, 'rounded');
     })
     .catch(e => {
-        Materialize.toast('Ocurrio un error de conexión', 4000, 'rounded');        
+        console.log('Error: ', e);
     })
   }
