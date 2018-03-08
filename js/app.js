@@ -12,6 +12,8 @@ let TokenNotification = '';
 let MoneyGame = 0;
 let UserPlayingActive = '';
 
+let Prize = [];
+
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -62,24 +64,19 @@ const animals = [
 
 
   firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      var displayName = user.displayName;
-      var email = user.email;
+    if (user) {    
       var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
       var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
       var providerData = user.providerData;
       var saldo = 0;
-      UserPhoto = photoURL;
+      UserPhoto = user.photoURL;
       UserAPIKey = user.ca.a;
-      lblEmail.innerHTML = email;
-      lblNameUser.innerHTML = displayName;
+      lblEmail.innerHTML = user.email;
+      lblNameUser.innerHTML = user.displayName;
       imgPhotoUser.src = photoURL; 
-      UserUID = uid;
+      UserUID = user.uid;
       $("#divLoading").hide();
       $("#divNav").show();
-      var sChid = UserUID;
       LoadMoneyTotal();
       LoadClaims();
       readPlayingDay();

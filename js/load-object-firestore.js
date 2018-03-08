@@ -505,6 +505,8 @@ function LoadMoneyTotal(){
         var status = false;
         snap.forEach(e =>{
             status = true;
+            var prize = e.data();
+            Prize.push(prize);
         });
         if (status){
             $("#divClaims").show();
