@@ -8,6 +8,23 @@ function activeData(doc){
         Materialize.toast('Ocurrio un error al enviar los datos', 4000, 'rounded');                  
     })
 }
+
+function loadUser(){
+    dbfirestore.collection("competitor")
+    .doc(UserUID)
+    .get()
+    .then(snap => { 
+        if(snap.exists){
+            User = snap.data();
+        }else{
+            Materialize.toast('Recuerde actualizar sus datos', 3000, 'rounded');
+        }
+    })
+    .catch( e => {
+
+    }); 
+}
+
 function writeUserDataPerson() {
     var btn = getID('btnUserData');
     ConexionUser = 0;

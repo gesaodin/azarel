@@ -1,8 +1,7 @@
+
 let pageNumber = 1;
 let maxPageNumber = 5;
-let UserAPIKey = '';
-let UserAppName = '';
-let UserPhoto = '';
+let User = {};
 let UserUID = '';
 let UserMoney = '';
 let UserMoneyTotal = 0;
@@ -11,7 +10,6 @@ let CantTime = 0; //Cantidad de Sorteos
 let TokenNotification = '';
 let MoneyGame = 0;
 let UserPlayingActive = '';
-
 let Prize = [];
 
 const limitAnimals = 12;
@@ -68,8 +66,8 @@ const animals = [
       var emailVerified = user.emailVerified;
       var isAnonymous = user.isAnonymous;
       var providerData = user.providerData;
-      var saldo = 0;
-      UserPhoto = user.photoURL;
+      let User = {};
+    
       UserAPIKey = user.ca.a;
       lblEmail.innerHTML = user.email;
       lblNameUser.innerHTML = user.displayName;
