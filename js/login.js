@@ -1,23 +1,24 @@
+var config = {
+    apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
+    authDomain: "azarel-1a865.firebaseapp.com",
+    projectId: "azarel-1a865",
+    storageBucket: "azarel-1a865.appspot.com",
+    messagingSenderId: "963834795291"
+};
+firebase.initializeApp(config);
+  
 var provider = new firebase.auth.GoogleAuthProvider();
-
-
 var txtEmail = document.getElementById("txtEmail");
 var txtPassword = document.getElementById("txtPassword");
 var btnLogin = document.getElementById("btnLogin");
 var btnLoadRegister = document.getElementById("btnLoadRegister");
-
 var btnGoogle = document.getElementById("btnGoogle");
-
-
 var divLogin = document.getElementById("divLogin");
 
 
-//Register new User
 btnLoadRegister.addEventListener('click', e => {    
     location.href = 'register.html';
 });
-
-//Listener Login on authorization
 btnLogin.addEventListener('click', e => {    
     var email = txtEmail.value;
     var password = txtPassword.value;
@@ -32,37 +33,25 @@ btnLogin.addEventListener('click', e => {
         ErrorCodeMessage(error);
     });
 })
-
-//Init Google Session
 btnGoogle.addEventListener('click', e => {
     HideButton();
     firebase.auth().signInWithPopup(provider)
     .then( result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
-        // The signed-in user info.
         var user = result.user;
-        
         return user;
-        // ...
     })   
     .catch( error => {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
         var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         ClearText();
         ShowButton();
         ErrorCodeMessage(error);
-        // ...
     });
 
 });
-
-
 function HideButton(){
     $("#divLoginBegin").show();
     btnLogin.classList.add('hide');
@@ -76,21 +65,16 @@ function ShowButton(){
     btnLoadRegister.classList.remove('disabled');
     btnGoogle.classList.remove('disabled');
 }
-//Clean Forms
 function ClearText(){
     txtEmail.value = "";
     txtPassword.value = "";
 }
-
-
-//Error Code Message
 function ErrorCodeMessage(err){
     var errorCode = err.code;        
-    var errorMessage = err.message;
-    Materialize.toast(errorMessage, 3000, 'rounded') ;
+    // var errorMessage = err.message;
+    console.log(errorCode);
+    Materialize.toast(selectError(err.code), 3000, 'rounded') ;
 }
-
-// function ErrorTranslate()
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         // User is signed in.
@@ -101,14 +85,25 @@ firebase.auth().onAuthStateChanged(user => {
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         var providerData = user.providerData;
-
         location.href = "home.html";
-        // ...
     } else {
         $("#divLoading").hide();
         $("#frmLogin").show(); 
     }
 });
 
-
+function selectError(sCode){
+    var msg = '';
+    switch (sCode) {
+        case "auth/invalid-email":
+            msg = 'Verifique el correo electrónico';
+            break;
+        case "auth/wrong-password":
+            msg = 'Error en la clave';
+            break;
+        default:
+            break;
+    }
+    return msg;
+}
 

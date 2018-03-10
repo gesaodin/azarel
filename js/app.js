@@ -186,7 +186,10 @@ messaging.onTokenRefresh(function() {
 
 //Close session for app
 hrfCerrar.addEventListener('click', e => {
-  localStorage.removeItem(`firebase:authUser:${UserAPIKey}`);
+  //localStorage.removeItem(`firebase:authUser:${UserAPIKey}`);
+  firebase.auth().signOut();
+  //location.href = "index.html";
+
 });
 
 function LoadHomeAll(){
