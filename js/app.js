@@ -73,14 +73,14 @@ const animals = [
       UserAPIKey = user.ca.a;
       lblEmail.innerHTML = user.email;
       lblNameUser.innerHTML = user.displayName;
-      imgPhotoUser.src = photoURL; 
+      imgPhotoUser.src = user.photoURL; 
       UserUID = user.uid;
       $("#divLoading").hide();
       $("#divNav").show();
       LoadMoneyTotal();
       LoadClaims();
       readPlayingDay();
-      SendTokenOnServer(email, TokenNotification);
+      SendTokenOnServer(user.email, TokenNotification);
     } else {
       location.href = "index.html";
     }
