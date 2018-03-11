@@ -204,6 +204,25 @@ function writeUserDataTransferens() {
     })
   }
 
+  /**
+   * **************************
+   * Read Playing Transaction
+   * **************************
+   */
+
+  function readPlayingDay(){
+    dbfirestore.collection('playing').orderBy('timestamp', "desc")
+    .limit(1)
+    .get()
+    .then(d => {    
+      d.forEach(element => {
+        var key = element.id;
+        var obj = element.data();
+        UserPlayingActive = obj.date;  
+      });
+      
+    });
+  }
 
   /**
    * **************************

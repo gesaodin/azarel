@@ -102,18 +102,7 @@ function readNotification(){
 
 }
 
-function readPlayingDay(){
-  var ref = firebase.database().ref('playing')
-  .limitToLast(1);
-  ref.once('value', e => {    
-    e.forEach(element => {
-      var key = element.key;
-      var obj = element.val();
-      UserPlayingActive = obj.date;  
-    });
-    
-  });
-}
+
 
 //On request permission
 messaging.requestPermission()
