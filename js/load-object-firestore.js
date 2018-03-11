@@ -621,7 +621,7 @@ function LoadMoneyTotal(){
         updateBets(postKey, postData);
         updateWinner(idWinn);
         updateMoney(moneyPost);
-
+        LoadLocalFile('home', '', LoadHomeAll);
     })
   }
 
@@ -664,4 +664,27 @@ function LoadMoneyTotal(){
     .catch(e => {
         console.log('Error: ', e);
     })
+  }
+
+  function ResultGames(){
+    $("#divTable").hide();
+    $("#divResultList").show();
+    var f = $("#txtDate").val().split("/");
+    var l = $("#cmbLottery").val();
+    var dateplay = f[2] + f[1] + f[0];
+    dbfirestore.collection('result').doc(dateplay)
+    .collection(l).orderBy('timestamp', 'desc')
+    .get()
+    .then(snap => {
+        var body = ''
+        snap.forEach(doc => {
+            var obj = doc.data();
+            body += `<tr><td>${obj.playin}</td><td><img src="img/${obj.games}.jpeg" width="65px"></td></tr>`;
+        })        
+        getID("tblResultGames").innerHTML = body;
+        $("#divTable").show();
+        $("#divResultList").hide();
+    }).cath(e => {
+
+    });
   }
