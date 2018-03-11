@@ -575,7 +575,7 @@ function LoadMoneyTotal(){
         <p>${prize.playin} 
         <br> ${prize.money} Bs.
         </p>
-        <a class="secondary-content btn-floating green waves-effect waves-light" onclick="SignedPrize('${prize.id}','${prize.key}')">
+        <a class="secondary-content btn-floating green waves-effect waves-light" onclick="SignedPrize('${prize.id}','${prize.key}','${prize.dateplay}')">
         <i class="material-icons">thumb_up</i></a>
       </li>`;
 
@@ -584,12 +584,16 @@ function LoadMoneyTotal(){
     getID('divClaimsList').innerHTML = contents;
   }
 
-  function SignedPrize(idPostkey, idWinn){
+  function SignedPrize(idPostkey, idWinn, dateplay){
+    if(dateplay == undefined) {
+        Materialize.toast('Error de red intente más tarde...', 4000, 'rounded');
+        return false;
+    }
     var postKey = '';
     var postData = {};
     var moneyPost = 0;
     dbfirestore.collection('competitor').doc(UserUID)
-    .collection('bets').where('playing', '==', '20180225')
+    .collection('bets').where('playing', '==', dateplay)
     .get()
     .then((snap) => {
         snap.forEach(doc => {
@@ -613,7 +617,7 @@ function LoadMoneyTotal(){
             }
 
         });
-        console.log('ID: ', postKey, ' DATA: ', postData);
+        
         updateBets(postKey, postData);
         updateWinner(idWinn);
         updateMoney(moneyPost);
