@@ -211,16 +211,15 @@ function writeUserDataTransferens() {
    */
 
   function readPlayingDay(){
-    dbfirestore.collection('playing').orderBy('timestamp', "desc")
+    dbfirestore.collection('playing').orderBy('orderby', "desc")
     .limit(1)
     .get()
-    .then(d => {    
-      d.forEach(element => {
-        var key = element.id;
-        var obj = element.data();
-        UserPlayingActive = obj.date;  
-      });
-      
+    .then(d => {
+        d.forEach(element => {    
+            var key = element.id;
+            var obj = element.data();
+            UserPlayingActive = obj.date;  
+        });      
     });
   }
 
