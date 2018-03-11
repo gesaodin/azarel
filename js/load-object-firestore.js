@@ -684,7 +684,5 @@ function LoadMoneyTotal(){
         getID("tblResultGames").innerHTML = body;
         $("#divTable").show();
         $("#divResultList").hide();
-    }).cath(e => {
-
     });
   }

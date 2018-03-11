@@ -1,0 +1,35 @@
+[debug] [2018-03-11T17:29:05.433Z] ----------------------------------------------------------------------
+[debug] [2018-03-11T17:29:05.435Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2018-03-11T17:29:05.435Z] CLI Version:   3.17.6
+[debug] [2018-03-11T17:29:05.435Z] Platform:      linux
+[debug] [2018-03-11T17:29:05.435Z] Node Version:  v9.8.0
+[debug] [2018-03-11T17:29:05.435Z] Time:          Sun Mar 11 2018 13:29:05 GMT-0400 (-04)
+[debug] [2018-03-11T17:29:05.435Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-11T17:29:05.444Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-11T17:29:05.444Z] > authorizing via signed-in user
+[debug] [2018-03-11T17:29:05.445Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-03-11T17:29:05.445Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Mar 11 2018 13:29:05 GMT-0400 (-04)
+[debug] [2018-03-11T17:29:07.481Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-11T17:29:07.524Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+  
+ Sun Mar 11 2018 13:29:07 GMT-0400 (-04)
+[debug] [2018-03-11T17:29:08.425Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-11T17:29:08.427Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+  
+ Sun Mar 11 2018 13:29:08 GMT-0400 (-04)
+[debug] [2018-03-11T17:29:09.452Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'azarel-1a865'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing  directory for upload...
+[debug] [2018-03-11T17:29:12.087Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/azarel-1a865/uploads/-L7VMAUX9N_5CnvWIqCX?fileCount=310&message=  
+  
+ Sun Mar 11 2018 13:29:12 GMT-0400 (-04)
