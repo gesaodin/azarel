@@ -52,6 +52,7 @@ function writeUserDataPerson() {
         .then(doc => {
             Materialize.toast('Tus datos han sido actualizados', 4000, 'rounded');    
             btn.classList.remove('disabled');
+            User.person = person;
         })
         .catch(e => {
             Materialize.toast('Ocurrio un error al enviar los datos', 4000, 'rounded');      
@@ -62,30 +63,39 @@ function writeUserDataPerson() {
 
 //Loading for data personal
 function LoadUserData(){    
+
+    if(User.person != undefined){
+        assingPerson(User.person);
+        return true;
+    }
     dbfirestore.collection("competitor")
-    .doc(UserUID) //.collection("person")
+    .doc(UserUID)
     .get()
     .then(snapshot => {
         var person = snapshot.data().person;   
         if(person == undefined){
-            Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
+            Materialize.toast('Por favor actualizar datos personales', 3000, 'rounded');
         }else{
-            getID('imgCompetitor').src = UserPhoto;
-            getID('txtcid').value = person.cid
-            getID('txtfullname').value = person.fullname;
-            getID('cmbsex').value = person.sex;
-            getID('txtdate').value = person.date;
-            getID('txtphone').value = person.phone;
-            getID('txtcel').value = person.cel;
-            getID('txtdir').value = person.location;      
+            assingPerson(person);    
         }
     }).catch(e => {
         activeData();
         Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
        
     });
-  }
 
+
+  }
+function assingPerson(person){
+    getID('imgCompetitor').src = User.photoURL;
+    getID('txtcid').value = person.cid
+    getID('txtfullname').value = person.fullname;
+    getID('cmbsex').value = person.sex;
+    getID('txtdate').value = person.date;
+    getID('txtphone').value = person.phone;
+    getID('txtcel').value = person.cel;
+    getID('txtdir').value = person.location;  
+}
   /**
    * **************************
    * Write Bank
@@ -116,6 +126,7 @@ function writeUserDataBank() {
         .then(d => {
             Materialize.toast('Tus datos han sido actualizados', 3000, 'rounded');
             btn.classList.remove('disabled');
+            User.bank = bank;
         })
         .catch( e => {
             Materialize.toast('Ocurrio un error al enviar los datos', 3000, 'rounded');
@@ -128,26 +139,32 @@ function writeUserDataBank() {
   //Loading data for bank
   function LoadUserDataBank(){  
     LoadCmbBank('cmbName');
+    if(User.bank != undefined){
+        assingPersonBank(User.bank);
+        return true;
+    }
     dbfirestore.collection("competitor")
     .doc(UserUID)
     .get()
     .then(snapshot => {
         var bank = snapshot.data().bank;   
         if(bank == undefined){
-            Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
+            Materialize.toast('Por favor actualizar datos bancarios', 3000, 'rounded');
         }else{            
-            getPosBank(bank.name, 'cmbName');
-            getPosCmb(bank.type,'cmbType');
-            getID('txtNumber').value = bank.number;      
+            assingPersonBank(bank);     
         }
     })
     .catch(e => {
-        Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
         activeData();
+        Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');       
     });
   }
 
-
+  function assingPersonBank(bank){
+    getPosBank(bank.name, 'cmbName');
+    getPosCmb(bank.type,'cmbType');
+    getID('txtNumber').value = bank.number;  
+  }
 
   /**
    * **************************
@@ -312,7 +329,7 @@ function wClaimsTransf() {
         table.innerHTML = fil;
         getID('spbalance').innerHTML = balance.toLocaleString();                   
         getID('spdeferred').innerHTML = deferred.toLocaleString();
-        
+        loadUser();
         return snapshot;        
     }).catch( e => {
 
@@ -332,6 +349,11 @@ function wClaimsTransf() {
    */
 //Write Data Bets for user
 async function writeUserDataBets() {
+
+    if(UserMoneyTotal <= 0){
+        Materialize.toast('Debe realizar un tramite de depósito o transferencia', 3000, 'rounded');
+        return false;
+    }
     var btn = getID('btnGame');
     var btnAcept= getID('btnAcept');
     var btnGo = getID('btnGo');

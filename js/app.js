@@ -66,7 +66,7 @@ const animals = [
       var emailVerified = user.emailVerified;
       var isAnonymous = user.isAnonymous;
       var providerData = user.providerData;
-      let User = {};
+      
     
       UserAPIKey = user.ca.a;
       lblEmail.innerHTML = user.email;
@@ -78,6 +78,7 @@ const animals = [
       LoadMoneyTotal();
       LoadClaims();
       readPlayingDay();
+      loadUser();
       SendTokenOnServer(user.email, TokenNotification);
     } else {
       location.href = "index.html";
