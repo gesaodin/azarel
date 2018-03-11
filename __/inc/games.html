@@ -1,0 +1,73 @@
+<br>
+<div class="row">
+
+  <div class="col s12 m12 ">
+    <div class="card horizontal">
+
+      <div class="card-stacked indigo">
+        <div class="card-content white-text">
+          <font style="font-size:16px"><b> > Listar Jugadas</b></font><br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m12 center">
+
+    <div class="row">
+      <form id="frmLottery">
+
+
+        <div class="input-field col s12 m6">
+
+          <input id="txtDate" type="tel" class="datepicker">
+          <label class="active" >Fecha del Sorteo</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <select id="cmbHours">
+            <option value='00x' disabled>---------</option>
+            <option value='9AM'>09:00 am</option>
+            <option value='10AM'>10:00 am</option>
+            <option value='11AM'>11:00 am</option>
+            <option value='12M'>12:00 m</option>
+            <option value='1PM'>01:00 pm</option>
+            <option value='3PM'>03:00 pm</option>
+            <option value='4PM'>04:00 pm</option>
+            <option value='5PM'>05:00 pm</option>
+            <option value='6PM'>06:00 pm</option>
+            <option value='7PM'>07:00 pm</option>
+          </select>
+          <label for="cmbLoteria">Seleccionar Sorteo</label>
+        </div>
+
+        <div class="input-field col s12 m10">
+
+          <select id="cmbLottery">
+            <option value='LOTAC'>LOTTOACTIVO</option>
+            <option value='LGRAN'>LAGRANJITA</option>
+            <option value='RULET'>RULETAACTIVA</option>
+          </select>
+          <label for="cmbLoteria">Seleccionar loteria</label>
+        </div>
+        <div class="input-field col s6 m2">
+            <a href="" class="btn indigo">CONSULTAR</a>
+
+        </div>
+
+
+
+      </form>
+    </div>
+  </div> 
+
+  <div id="tblGames">
+    <table>
+        <thead>
+            <th>DESCRIPCION</th>
+            <th>VENTA</th>            
+            <th style="text-align:right">PREMIOS</th>
+        </thead>
+        <tbody id="tblAnimals">
+
+        </tbody>
+    </table>
+  </div>
