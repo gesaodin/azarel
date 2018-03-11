@@ -211,6 +211,7 @@ function writeUserDataTransferens() {
             cleanSelect('cmbName');
             cleanSelect('cmbNameTransferens');
             btn.classList.remove('disabled');
+            UserMoneyTotal +=  transferens.money;
         })
         .catch(e => {
             console.log('Error: ', e);
