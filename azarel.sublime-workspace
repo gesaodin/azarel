@@ -1,0 +1,563 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"on",
+				"onblur\tAttr"
+			],
+			[
+				"w",
+				"writing-mode"
+			],
+			[
+				"st",
+				"style\tAttr"
+			],
+			[
+				"modulo",
+				"moduloHorarios"
+			],
+			[
+				"re",
+				"resultado"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"R",
+				"right"
+			],
+			[
+				"print_",
+				"printer_abort"
+			],
+			[
+				"ro",
+				"row"
+			],
+			[
+				"fo",
+				"footer"
+			],
+			[
+				"ma",
+				"maxlength\tAttr"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"sub",
+				"subTotal2"
+			],
+			[
+				"t",
+				"text"
+			],
+			[
+				"he",
+				"hidden"
+			],
+			[
+				"campo",
+				"campo4"
+			],
+			[
+				"cam",
+				"campo1"
+			],
+			[
+				"respa",
+				"Respaldo"
+			],
+			[
+				"exc",
+				"exec"
+			],
+			[
+				"c",
+				"background-color"
+			],
+			[
+				"co",
+				"justify-content"
+			],
+			[
+				"prin",
+				"print_r"
+			],
+			[
+				"h",
+				"h1\tTag"
+			],
+			[
+				"ca",
+				"Cantidad"
+			],
+			[
+				"tot",
+				"total"
+			],
+			[
+				"b",
+				"button"
+			],
+			[
+				"sumar",
+				"SumarColumna"
+			],
+			[
+				"pr",
+				"precio"
+			],
+			[
+				"auto",
+				"autofocus\tAttr"
+			],
+			[
+				"requer",
+				"require"
+			],
+			[
+				"req",
+				"required"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"colo",
+				"background-color"
+			],
+			[
+				"a",
+				"align"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"da",
+				"dataType"
+			],
+			[
+				"ale",
+				"alert"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"se",
+				"select"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"onc",
+				"onclick\tAttr"
+			],
+			[
+				"f",
+				"fechanadecimiento"
+			],
+			[
+				"nombre",
+				"nombrecompleto"
+			],
+			[
+				"fe",
+				"fecha_nacimiento"
+			],
+			[
+				"col",
+				"col-md-12"
+			],
+			[
+				"jp",
+				"jpg"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"mi",
+				"middle"
+			],
+			[
+				"las",
+				"last"
+			],
+			[
+				"m",
+				"middle"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 16052,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 92.0,
+		"last_filter": "Snippet: ",
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: Lorem ipsum"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 51.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/var/www/html/azarel/js"
+	],
+	"file_history":
+	[
+		"/var/www/html/azarel/home.html",
+		"/var/www/html/azarel/taquilla/access.html",
+		"/var/www/html/azarel/admin/inc/sorteo.html",
+		"/var/www/html/azarel/js/register.js",
+		"/var/www/html/azarel/js/config.js",
+		"/var/www/html/azarel/js/util.js",
+		"/var/www/html/azarel/js/login.js",
+		"/var/www/html/azarel/inc/transferens.html",
+		"/var/www/html/azarel/inc/money.html",
+		"/var/www/html/azarel/admin/access.html",
+		"/var/www/html/azarel/inc/result.html",
+		"/var/www/html/azarel/inc/ticket.html",
+		"/var/www/html/azarel/inc/admin.html",
+		"/var/www/html/azarel/inc/index.html",
+		"/var/www/html/azarel/inc/info.html",
+		"/var/www/html/azarel/css/style.css",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.css",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css.map",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.js",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.css.map",
+		"/var/www/html/admin-azarel/bootstrap-4.0.0-alpha.6-dist/css/bootstrap-reboot.min.css",
+		"/var/www/html/ejemplo-firebase/index.html",
+		"/var/www/html/azarel/js/app.js",
+		"/var/www/html/moduloHorarios/principal.php",
+		"/var/www/html/moduloPlanificacion/Carga/index.php",
+		"/var/www/html/lib/menu.php",
+		"/var/www/html/moduloHorarios/consulta/salon/insercion.php",
+		"/var/www/html/moduloHorarios/consulta/conexion.php",
+		"/var/www/html/moduloHorarios/consulta/edificio/insercion.php",
+		"/var/www/html/moduloHorarios/kuai/edificio.php",
+		"/var/www/html/login.php",
+		"/var/www/html/moduloHorarios/index.html",
+		"/var/www/html/moduloHorarios/kuai/section.php",
+		"/var/www/html/moduloHorarios/kuai/salon.php",
+		"/var/www/html/moduloHorarios/kuai/docente.php",
+		"/var/www/html/moduloHorarios/kuai/foot.php",
+		"/var/www/html/moduloHorarios/kuai/head.php",
+		"/var/www/html/data/Configuracion/restaurar.php",
+		"/var/www/html/data/Configuracion/respaldar.php",
+		"/var/www/html/data/Configuracion/respaldos.php",
+		"/var/www/html/moduloHorarios/login.php",
+		"/var/www/html/script/reestablecer.php",
+		"/var/www/html/data/Configuracion/guardarPersona.php",
+		"/var/www/html/data/Configuracion/guardarUsuario.php",
+		"/var/www/html/data/Configuracion/cambiarfrase.php",
+		"/var/www/html/data/Configuracion/misDatos.php",
+		"/var/www/html/data/Configuracion/index.html",
+		"/var/www/html/AdminLTE/prueba.html",
+		"/var/www/html/AdminLTE/ejemplo_cs6.js",
+		"/var/www/html/dump(1).sql",
+		"/var/www/html/AdminLTE/agencia.html",
+		"/media/crash/YASMIN/sigpa/sigpa/index.php",
+		"/var/www/html/AdminLTE/consultaragencia.html",
+		"/var/www/html/AdminLTE/crearusuario.html",
+		"/var/www/html/AdminLTE/perfilagencias.html",
+		"/var/www/html/AdminLTE/perfil.html",
+		"/var/www/html/AdminLTE/grupo.html",
+		"/var/www/html/AdminLTE/banco.html",
+		"/home/crash/Descargas/dump(2).sql",
+		"/var/www/html/AdminLTE/principal.html",
+		"/var/www/html/AdminLTE/crearusuario.thml",
+		"/home/crash/respaldo.sql",
+		"/var/www/html/AdminLTE/validaciones.js",
+		"/var/www/html/AdminLTE/colector.html",
+		"/var/www/html/AdminLTE/subgrupos.html",
+		"/home/crash/Backup/old-www/old/sgp/js/confirm.js",
+		"/home/crash/Backup/old-www/old/html/prosalud/system/js/view/administracion.js",
+		"/home/crash/Backup/old-www/old/html/prosalud/system/js/tgrid/incluir.js",
+		"/home/crash/Backup/old-www/old/html/prosalud/system/js/general/Global.js",
+		"/home/crash/Backup/old-www/ipsfa-bss/application/views/js/rutas.js.php",
+		"/home/crash/Backup/old-www/ipsfa-bss/public/js/char.js",
+		"/var/www/html/AdminLTE/usuario.html",
+		"/var/www/html/OLD/sicpacc/presupuesto.php",
+		"/var/www/html/OLD/sicpacc/crud/vda/ingresar.php",
+		"/var/www/html/OLD/sicpacc/listarpresupuesto.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/generarPresupuesto.php",
+		"/var/www/html/OLD/sicpacc/respaldoprincipal.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/insertarPresupuesto.php",
+		"/var/www/html/OLD/sicpacc/consulta/conlogin.php",
+		"/var/www/html/OLD/sicpacc/crud/login/modifilogin.php",
+		"/var/www/html/OLD/sicpacc/respaldo.php",
+		"/var/www/html/OLD/sicpacc/consulta/conproyecto.php",
+		"/var/www/html/OLD/sicpacc/crud/vda/eliminar.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/eliminar.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/modificar.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/modifiproyecto.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/ingresar.php",
+		"/var/www/html/OLD/sicpacc/crud/vda/modificar.php",
+		"/var/www/html/OLD/sicpacc/serviciosfamilia.php",
+		"/var/www/html/OLD/sicpacc/consulta/convivienda.php",
+		"/var/www/html/OLD/sicpacc/crud/vivienda/modifivivienda.php",
+		"/var/www/html/OLD/sicpacc/miembro.php",
+		"/var/www/html/OLD/sicpacc/crud/serviciofamilia/ingresar.php",
+		"/var/www/html/OLD/sicpacc/crud/serviciofamilia/modificar.php",
+		"/var/www/html/OLD/sicpacc/tmp/consejocomunal-2017-02-16-14-52-18.sql",
+		"/var/www/html/OLD/sicpacc/principal.php",
+		"/var/www/html/OLD/sicpacc/class/nivel1.php",
+		"/var/www/html/OLD/sicpacc/clogin.php",
+		"/var/www/html/OLD/sicpacc/class/cabecera.php",
+		"/var/www/html/OLD/sicpacc/tmp/consejocomunal-2017-02-15-22-53-17.sql",
+		"/var/www/html/OLD/sicpacc/tmp/consejocomunal-2017-02-15-22-47-31.sql",
+		"/var/www/html/OLD/sicpacc/tmp/consejocomunal-2017-02-15-22-41-06.sql",
+		"/var/www/html/OLD/sicpacc/index.php",
+		"/var/www/html/OLD/sicpacc/class/nivel2.php",
+		"/var/www/html/OLD/sicpacc/class/nav.php",
+		"/var/www/html/OLD/sicpacc/consulta/convda.php",
+		"/var/www/html/OLD/sicpacc/consulta/confamilia.php",
+		"/var/www/html/moduloPlanificacion/Carga/planilla.php",
+		"/var/www/html/moduloPlanificacion/Carga/imprimirplanilla.php",
+		"/var/www/html/moduloPlanificacion/Carga/planillas.php",
+		"/var/www/html/OLD/sicpacc/css/vivienda.css",
+		"/media/crash/1E94-677D/censo_grupo11/system/pdf/pdf.php",
+		"/media/crash/1E94-677D/23-04-2014/destruir.php",
+		"/var/www/html/OLD/sicpacc/crud/proyecto/respaldo.php",
+		"/var/www/html/OLD/sicpacc/database/consejocomunal.sql",
+		"/var/www/html/OLD/sicpacc/js/mostrar.js",
+		"/var/www/html/OLD/sicpacc/js/activar1.js",
+		"/var/www/html/OLD/sicpacc/js/activar.js",
+		"/var/www/html/OLD/sicpacc/js/calculo.js",
+		"/var/www/html/OLD/sicpacc/js/nuevo.js",
+		"/var/www/html/OLD/sicpacc/js/validar.js",
+		"/var/www/html/prueba.html",
+		"/var/www/html/OLD/sicpacc/proyecto.php",
+		"/home/crash/Escritorio/sicpacc/consulta/confamilia.php",
+		"/home/crash/www/data/Configuracion/respaldos.php",
+		"/home/crash/Descargas/prueba.sql",
+		"/home/crash/www/data/Configuracion/respaldar.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"play_circle_filled",
+			"css",
+			"right",
+			"          $(",
+			"css",
+			">\n",
+			"localhost",
+			"loading",
+			"Loading",
+			"loading",
+			"data"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16052,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7383,
+								7383
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3577.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 87.0
+	},
+	"pinned_build_system": "",
+	"project": "azarel.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"na",
+				"bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css.map"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 274.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
