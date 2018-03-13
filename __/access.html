@@ -2,11 +2,13 @@
 <html>
   <head>
    <title> Azarel - Venezuela </title>
-    <!--Import Google Icon Font-->
+    <!--Import Google Icon Font
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    -->
+    <link href="css/icon.css" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="../css/nouislider.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"  media="screen,projection"/>
     
 
     <!--Let browser know website is optimized for mobile-->
@@ -45,16 +47,16 @@
                                         <i class="material-icons left waves-effect">menu</i>Azarel</a>
                              
                                       <a class="button-collapse right">
-                                        <i class="material-icons waves-effect waves-light left" onclick="">monetization_on</i>
-                                        <i class="material-icons waves-effect waves-light left" onclick="">settings</i>
-                                        <i class="material-icons waves-effect waves-light left" onclick="location.reload()">home</i>
+                                        <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('games','',ViewGames)">insert_chart</i>
+                                        <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('lotery','',MakeTableAnimalsWeb);">stars</i>
+                                        <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('home')">home</i>
                                       </a>
                              
                                       <ul class="right hide-on-med-and-down">
-                                        <li><a onclick="">
-                                          <i class="material-icons left" > monetization_on</i></a></li>
-                                        <li><a onclick="">
-                                          <i class="material-icons left" >settings</i></a></li>
+                                        <li><a onclick="LoadLocalFile('games','',ViewGames)">
+                                          <i class="material-icons left" > insert_chart</i></a></li>
+                                        <li><a onclick="LoadLocalFile('lotery','',MakeTableAnimalsWeb);">
+                                          <i class="material-icons left" >stars</i></a></li>
                                         <li><a onclick="LoadLocalFile('home')">
                                           <i class="material-icons left" >home</i></a></li>
                              
@@ -77,35 +79,47 @@
                                     <div class="background">
                                       <img src="../img/laguna.jpg">
                                     </div>
-                                    <a href="#!user"><img class="circle" src="img/albert.jpg" id="imgPhotoUser" /></a>
+                                    <a href="#!user"><img class="circle" id="imgPhotoUser" /></a>
                                     <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
                                     <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
                                   </div></li>
-                                  <li><a onclick="">
-                                    <i class="material-icons left green-text" >exposure</i>Asignar Limites</a></li>
-                                  <li><a onclick="">
-                                    <i class="material-icons left deep-orange-text" >functions</i>Comisiones</a></li>
-                                  <li ><a onclick="">
-                                    <i class="material-icons left blue-text" >insert_chart</i>Ver Jugadas</a></li>
-                       
-                                  <li class="hide-on-med-only"><div class="divider"></div></li>
-                                  
-                                    <li><a onclick="">
-                                    <i class="material-icons left deep-purple-text">monetization_on</i>Mis Pagos</a></li>
-                                    <li><a onclick="">
-                                    <i class="material-icons left deep-blue-text"> transfer_within_a_station</i>Solicitudes </a></li>
-                                  
-                                  
+                                  <li ><a onclick="LoadLocalFile('games','',ViewGames)" class="waves-effect waves-purple">
+                                      <i class="material-icons left blue-text" >insert_chart</i>Ver Jugadas</a></li>                                                                  
+                                  <li ><a onclick="LoadLocalFile('lotery','',MakeTableAnimalsWeb);" class="waves-effect waves-purple">
+                                          <i class="material-icons left yellow-text" >stars</i>Asignar Premio</a></li>
+                                  <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('transferens');">
+                                    <i class="material-icons left deep-orange-text" >swap_horiz</i>Transferencias</a></li>   
+                                    
                                   <li><div class="divider"></div></li>
-                                  <li><a onclick="">
-                                     <i class="material-icons left purple-text" >face</i>Cuenta Personales</i></a></li>
-                                  <li><a onclick="">
-                                     <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
-   
-                                  <li><div class="divider"></div></li>
-                                  <li><a id="hrfCerrar">
+                                    <li >
+                                        <ul class="collapsible collapsible-accordion">
+                                          <li>
+                                              <a class="collapsible-header waves-effect waves-purple" onclick="">                                                                                     
+                                                  Mis Pagos<i class="material-icons right deep-purple-text">arrow_drop_down</i></a>
+                                                 
+                                            <div class="collapsible-body">
+                                              <ul>
+                                                  <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('moneys');">
+                                                      <i class="material-icons left indigo-text" >transfer_within_a_station</i>Solicitudes</a></li>
+                                                                                               
+                                                  <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('comision');">
+                                                      <i class="material-icons left red-text" >functions</i>Comisiones</a></li> 
+                                                  <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('cash');">
+                                                      <i class="material-icons left purple-text" >monetization_on</i>Servicios</a></li> 
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                                                                                     
+                                    
+                         
+                                    <li class="hide-on-med-only"><div class="divider"></div></li> 
+                                    <li><a id="hrfCerrar" class="waves-effect waves-purple">
+                                        <i class="material-icons left orange-text" >settings</i>Configuracion</a></li>  
+                                  <li><a id="hrfCerrar" class="waves-effect waves-purple">
                                     <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
-                                  <li><a onclick=""><i class="material-icons left teal-text" >more</i>
+                                  <li><a onclick="LoadLocalFile('info')" class="waves-effect waves-purple"><i class="material-icons left teal-text" >more</i>
                                    Información</a></li>
                               </ul>
                           </div>
@@ -217,27 +231,7 @@
                       
 
 
-     <div id="modAnimals" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h6 id="numberAnimals">0 - DELFIN</h6>
-            <div class="row" id="mdlPag1" style="padding:0;display:none">
-              <div class="input-field col s12">
-                <input placeholder="Monto" id="txtMonto" type="number" class="validate">
-                <label for="txtMonto" class="active">Monto</label>
-              </div>
-              <div class="col s12">
-                 
-                  <div id="test-slider"></div>
-              </div>
-            </div> 
-        </div>
-        <div class="modal-footer green">
-          <a href="#!" 
-            class="modal-action modal-close white-text waves-effect waves-green btn-flat right"
-            onclick="AddGame()" >Aceptar
-          </a> 
-        </div>
-      </div>
+
 
       <div id="modAlert" class="modal modal-fixed-footer">
         <div class="modal-content">
@@ -284,20 +278,20 @@
 
 
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
-    <script type="text/javascript" src="../js/wnumb.js"></script>
-    <script type="text/javascript" src="../js/nouislider.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/wnumb.js"></script>
+    <script type="text/javascript" src="js/nouislider.min.js"></script>
     
-    <script type="text/javascript" src="../js/config.js"></script>
-    <script type="text/javascript" src="../js/util.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
 
-    <script type="text/javascript" src="../js/app.js"></script>
-    <script type="text/javascript" src="../js/load-object-firestore.js"></script>
-    <script type="text/javascript" src="../js/side-server.js"></script>  
+    <script type="text/javascript" src="js/app-admin.js"></script>
+    
+    <script type="text/javascript" src="js/side-server.js"></script>  
     <script type="text/javascript">
     $(document).ready(function(){
       //var slider = document.getElementById('test-slider');
