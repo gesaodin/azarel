@@ -110,8 +110,18 @@ function assignedPrize(){
 
 
 function RequestTransferens(){
-  console.log('Limites');
-  dbfirestore.collection('claimstransf').where("status", "==", "P")
+  var f = $("#txtDate").val();
+  var bank = $("#cmbName option:selected").val();
+  if(f == ''){
+    Materialize.toast('Debe seleccionar una fecha', 3000, 'rounded');
+    return false;
+  }
+  if(bank == '0'){
+    Materialize.toast('Debe seleccionar un banco', 3000, 'rounded');
+    return false;
+  }
+  $("#tblRequest").html('<tr><td colspan=7>Cargando...</td></tr>');
+  dbfirestore.collection('claimstransf').where("status", "==", "P").where("bankname", "==", bank)
   .get()
   .then( snap => {
     var body = '';
@@ -141,9 +151,18 @@ function RequestTransferens(){
 }
 
 function GetTransferensLocal(){
-  var bank = $("#cmbName").val();
-  
-  dbfirestore.collection('transferens').where("status", "==", "P").where("bank", "==", bank)
+  var f = $("#txtDate").val();
+  var bank = $("#cmbName option:selected").val();
+  if(f == ''){
+    Materialize.toast('Debe seleccionar una fecha', 3000, 'rounded');
+    return false;
+  }
+  if(bank == '0'){
+    Materialize.toast('Debe seleccionar un banco', 3000, 'rounded');
+    return false;
+  }
+  $("#tblTransf").html('<tr><td colspan=4>Cargando...</td></tr>');
+  dbfirestore.collection('transferens').where("status", "==", "P").where("bank", "==", bank).where("date", "==", f)
   .get()
   .then( snap => {
     var body = '';
@@ -152,11 +171,8 @@ function GetTransferensLocal(){
       var obj = doc.data();
       body += `<tr>
         <td>${obj.user}</td>
-        <td>${obj.cid}</td>
-        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
-        <td>${getBankType(obj.banktype)}</td>
-        <td>${obj.bank}</td>
-        <td>${obj.money}</td>
+        <td>${obj.number}</td>
+        <td>${parseFloat(obj.money)}</td>
         <td style="text-align:right"><div class="switch right">
         <label>
           <input type="checkbox">
@@ -166,8 +182,8 @@ function GetTransferensLocal(){
     </td>
         </tr>`;
     });
-    $("#tblRequest").html(body);
+    $("#tblTransf").html(body);
   }).catch(e => {
-    console.log("Claims: ", e);
+    console.log("Transferens: ", e);
   });
 }
