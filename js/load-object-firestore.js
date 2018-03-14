@@ -199,7 +199,8 @@ function writeUserDataTransferens() {
             money : transferens.money,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             status : 'P',
-            type:'A' //Assigned
+            type:'A', //Assigned
+            idt: d.id
         }
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)
@@ -286,7 +287,8 @@ function wClaimsTransf() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             status : 'P',
             type: 'R',
-            load : 'R' //Assigned
+            load : 'R', //Assigned}
+            idt : d.id
         }
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)

@@ -5,8 +5,6 @@ function ViewGames(){
   return table;
 }
 
-
-
 function writePlayingDay() {
     var d = $("#txtDate").val();
     if (d == "")return false;
@@ -24,20 +22,6 @@ function writePlayingDay() {
     .catch( e => {
       Materialize.toast('Ocurrio un error intente más tarde', 4000, 'rounded');      
     });  
-}
-
-function selectPrize(sdate, lottery, hours, number){
-  sdate = '20180225';
-  lottery = 'LOTACT';
-  hours = '9AM';
-}
-
-
-function readPlayin(sdate, lottery, hours){
-  sdate = '20180225';
-  lottery = 'LOTACT';
-  hours = '9AM';
-  
 }
 
 function assignedPrize(){
@@ -62,7 +46,6 @@ function assignedPrize(){
     console.log('Se ha creado los resultados');
   });
 
-  console.log(dateplay);
   dbfirestore.collection('bets').doc(dateplay)
   .collection(playing)
   .get().then( doc => {
@@ -123,29 +106,18 @@ function assignedPrize(){
       
       
   });
+}    
+
+
+function RequestTransferens(){
+  dbfirestore.collection('claimstransf').where("status", "==", "P")
+  .limit(30).get()
+  .then( snap => {
+    snap.forEach( doc => {
+      var id = doc.id; //Identify
+      
+    });
+  }).catch(e => {
+
+  });
 }
-    function winners(id){
-      dbfirestore.collection('competitor').doc(id)
-      .get().then( doc => {        
-          
-              console.log(doc.data().person.fullname);
-          
-      });
-    }
-    
-
-    function testData(){
-      dbfirestore.collection('competitor').doc(UserUID).collection("bets")
-      .where("playing", "==", "20180225")
-      .get().then( snap => { 
-        console.log(snap);    
-          snap.forEach(e => {
-            console.log(e.data());
-          })
-              
-          
-      });
-    }
-
-
-    
