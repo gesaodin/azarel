@@ -248,11 +248,23 @@ function writeUserDataTransferens() {
    */
 //Write Data Transferens for user
 function wClaimsTransf() {
-    
-    
+    var fmoney = parseFloat(getID('txtMoney').value);
+    if(User.person == undefined){
+        Materialize.toast('Por favor datos personales', 3000, 'rounded');
+        return false;
+    }
+    if(User.bank == undefined){
+        Materialize.toast('Por favor datos bancarios', 3000, 'rounded');
+        return false;
+    }
+
     if(getID('txtMoney').value == ""){
       Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
       return false;
+    }
+    if(UserMoneyTotal <= fmoney){
+        Materialize.toast('El retiro debe ser menor que el saldo', 3000, 'rounded');
+        return false;   
     }
     Materialize.toast('Enviando información...', 2000, 'rounded');
     
@@ -260,7 +272,11 @@ function wClaimsTransf() {
         uid : UserUID,
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
         money : parseFloat(getID('txtMoney').value),
-        status : 'P'
+        status : 'P',
+        bank : User.bank.number,
+        banktype : User.bank.type,
+        user : User.person.fullname,
+        cid : User.person.cid
     };
     dbfirestore.collection("claimstransf").
     add(transferens)
@@ -339,6 +355,10 @@ function wClaimsTransf() {
   }
 
   function GetTransferensMoney(){
+    if(UserMoneyTotal <= 0){
+        Materialize.toast('No posee saldo suficiente!!!', 2000, 'rounded');
+        return false;
+    }
     $("#modAlertTransf").modal();
     $("#modAlertTransf").modal("open");
   }
