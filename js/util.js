@@ -57,3 +57,25 @@ function sortTable(id, n) {
     }
   }
 }
+
+function LoadingViewHTML(){
+  return `<center>
+    <div class="section" id="divLoginBody">
+        <div class="section"></div>
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div><br>
+      Cargando...
+    </div>
+    </center>
+  `;
+  
+}

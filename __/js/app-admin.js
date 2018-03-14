@@ -134,7 +134,7 @@ function MakeTableAnimalsWeb(){
     icon += `
     <div class="col m3 l1 ">
       <div class="cardAnimals cardAnimals-1 ">
-      <img src="img/${animal.key}.jpeg" width="65px" onclick="OpenModalAnimals('${animal.key}', ${j})">
+      <img src="/img/${animal.key}.jpeg" width="65px" onclick="OpenModalAnimals('${animal.key}', ${j})">
       <div class="footcard ">${animal.value}</div>
       </div>
     </div>`;
@@ -159,7 +159,7 @@ function OpenModalAnimals(id, pos){
     <br>Fecha  : <label>${fecha.value}</label>
     <br>Loteria: <label>${loteria.text()}</label>
     <br>Sorteo : <label>${sorteo.text()}</label>.<br><br>
-    ¿Está seguro que desea premiar el numero <label id='lblPremio'>${animal.key} - ${animal.value}</label>?
+    ¿Está seguro que desea premiar el número <label id='lblPremio'>${animal.key} - ${animal.value}</label>?
   `
   bodyContents.innerHTML = msg;
 
