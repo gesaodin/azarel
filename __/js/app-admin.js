@@ -114,8 +114,8 @@ firebase.initializeApp(config);
 
 var dbfirestore = firebase.firestore();
 
- let app = new App();
- app.init();
+let app = new App();
+app.init();
  
 
  firebase.auth().onAuthStateChanged(user => {
@@ -195,12 +195,15 @@ function OpenModalAnimals(id, pos){
   $('#mdlPag2').hide();
 }
 
+function  LoadingTransfBank(){
+  LoadCmbBank('cmbName');
+}
 
 function LoadCmbBank(id){ 
   var Cmb = '';
   var select = $('#'+ id);
-  for (let i = 0; i < BANKS.length; i++) {
-    const bank = BANKS[i];
+  for (let i = 0; i < app.BANKS.length; i++) {
+    const bank = app.BANKS[i];
     Cmb += `<option value="${bank.code}">${bank.value}</option>`;    
   }
   getID(id).innerHTML = Cmb;
@@ -210,10 +213,10 @@ function LoadCmbBank(id){
 
 function getPosBank(code, id){
   var key = 0;
-  for (let i = 0; i < BANKS.length; i++) {    
-    if(BANKS[i].code == code){
+  for (let i = 0; i < app.BANKS.length; i++) {    
+    if(app.BANKS[i].code == code){
       var select = $("#" + id);
-      select.prop('selectedIndex',  BANKS[i].key);  
+      select.prop('selectedIndex',  app.BANKS[i].key);  
       select.material_select(); 
       return false;
     }
@@ -225,4 +228,30 @@ function getPosCmb(value, id){
   var select = $("#" + id);
   select.prop('selectedIndex', value);  
   select.material_select(); 
+}
+
+function getPosBankText(code){
+  for (let i = 0; i < app.BANKS.length; i++) {    
+    if(app.BANKS[i].code == code){
+      return app.BANKS[i].value;            
+    }
+  }
+
+}
+
+function getBankType(key){
+  switch (key) {
+    case "1":
+      return "AHORRO";      
+      break;
+    case "2":
+      return "CORRIENTE";
+      break;
+    case "3": 
+      return "ELECTRONICO";
+      break;
+    default:
+      return "AHORRO";
+      break;
+  }
 }

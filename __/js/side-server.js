@@ -110,14 +110,64 @@ function assignedPrize(){
 
 
 function RequestTransferens(){
+  console.log('Limites');
   dbfirestore.collection('claimstransf').where("status", "==", "P")
-  .limit(30).get()
+  .get()
   .then( snap => {
+    var body = '';
     snap.forEach( doc => {
       var id = doc.id; //Identify
-      
+      var obj = doc.data();
+      body += `<tr>
+        <td>${obj.user}</td>
+        <td>${obj.cid}</td>
+        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
+        <td>${getBankType(obj.banktype)}</td>
+        <td>${obj.bank}</td>
+        <td>${obj.money}</td>
+        <td style="text-align:right"><div class="switch right">
+        <label>
+          <input type="checkbox">
+          <span class="lever"></span>
+        </label>
+      </div>      
+    </td>
+        </tr>`;
     });
+    $("#tblRequest").html(body);
   }).catch(e => {
+    console.log("Claims: ", e);
+  });
+}
 
+function GetTransferensLocal(){
+  var bank = $("#cmbName").val();
+  
+  dbfirestore.collection('transferens').where("status", "==", "P").where("bank", "==", bank)
+  .get()
+  .then( snap => {
+    var body = '';
+    snap.forEach( doc => {
+      var id = doc.id; //Identify
+      var obj = doc.data();
+      body += `<tr>
+        <td>${obj.user}</td>
+        <td>${obj.cid}</td>
+        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
+        <td>${getBankType(obj.banktype)}</td>
+        <td>${obj.bank}</td>
+        <td>${obj.money}</td>
+        <td style="text-align:right"><div class="switch right">
+        <label>
+          <input type="checkbox">
+          <span class="lever"></span>
+        </label>
+      </div>      
+    </td>
+        </tr>`;
+    });
+    $("#tblRequest").html(body);
+  }).catch(e => {
+    console.log("Claims: ", e);
   });
 }

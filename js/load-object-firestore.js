@@ -174,7 +174,10 @@ function writeUserDataBank() {
 //Write Data Transferens for user
 function writeUserDataTransferens() {
     var btn = getID('btnUserDataTransferens');
-    
+    if(User.person == undefined){
+        Materialize.toast('Actualiza tus datos personales', 3000, 'rounded');
+        return false;
+    }
     if(getID('txtNumber').value == ""){
       Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
       return false;
@@ -190,7 +193,9 @@ function writeUserDataTransferens() {
         number : getID('txtNumber').value,
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
         money : parseFloat(getID('txtMoney').value),
-        status : 'P'
+        status : 'P',
+        user : User.person.fullname,
+        cid : User.person.cid
     };
     dbfirestore.collection("transferens").
     add(transferens)
@@ -251,16 +256,16 @@ function writeUserDataTransferens() {
 function wClaimsTransf() {
     var fmoney = parseFloat(getID('txtMoney').value);
     if(User.person == undefined){
-        Materialize.toast('Por favor datos personales', 3000, 'rounded');
+        Materialize.toast('Actualiza tus datos personales', 3000, 'rounded');
         return false;
     }
     if(User.bank == undefined){
-        Materialize.toast('Por favor datos bancarios', 3000, 'rounded');
+        Materialize.toast('Actualiza tus datos bancarios', 3000, 'rounded');
         return false;
     }
 
     if(getID('txtMoney').value == ""){
-      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      Materialize.toast('Verifique los campos', 3000, 'rounded');
       return false;
     }
     if(UserMoneyTotal <= fmoney){
@@ -274,6 +279,7 @@ function wClaimsTransf() {
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
         money : parseFloat(getID('txtMoney').value),
         status : 'P',
+        bankname: User.bank.name,
         bank : User.bank.number,
         banktype : User.bank.type,
         user : User.person.fullname,
