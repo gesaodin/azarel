@@ -109,47 +109,33 @@ function assignedPrize(){
 }    
 
 
-function RequestTransferens(){
-  var f = $("#txtDate").val();
-  var bank = $("#cmbName option:selected").val();
-  if(f == ''){
-    Materialize.toast('Debe seleccionar una fecha', 3000, 'rounded');
-    return false;
-  }
-  if(bank == '0'){
-    Materialize.toast('Debe seleccionar un banco', 3000, 'rounded');
-    return false;
-  }
-  $("#tblRequest").html('<tr><td colspan=7>Cargando...</td></tr>');
-  dbfirestore.collection('claimstransf').where("status", "==", "P").where("bankname", "==", bank)
-  .get()
-  .then( snap => {
-    var body = '';
-    snap.forEach( doc => {
-      var id = doc.id; //Identify
-      var obj = doc.data();
-      body += `<tr>
-        <td>${obj.user}</td>
-        <td>${obj.cid}</td>
-        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
-        <td>${getBankType(obj.banktype)}</td>
-        <td>${obj.bank}</td>
-        <td>${obj.money}</td>
-        <td style="text-align:right"><div class="switch right">
-        <label>
-          <input type="checkbox">
-          <span class="lever"></span>
-        </label>
-      </div>      
-    </td>
-        </tr>`;
-    });
-    $("#tblRequest").html(body);
-  }).catch(e => {
-    console.log("Claims: ", e);
-  });
+//Make Hours | Sorteos
+function MakeHoursLottery(){
+
 }
 
+let lstTransf = [];
+function loadTableAccept(idTbl){
+  var fil = getID(idTbl);
+  lstTransf = [];
+  if(fil == null || fil.length == 0 )return false;
+  fil = fil.rows;
+
+  for (let i = 0; i < fil.length; i++) {
+    var obj = fil[i].cells;
+    if($('#chk' + i).prop("checked") == true){
+      lstTransf.push({
+        id: obj[0].innerHTML,
+        uid: obj[1].innerHTML
+      });
+    }
+  }
+}
+/**
+ * -------------------------------------
+ * Load Transferens for acepting
+ * -------------------------------------
+ */
 function GetTransferensLocal(){
   var f = $("#txtDate").val();
   var bank = $("#cmbName option:selected").val();
@@ -166,24 +152,151 @@ function GetTransferensLocal(){
   .get()
   .then( snap => {
     var body = '';
+    var i = 0;
     snap.forEach( doc => {
       var id = doc.id; //Identify
       var obj = doc.data();
       body += `<tr>
+        <td style="display:none">${id}</td>
+        <td style="display:none">${obj.uid}</td>
         <td>${obj.user}</td>
         <td>${obj.number}</td>
         <td>${parseFloat(obj.money)}</td>
         <td style="text-align:right"><div class="switch right">
         <label>
-          <input type="checkbox">
+          <input type="checkbox" id="chk${i}">
           <span class="lever"></span>
         </label>
-      </div>      
-    </td>
-        </tr>`;
+      </div></td></tr>`;
+      i++;
     });
     $("#tblTransf").html(body);
   }).catch(e => {
     console.log("Transferens: ", e);
   });
 }
+
+function msgAceptTransferens(){
+  loadTableAccept('tblTransf');
+  if(lstTransf.length == 0){
+    Materialize.toast('Debe aceptar transferencias', 3000, 'rounded');
+    return false;
+  }
+  $("#modAlertBody").html(`Esta seguro que desea aceptar las trasferencias`);
+  $("#modAlertFooter").html(`
+    <a id="btnAcept"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="AceptTransferens()">Aceptar
+    </a> 
+    <a id="btnGo"
+      class="modal-action modal-close white-text waves-effect 
+      waves-green btn-flat right">Cancelar
+    </a>`);
+    $("#modAlert").modal();
+    $("#modAlert").modal("open");
+}
+//Acepting transferend
+function AceptTransferens(){
+  for (let i = 0; i < lstTransf.length; i++) {
+    var transf = lstTransf[i];
+    console.log(transf);
+    dbfirestore.collection('competitor').doc(transf.uid)
+    .collection('money').doc(transf.id).update({status:"A"}).then(d =>{
+      
+    });
+    dbfirestore.collection('transferens').doc(transf.id).update({status:"A"}).then(d =>{
+      Materialize.toast('Proceso finalizado', 3000, 'rounded');
+      $("#tblTransf").html('');
+    });
+    
+  }
+}
+/**
+ * -------------------------------------
+ * Load Request for acepting
+ * -------------------------------------
+ */
+
+function RequestTransferens(){
+  var f = $("#txtDate").val();
+  var bank = $("#cmbName option:selected").val();
+  if(f == ''){
+    Materialize.toast('Debe seleccionar una fecha', 3000, 'rounded');
+    return false;
+  }
+  if(bank == '0'){
+    Materialize.toast('Debe seleccionar un banco', 3000, 'rounded');
+    return false;
+  }
+  $("#tblRequest").html('<tr><td colspan=7>Cargando...</td></tr>');
+  dbfirestore.collection('claimstransf').where("status", "==", "P").where("bankname", "==", bank)
+  .get()
+  .then( snap => {
+    var body = '';
+    var i = 0;
+    snap.forEach( doc => {
+      var id = doc.id; //Identify
+      var obj = doc.data();
+      
+      body += `<tr>
+        <td style="display:none">${id}</td>
+        <td style="display:none">${obj.uid}</td>
+        <td>${obj.user}</td>
+        <td>${obj.cid}</td>
+        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
+        <td>${getBankType(obj.banktype)}</td>
+        <td>${obj.bank}</td>
+        <td>${obj.money}</td>
+        <td style="text-align:right"><div class="switch right">
+        <label>
+          <input type="checkbox" id="chk${i}">
+          <span class="lever"></span>
+        </label>
+      </div></td></tr>`;
+        i++;
+    });
+    $("#tblRequest").html(body);
+  }).catch(e => {
+    console.log("Claims: ", e);
+  });
+}
+
+
+function msgAceptRequest(){
+  loadTableAccept('tblRequest');
+  if(lstTransf.length == 0){
+    Materialize.toast('Debe aceptar solicitudes', 3000, 'rounded');
+    return false;
+  }
+  $("#modAlertBody").html(`Esta seguro que efectuo las trasferencias`);
+  $("#modAlertFooter").html(`
+    <a id="btnAcept"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="AceptRequest()">Aceptar
+    </a> 
+    <a id="btnGo"
+      class="modal-action modal-close white-text waves-effect 
+      waves-green btn-flat right">Cancelar
+    </a>`);
+    $("#modAlert").modal();
+    $("#modAlert").modal("open");
+}
+
+
+//Acepting request transferens
+function AceptRequest(){
+  for (let i = 0; i < lstTransf.length; i++) {
+    var transf = lstTransf[i];
+    console.log(transf);
+    dbfirestore.collection('competitor').doc(transf.uid)
+    .collection('money').doc(transf.id).update({status:"A"}).then(d =>{
+      
+    });
+    dbfirestore.collection('claimstransf').doc(transf.id).update({status:"A"}).then(d =>{
+      Materialize.toast('Proceso finalizado', 3000, 'rounded');
+      $("#tblRequest").html('');
+    });
+
+  }
+}
+

@@ -394,14 +394,6 @@ function GetTimeStamp(dateString){
   } 
 }
 
-function GetDateStampServer(d){
-  var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-  offsetRef.on("value", function(snap) {
-    var offset = snap.val();
-    var d = new Date().getTime() + offset;
-    console.log(GetTimeStamp(d));
-  });
-}
 
 function SelectCaseStatus(key){
   var status = '';

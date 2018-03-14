@@ -1,31 +1,40 @@
-[debug] [2018-03-14T13:39:30.358Z] ----------------------------------------------------------------------
-[debug] [2018-03-14T13:39:30.359Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
-[debug] [2018-03-14T13:39:30.359Z] CLI Version:   3.17.6
-[debug] [2018-03-14T13:39:30.360Z] Platform:      linux
-[debug] [2018-03-14T13:39:30.360Z] Node Version:  v9.8.0
-[debug] [2018-03-14T13:39:30.360Z] Time:          Wed Mar 14 2018 09:39:30 GMT-0400 (-04)
-[debug] [2018-03-14T13:39:30.360Z] ----------------------------------------------------------------------
+[debug] [2018-03-14T21:12:57.830Z] ----------------------------------------------------------------------
+[debug] [2018-03-14T21:12:57.832Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
+[debug] [2018-03-14T21:12:57.833Z] CLI Version:   3.17.6
+[debug] [2018-03-14T21:12:57.833Z] Platform:      linux
+[debug] [2018-03-14T21:12:57.833Z] Node Version:  v9.8.0
+[debug] [2018-03-14T21:12:57.833Z] Time:          Wed Mar 14 2018 17:12:57 GMT-0400 (-04)
+[debug] [2018-03-14T21:12:57.833Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-03-14T13:39:30.368Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-03-14T13:39:30.368Z] > authorizing via signed-in user
-[debug] [2018-03-14T13:39:30.370Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+[debug] [2018-03-14T21:12:57.883Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-14T21:12:57.884Z] > authorizing via signed-in user
+[debug] [2018-03-14T21:12:57.885Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-03-14T21:12:57.885Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Mar 14 2018 17:12:57 GMT-0400 (-04)
+[debug] [2018-03-14T21:12:58.608Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-14T21:12:58.657Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
   
- Wed Mar 14 2018 09:39:30 GMT-0400 (-04)
-[debug] [2018-03-14T13:39:30.967Z] <<< HTTP RESPONSE 200
-[debug] [2018-03-14T13:39:30.968Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+ Wed Mar 14 2018 17:12:58 GMT-0400 (-04)
+[debug] [2018-03-14T21:12:59.886Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-14T21:12:59.886Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
   
- Wed Mar 14 2018 09:39:30 GMT-0400 (-04)
-[debug] [2018-03-14T13:39:31.496Z] <<< HTTP RESPONSE 200
-[debug] [2018-03-14T13:39:31.497Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
+ Wed Mar 14 2018 17:12:59 GMT-0400 (-04)
+[debug] [2018-03-14T21:13:00.877Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-14T21:13:00.878Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
   
- Wed Mar 14 2018 09:39:31 GMT-0400 (-04)
-[debug] [2018-03-14T13:39:31.936Z] <<< HTTP RESPONSE 200
+ Wed Mar 14 2018 17:13:00 GMT-0400 (-04)
+[debug] [2018-03-14T21:13:01.783Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/home/crash/development/azarel'...
 [info] 
-[debug] [2018-03-14T13:39:31.938Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
+[debug] [2018-03-14T21:13:01.784Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
   
- Wed Mar 14 2018 09:39:31 GMT-0400 (-04)
-[debug] [2018-03-14T13:39:32.945Z] <<< HTTP RESPONSE 200
+ Wed Mar 14 2018 17:13:01 GMT-0400 (-04)
+[debug] [2018-03-14T21:13:02.648Z] <<< HTTP RESPONSE 200
 [info] ✔  hosting: Local server: http://localhost:5000
 
