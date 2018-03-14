@@ -69,22 +69,7 @@ class Person {
 }
 
 let Ddd;
-function operar(){
-  getCollectiondb('bets/20180225')
-  .then( d => {
-    console.log('JSON ', d);
-    for (key in d){
-      var hijo = d[key]; 
-      for (k in hijo){
-        var obj = hijo[k];
-        console.log('Monto: ', obj.money, ' UID: ', obj.uid);
-      }
-    }
-    
-  }).catch( e => {
-    console.log(e);
-  });
-}
+
 
 //Cargar Remotamente Objetos JSON
 function getCollectiondb(collection){
@@ -156,8 +141,7 @@ function LoadLocalFile(file, idDiv, func){
 }
 
 function LoadComponentMaterialize(){
-  
-  
+  $('.stepper').activateStepper();
   $('ul.tabs').tabs();
   $('select').material_select();
   $('.collapsible').collapsible();

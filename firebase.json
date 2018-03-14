@@ -1,5 +1,14 @@
 {
   "hosting": {
+    "redirects": [ {
+      "source" : "/__",
+      "destination" : "/index.html",
+      "type" : 301
+    }, {
+      "source" : "/firebase/*",
+      "destination" : "https://firebase.google.com",
+      "type" : 302
+    } ],
     "public": "",
     "rewrites": [
       {

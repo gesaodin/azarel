@@ -112,12 +112,36 @@
 
 firebase.initializeApp(config);
 
-const messaging = firebase.messaging();
 var dbfirestore = firebase.firestore();
 
  let app = new App();
  app.init();
  
+
+ firebase.auth().onAuthStateChanged(user => {
+  if (user) {    
+    var emailVerified = user.emailVerified;
+    var isAnonymous = user.isAnonymous;
+    var providerData = user.providerData;
+    
+  
+    UserAPIKey = user.ca.a;
+    lblEmail.innerHTML = user.email;
+    lblNameUser.innerHTML = user.displayName;
+    imgPhotoUser.src = user.photoURL; 
+    UserUID = user.uid;
+    if(user.email != 'azarelvenezuela@gmail.com'){
+      firebase.auth().signOut();
+      user = {};
+    }
+  } else {    
+    location.href = "index.html";
+  }
+});
+
+hrfCerrar.addEventListener('click', e => {
+  firebase.auth().signOut();
+});
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimalsWeb(){
@@ -143,6 +167,8 @@ function MakeTableAnimalsWeb(){
     pagBodyTableAnimals.innerHTML += `<div class="col m12 l12 hide-on-small-only">${makeTable}</div>`;
     $('#pagWeb').show();  
 }
+
+
 function OpenModalAnimals(id, pos){
   var fecha = getID('txtDate');
   var sorteo = $('#cmbHours option:selected');

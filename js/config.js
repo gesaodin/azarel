@@ -157,7 +157,6 @@ function LoadLocalFile(file, idDiv, func){
 
 function LoadComponentMaterialize(){
   
-  
   $('ul.tabs').tabs();
   $('select').material_select();
   $('.collapsible').collapsible();

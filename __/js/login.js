@@ -4,27 +4,34 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var txtEmail = document.getElementById("txtEmail");
 var txtPassword = document.getElementById("txtPassword");
 var btnLogin = document.getElementById("btnLogin");
-var btnLoadRegister = document.getElementById("btnLoadRegister");
-
-var btnGoogle = document.getElementById("btnGoogle");
-
-
 var divLogin = document.getElementById("divLogin");
+var config = {  
+    apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
+    authDomain: "azarel-1a865.firebaseapp.com",
+    databaseURL: "https://azarel-1a865.firebaseio.com",
+    projectId: "azarel-1a865",
+    storageBucket: "azarel-1a865.appspot.com",
+    messagingSenderId: "963834795291"
+  };
+  
+  
+  firebase.initializeApp(config);
 
-
-//Register new User
-btnLoadRegister.addEventListener('click', e => {    
-    location.href = 'register.html';
-});
 
 //Listener Login on authorization
 btnLogin.addEventListener('click', e => {    
     var email = txtEmail.value;
     var password = txtPassword.value;
+    if(email != 'azarelvenezuela@gmail.com'){
+        txtEmail.value = "";
+        txtPassword.value = "";
+        Materialize.toast("Error en el correo/adm", 3000, 'rounded') ;
+        return false;
+    }
     HideButton();
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(data => {
-        location.href = "home.html";
+        location.href = "access.html";
     })
     .catch(error => {
         ClearText();
@@ -33,48 +40,17 @@ btnLogin.addEventListener('click', e => {
     });
 })
 
-//Init Google Session
-btnGoogle.addEventListener('click', e => {
-    HideButton();
-    firebase.auth().signInWithPopup(provider)
-    .then( result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        
-        return user;
-        // ...
-    })   
-    .catch( error => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        ClearText();
-        ShowButton();
-        ErrorCodeMessage(error);
-        // ...
-    });
-
-});
 
 
 function HideButton(){
     $("#divLoginBegin").show();
     btnLogin.classList.add('hide');
-    btnLoadRegister.classList.add('disabled');
-    btnGoogle.classList.add('disabled');
+
 }
 
 function ShowButton(){
     $("#divLoginBegin").hide();    
     btnLogin.classList.remove('hide');
-    btnLoadRegister.classList.remove('disabled');
-    btnGoogle.classList.remove('disabled');
 }
 //Clean Forms
 function ClearText(){
@@ -87,7 +63,7 @@ function ClearText(){
 function ErrorCodeMessage(err){
     var errorCode = err.code;        
     var errorMessage = err.message;
-    Materialize.toast(errorMessage, 3000, 'rounded') ;
+    Materialize.toast(errorMessage, 4000, 'rounded');
 }
 
 // function ErrorTranslate()
@@ -102,7 +78,7 @@ firebase.auth().onAuthStateChanged(user => {
         var uid = user.uid;
         var providerData = user.providerData;
 
-        location.href = "home.html";
+        location.href = "access.html";
         // ...
     } else {
         $("#divLoading").hide();

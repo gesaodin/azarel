@@ -1,0 +1,91 @@
+<ul class="stepper horizontal">
+    <li class="step active">
+       <div class="step-title waves-effect">Datos Júridicos</div>
+       <div class="step-content">
+          <div class="row"><br>
+             <div class="input-field col s12 m4">
+                 
+                <input id="txtrif" type="email" class="validate" required>
+                <label class="active">Rif</label>
+             </div>
+             <div class="input-field col s12 m8">
+                 
+                    <input id="txtSocial" type="text" class="validate" required>
+                    <label class="active">Razón Social</label>
+            </div>
+
+            <div class="input-field col s12 m12">
+                 
+                    <input id="txtDireccion" type="text" class="validate" required>
+                    <label class="active">Dirección</label>
+                 </div>
+                 <div class="input-field col s6 m4">
+                     
+                        <input id="txtPhone" type="tel" class="validate" required>
+                        <label class="active">Teléfono</label>
+                </div>
+                <div class="input-field col s6 m4">
+                     
+                        <input id="txtCel" type="tel" class="validate" required>
+                        <label class="active">Celular</label>
+                </div>
+          </div> <!-- Fin de datos juridicos -->
+          <div class="step-actions">
+             <button class="waves-effect waves-dark btn next-step blue">Continuar</button>
+          </div>
+       </div>
+    </li>
+    <li class="step">
+       <div class="step-title waves-effect">Cuenta Bancaria</div>
+       <div class="step-content">
+          <div class="row"><br>
+                <div class="input-field col s12 m6">
+                        <select id="cmbName" onchange="AssignedBank()">
+                          
+                        </select>
+                        <label>Seleccionar un banco</label>
+                      </div>
+    
+                        <div class="input-field col s12 m6">
+                        <select id="cmbType">
+                            <option value="0">---------------</option>
+                            <option value="1">AHORRO</option>
+                            <option value="2">CORRIENTE</option>
+                            <option value="3">ELECTRONICA</option>
+                        </select>
+                        <label>Seleccionar tipo de cuenta</label>
+                        </div>
+                        <div class="input-field col s12 m6">                           
+                                <input id="txtNumber" type="tel" class="validate" maxlength="20">
+                                <label class="active" >Número de cuenta</label>
+                            </div> 
+          </div><!-- Fin de Cuenta Bancaria -->
+          <div class="step-actions">
+             <button class="waves-effect waves-dark btn next-step blue">Continuar</button>
+             <button class="waves-effect waves-dark btn-flat previous-step">Atrás</button>
+          </div>
+       </div>
+    </li>
+    <li class="step">
+       <div class="step-title waves-effect">Limites</div>
+       <div class="step-content">
+            <div class="row">
+                <br>  
+                <div class="input-field col s12 m6">                           
+                    <input id="txtMin" type="tel" class="validate" maxlength="20">
+                    <label class="active" >Limite mínimo</label>
+                </div>
+                <div class="input-field col s12 m6">                           
+                    <input id="txtMax" type="tel" class="validate" maxlength="20">
+                    <label class="active" >Limite máximo</label>
+                </div> 
+
+            </div>
+
+
+          <div class="step-actions">
+             <button class="waves-effect waves-dark btn green" type="submit">Salvar</button>
+          </div>
+       </div>
+    </li>
+ </ul>
