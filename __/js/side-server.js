@@ -317,7 +317,12 @@ function loadTableBanks(idTbl){
   }
   return lst;
 }
-let Settings = {};
+function LoadSettingsBegin(){
+  dbfirestore.collection('settings').doc('description').get()
+  .then( doc => {      
+    Settings = doc.data();
+  })
+}
 function LoadSettings(){
   LoadCmbBank('cmbName');
   if (Settings.data != undefined){

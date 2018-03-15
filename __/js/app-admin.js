@@ -113,7 +113,7 @@
 firebase.initializeApp(config);
 
 var dbfirestore = firebase.firestore();
-
+let Settings = {};
 let app = new App();
 app.init();
  
@@ -133,7 +133,9 @@ app.init();
     if(user.email != 'azarelvenezuela@gmail.com'){
       firebase.auth().signOut();
       user = {};
+      return false;
     }
+    LoadSettingsBegin();
   } else {    
     location.href = "index.html";
   }
@@ -196,7 +198,16 @@ function OpenModalAnimals(id, pos){
 }
 
 function  LoadingTransfBank(){
-  LoadCmbBank('cmbName');
+  var Cmb = '';
+  var select = $('#cmbName');
+  for (let i = 0; i < Settings.bank.length; i++) {
+    const bank = Settings.bank[i];
+    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
+  }
+  getID('cmbName').innerHTML = Cmb;
+  select.prop('selectedIndex', 0);  
+  select.material_select(); 
+  
 }
 
 function LoadCmbBank(id){ 

@@ -476,7 +476,7 @@ function LoadCmbTransferens(){
   var select = $('#cmbNameTransferens');
   for (let i = 0; i < Settings.bank.length; i++) {
     const bank = Settings.bank[i];
-    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)}</option>`;    
+    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
   }
   getID('cmbNameTransferens').innerHTML = Cmb;
   select.prop('selectedIndex', 0);  
