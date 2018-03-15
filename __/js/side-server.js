@@ -299,8 +299,63 @@ function AceptRequest(){
 }
 
 
+function loadTableBanks(idTbl){
+  var fil = getID(idTbl);
+  var lst = [];
+  if(fil == null || fil.length == 0 )return false;
+  fil = fil.rows;
+
+  for (let i = 0; i < fil.length; i++) {
+    var obj = fil[i].cells;   
+    lst.push({
+        bank: obj[0].innerHTML,
+        type: obj[1].innerHTML,
+        desc: obj[2].innerHTML,
+        number: obj[5].innerHTML,
+        status: true,
+      });
+  }
+  return lst;
+}
+let Settings = {};
 function LoadSettings(){
   LoadCmbBank('cmbName');
+  if (Settings.data != undefined){
+    GetInterfaceSettings();
+  }else{
+    dbfirestore.collection('settings').doc('description').get()
+    .then( doc => {      
+      Settings = doc.data();
+      GetInterfaceSettings();
+    })
+  }
+  
+}
+function GetInterfaceSettings(){
+  $("#txtRif").val(Settings.data.rif);
+  $("#txtSocial").val(Settings.data.name);
+  $("#txtDirection").val(Settings.data.dir);
+  $("#txtPhone").val(Settings.data.phone);
+  $("#txtCel").val(Settings.data.cel);
+  for (let i = 0; i < Settings.bank.length; i++) {
+    const bank =  Settings.bank[i];
+    $('#tblListBank').append(`<tr>
+      <td style="display:none">${bank.name}</td>
+      <td style="display:none">${bank.type}</td>
+      <td>${bank.desc}</td>
+      <td>${getPosBankText(bank.name)}</td>
+      <td>${getBankType(bank.type)}</td>
+      <td>${bank.number}</td>
+      <td style="text-align:right"><div class="switch right">
+      <label>
+        <input type="checkbox" checked=true>
+        <span class="lever"></span>
+      </label>
+      </div></td>
+    </tr>`);   
+  }
+  $("#txtMin").val(Settings.limit.min);
+  $("#txtMax").val(Settings.limit.max);
 }
 
 function saveSettings(){
@@ -311,13 +366,25 @@ function saveSettings(){
     phone : $("#txtPhone").val(),
     cel : $("#txtCel").val()
   }
-  var bank = [ ]
-
+  var bank = loadTableBanks('tblListBank');
+  var limit = {
+    min : $("#txtMin").val(), 
+    max : $("#txtMax").val()
+  }
   var settings = {
     data : data,
     bank : bank,
     limit: limit
   }
+  console.log(settings);
+  
+  dbfirestore.collection('settings').doc('description').set(settings)
+  .then( doc => {
+    Materialize.toast('Proceso finalizado', 3000, 'rounded');
+    console.log('Save settings...');
+  }).catch(e => {
+    console.log('Err. Settings', e);
+  })
 }
 function loadBankSettings(){
   
