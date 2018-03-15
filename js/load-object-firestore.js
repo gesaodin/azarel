@@ -737,3 +737,11 @@ function LoadMoneyTotal(){
         $("#divResultList").hide();
     });
   }
+  
+  function getSettings(){
+    dbfirestore.collection('settings').doc('description').get()
+    .then( doc => {      
+      Settings = doc.data();
+      
+    })
+  }

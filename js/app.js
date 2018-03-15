@@ -11,7 +11,7 @@ let TokenNotification = '';
 let MoneyGame = 0;
 let UserPlayingActive = '';
 let Prize = [];
-
+let Settings = {};
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -79,6 +79,7 @@ const animals = [
       LoadClaims();
       readPlayingDay();
       loadUser();
+      getSettings();
       SendTokenOnServer(user.email, TokenNotification);
     } else {
       location.href = "index.html";
@@ -469,7 +470,27 @@ var Banks = [
 
 function LoadCmbTransferens(){
   LoadCmbBank('cmbName');
-  LoadCmbBank('cmbNameTransferens');
+  
+
+  var Cmb = '';
+  var select = $('#cmbNameTransferens');
+  for (let i = 0; i < Settings.bank.length; i++) {
+    const bank = Settings.bank[i];
+    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)}</option>`;    
+  }
+  getID('cmbNameTransferens').innerHTML = Cmb;
+  select.prop('selectedIndex', 0);  
+  select.material_select(); 
+  
+}
+
+function getPosBankText(code){
+  for (let i = 0; i < Banks.length; i++) {    
+    if(Banks[i].code == code){
+      return Banks[i].value;            
+    }
+  }
+
 }
 
 
