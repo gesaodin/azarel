@@ -264,7 +264,7 @@ function AddBank(){
   };
 
   $('#tblListBank').append(`<tr>
-    <td>${bank.name}</td>
+    <td >${bank.name}</td>
     <td>${bank.type}</td>
     <td>${getPosBankText(bank.name)}</td>
     <td>${getBankType(bank.type)}</td>
