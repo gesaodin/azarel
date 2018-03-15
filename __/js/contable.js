@@ -1,0 +1,9 @@
+
+
+function SumTransferensPerDays(){
+
+}
+
+function SumRequestPerDays(){
+
+}
