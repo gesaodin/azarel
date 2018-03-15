@@ -277,7 +277,7 @@ function AddBank(){
     <td>${bank.number}</td>
     <td style="text-align:right"><div class="switch right">
     <label>
-      <input type="checkbox">
+      <input type="checkbox" checked=true>
       <span class="lever"></span>
     </label>
     </div></td>
