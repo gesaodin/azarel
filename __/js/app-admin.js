@@ -238,6 +238,10 @@ function getPosBankText(code){
   }
 
 }
+function AssignedBank(){
+  $("#txtNumber").val($("#cmbName").val());
+}
+
 
 function getBankType(key){
   switch (key) {
@@ -258,16 +262,26 @@ function getBankType(key){
 
 function AddBank(){
   var bank = {
+    desc :$("#txtNameBank").val(), 
     name: $("#cmbName").val(),
     number: $("#txtNumber").val(),
     type: $("#cmbType").val()
   };
 
   $('#tblListBank').append(`<tr>
-    <td >${bank.name}</td>
-    <td>${bank.type}</td>
+    <td style="display:none">${bank.name}</td>
+    <td style="display:none">${bank.type}</td>
+    <td>${bank.desc}</td>
     <td>${getPosBankText(bank.name)}</td>
     <td>${getBankType(bank.type)}</td>
-    <td></td>
+    <td>${bank.number}</td>
+    <td style="text-align:right"><div class="switch right">
+    <label>
+      <input type="checkbox">
+      <span class="lever"></span>
+    </label>
+    </div></td>
   </tr>`);
+  $("#txtNumber").val('');
+  $("#txtNameBank").val('');
 }

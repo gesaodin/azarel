@@ -298,6 +298,11 @@ function AceptRequest(){
   }
 }
 
+
+function LoadSettings(){
+  LoadCmbBank('cmbName');
+}
+
 function saveSettings(){
   var data = {
     rif : $("#txtRif").val(),
