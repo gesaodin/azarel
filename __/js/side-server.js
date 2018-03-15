@@ -199,7 +199,6 @@ function msgAceptTransferens(){
 function AceptTransferens(){
   for (let i = 0; i < lstTransf.length; i++) {
     var transf = lstTransf[i];
-    console.log(transf);
     dbfirestore.collection('competitor').doc(transf.uid)
     .collection('money').doc(transf.id).update({status:"A"}).then(d =>{
       
@@ -287,7 +286,6 @@ function msgAceptRequest(){
 function AceptRequest(){
   for (let i = 0; i < lstTransf.length; i++) {
     var transf = lstTransf[i];
-    console.log(transf);
     dbfirestore.collection('competitor').doc(transf.uid)
     .collection('money').doc(transf.id).update({status:"A"}).then(d =>{
       
@@ -300,3 +298,22 @@ function AceptRequest(){
   }
 }
 
+function saveSettings(){
+  var data = {
+    rif : $("#txtRif").val(),
+    name : $("#txtSocial").val(),
+    dir : $("#txtDirection").val(),
+    phone : $("#txtPhone").val(),
+    cel : $("#txtCel").val()
+  }
+  var bank = [ ]
+
+  var settings = {
+    data : data,
+    bank : bank,
+    limit: limit
+  }
+}
+function loadBankSettings(){
+  
+}

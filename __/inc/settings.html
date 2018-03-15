@@ -5,7 +5,7 @@
           <div class="row"><br>
              <div class="input-field col s12 m4">
                  
-                <input id="txtrif" type="email" class="validate" required>
+                <input id="txtRif" type="email" class="validate" required>
                 <label class="active">Rif</label>
              </div>
              <div class="input-field col s12 m8">
@@ -16,7 +16,7 @@
 
             <div class="input-field col s12 m12">
                  
-                    <input id="txtDireccion" type="text" class="validate" required>
+                    <input id="txtDirection" type="text" class="validate" required>
                     <label class="active">Dirección</label>
                  </div>
                  <div class="input-field col s6 m4">
@@ -56,9 +56,26 @@
                         <label>Seleccionar tipo de cuenta</label>
                         </div>
                         <div class="input-field col s12 m6">                           
-                                <input id="txtNumber" type="tel" class="validate" maxlength="20">
-                                <label class="active" >Número de cuenta</label>
-                            </div> 
+                            <input id="txtNumber" type="tel" class="validate" maxlength="20">
+                            <label class="active" >Número de cuenta</label>
+                        </div>
+                        <div class="input-field col s2" >
+                            <a class="btn-floating red" onclick="AddBank()"><i class="material-icons">add</i></a>
+                        </div> 
+          </div>
+          <div class="row">
+            <table>
+                <thead>
+                    <th>NOMBRE</th>
+                    <th>TIPO</th>
+                    <th>NÚMERO</th>
+                    <th style="text-align:right">ACCIÓN</th>
+                </thead>
+                <tbody id="tblListBank">
+        
+                </tbody>
+            </table>
+
           </div><!-- Fin de Cuenta Bancaria -->
           <div class="step-actions">
              <button class="waves-effect waves-dark btn next-step blue">Continuar</button>

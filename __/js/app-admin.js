@@ -255,3 +255,19 @@ function getBankType(key){
       break;
   }
 }
+
+function AddBank(){
+  var bank = {
+    name: $("#cmbName").val(),
+    number: $("#txtNumber").val(),
+    type: $("#cmbType").val()
+  };
+
+  $('#tblListBank').append(`<tr>
+    <td>${bank.name}</td>
+    <td>${bank.type}</td>
+    <td>${getPosBankText(bank.name)}</td>
+    <td>${getBankType(bank.type)}</td>
+    <td></td>
+  </tr>`);
+}
