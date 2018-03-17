@@ -156,7 +156,6 @@ function LoadLocalFile(file, idDiv, func){
 }
 
 function LoadComponentMaterialize(){
-  
   $('ul.tabs').tabs();
   $('select').material_select();
   $('.collapsible').collapsible();
@@ -169,16 +168,22 @@ function LoadComponentMaterialize(){
     stopPropagation: false // Stops event propagation
   });
   $('.datepicker').pickadate({
+    regional: ['es'],
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 100, // Creates a dropdown of 15 years to control year,
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
     today: 'Hoy',
+    //maxDate: today,
     clear: 'Limpiar',
     close: 'Ok',
     closeOnSelect: false, // Close upon selecting a date,
-    format: 'dd/mm/yyyy' 
+    format: 'dd/mm/yyyy'
   });
   $('.button-collapse').sideNav('hide');
-
 }
 
 function LoadComponentGeneral(){
