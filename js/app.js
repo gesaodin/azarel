@@ -131,7 +131,7 @@ function SendTokenOnServer(email, token){
     token : token,
     status: false
   }).catch( e => {
-    Materialize.toast('Es posible que no reciba notificaciones', 3000, 'rounded');
+    Materialize.toast('Es posible que no reciba notificaciones', 3000);
   });
 }
 
@@ -313,7 +313,7 @@ function ChangeTabs(id, val){
   if (val == undefined){
     var hours = getValuesSelectMultiple('cmbHours');
     if(hours.length == 0){
-      Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
+      Materialize.toast('Debe seleccionar sorteo', 3000);
       return true;
     }
   }
@@ -332,7 +332,7 @@ function AddGame(){
   if ( monto == '')return true;
   var hours = getValuesSelectMultiple('cmbHours');
   if(hours.length == 0){
-    Materialize.toast('Debe seleccionar sorteo', 3000, 'rounded');
+    Materialize.toast('Debe seleccionar sorteo', 3000);
     return true;
   }
   MoneyGame = MoneyGame + (parseFloat(monto) * hours.length);
@@ -355,7 +355,7 @@ function AddGame(){
   getID('spsaldo').innerHTML = MoneyGame.toLocaleString();
   getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
   getID('btnGame').classList.remove('hide');
-  Materialize.toast('Verifica tu lista de apuestas', 3000, 'rounded');
+  Materialize.toast('Verifica tu lista de apuestas', 3000);
   return false;
 }
 
@@ -524,4 +524,41 @@ function getPosCmb(value, id){
   var select = $("#" + id);
   select.prop('selectedIndex', value);  
   select.material_select(); 
+}
+
+
+
+let pos = ['LOACT', 'LAGRAN', 'RULEACT'];
+
+let Hours = [
+  {code: 0, val : 9, des : "9AM"}, 
+  {code: 0, val : 10, des : "10AM"}, 
+  {code: 0, val : 11, des : "11AM"}, 
+  {code: 0, val : 12, des : "12AM"}, 
+  {code: 0, val : 1, des : "1PM"}, 
+  {code: 0, val : 3, des : "3PM"}, 
+  {code: 0, val : 4, des : "4PM"}, 
+  {code: 0, val : 5, des : "5PM"}, 
+  {code: 0, val : 6, des : "6PM"}, 
+  {code: 0, val : 7, des : "7PM"} 
+]
+
+function LoadTimes(){
+  var time = 0;
+  fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
+    var offsetVal = offset.val() || 0;
+    var serverTime = Date.now() + offsetVal;
+    time = GetTimeStamp(serverTime); 
+  });
+  return time;
+}
+function LoadHours(){
+  var time = LoadTimes();
+  if (time == 0 ){
+    Materialize.toast('No hay conexión para las apuestas', 3000);
+    return false;
+  }
+
+  var stime = time.split(' ');
+       
 }
