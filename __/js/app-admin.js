@@ -111,12 +111,28 @@
 
 
 firebase.initializeApp(config);
-
+var fb = firebase.database();
 var dbfirestore = firebase.firestore();
 let Settings = {};
 let app = new App();
 app.init();
- 
+
+fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
+  var offsetVal = offset.val() || 0;
+  var serverTime = Date.now() + offsetVal;
+  console.log(serverTime, "   --- ", offsetVal, " HUMAN ", GetTimeStamp(serverTime));
+  $("#lblDateInfo").text(GetTimeStamp(serverTime))
+
+}); 
+
+function GetTimeStamp(dateString){
+  if(dateString != undefined) {  
+    var dateString = new Date(dateString);
+    return dateString.toLocaleString();
+  }else{    
+    return (new Date()).toLocaleString();
+  } 
+}
 
  firebase.auth().onAuthStateChanged(user => {
   if (user) {    
@@ -197,6 +213,10 @@ function OpenModalAnimals(id, pos){
   $('#mdlPag2').hide();
 }
 
+
+function LoadingRequestBank(){
+  LoadCmbBank('cmbName');
+}
 function  LoadingTransfBank(){
   var Cmb = '';
   var select = $('#cmbName');
@@ -295,4 +315,8 @@ function AddBank(){
   </tr>`);
   $("#txtNumber").val('');
   $("#txtNameBank").val('');
+}
+
+function BeginGames(){
+  
 }

@@ -318,10 +318,17 @@ function loadTableBanks(idTbl){
   return lst;
 }
 function LoadSettingsBegin(){
+
   dbfirestore.collection('settings').doc('description').get()
-  .then( doc => {      
-    Settings = doc.data();
+  .then( doc => {
+    if(doc.exists){
+      Settings = doc.data();
+    }else{
+      Materialize.toast('Debe actualizar configuración', 3000);
+    }
+    
   })
+
 }
 function LoadSettings(){
   LoadCmbBank('cmbName');
