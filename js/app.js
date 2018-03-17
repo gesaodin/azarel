@@ -242,6 +242,7 @@ function MakeTableAnimals(){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimalsWeb(){
+  LoadTimes();
   console.log('Cargando animalitos Web...');
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
@@ -545,16 +546,14 @@ let Hours = [
 
 let intPos = -1;
 function LoadTimes(){
-  var time = 0;
-  fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
+  
+  database.ref("/.info/serverTimeOffset").once('value', function(offset) {
     var offsetVal = offset.val() || 0;
     var serverTime = Date.now() + offsetVal;
-    time = GetTimeStamp(serverTime); 
+    LoadHours(GetTimeStamp(serverTime));    
   });
-  return time;
 }
-function LoadHours(){
-  var time = LoadTimes();
+function LoadHours(time){
   if (time == 0 ){
     Materialize.toast('No hay conexión para las apuestas', 3000);
     return false;
@@ -573,14 +572,24 @@ function LoadHours(){
      intPos = Hours[i].key;
     }
   }
-  
-       
+
+  if( intPos == -1 ){
+    if( hrs >= 7 ){
+      intPos = 0;
+    }
+    if( hrs == 2 ){
+      intPos = 5
+    }
+  }
+  if (min > 54 ) intPos++;
+  console.log(intPos);
+  LoadHoursCmb();    
 }
 function LoadHoursCmb(){
-  if (intPos > -1 ){
+  if (intPos > -1 ){    
     for (let i = 0; i < Hours.length; i++) {
       if (intPos >= Hours[i].key){
-        
+        console.log(Hours[i].val);
       }      
     }
   }
