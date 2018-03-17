@@ -280,7 +280,7 @@ function OpenModalAnimals(id, pos){
   var lblNumberAnimalsModal = getID('numberAnimals');
   var txtNumberAnimalsModal = getID('txtMonto');
   lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
-  txtNumberAnimalsModal.value = '';
+  //txtNumberAnimalsModal.value = '';
   $('#modAnimals').modal('open');
   $('#mdlPag1').show();
   $('#mdlPag2').hide();
