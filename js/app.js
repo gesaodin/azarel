@@ -531,18 +531,19 @@ function getPosCmb(value, id){
 let pos = ['LOACT', 'LAGRAN', 'RULEACT'];
 
 let Hours = [
-  {code: 0, val : 9, des : "9AM"}, 
-  {code: 0, val : 10, des : "10AM"}, 
-  {code: 0, val : 11, des : "11AM"}, 
-  {code: 0, val : 12, des : "12AM"}, 
-  {code: 0, val : 1, des : "1PM"}, 
-  {code: 0, val : 3, des : "3PM"}, 
-  {code: 0, val : 4, des : "4PM"}, 
-  {code: 0, val : 5, des : "5PM"}, 
-  {code: 0, val : 6, des : "6PM"}, 
-  {code: 0, val : 7, des : "7PM"} 
+  {key: 0, code: 0, val : 9, des : "9:00 AM"}, 
+  {key: 1, code: 0, val : 10, des : "10:00 AM"}, 
+  {key: 2, code: 0, val : 11, des : "11:00 AM"}, 
+  {key: 3, code: 0, val : 12, des : "12:00 AM"}, 
+  {key: 4, code: 0, val : 1, des : "1:00 PM"}, 
+  {key: 5, code: 0, val : 3, des : "3:00 PM"}, 
+  {key: 6, code: 0, val : 4, des : "4:00 PM"}, 
+  {key: 7, code: 0, val : 5, des : "5:00 PM"}, 
+  {key: 8, code: 0, val : 6, des : "6:00 PM"}, 
+  {key: 9, code: 0, val : 7, des : "7:00 PM"} 
 ]
 
+let intPos = -1;
 function LoadTimes(){
   var time = 0;
   fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
@@ -560,5 +561,27 @@ function LoadHours(){
   }
 
   var stime = time.split(' ');
+  var shours = stime[1].split(':');
+  var hrs = parseInt(shours[0]);
+  var min =  parseInt(shours[1]);
+  
+  
+  
+
+  for (let i = 0; i < Hours.length; i++) {
+    if (hrs == Hours[i].val){
+     intPos = Hours[i].key;
+    }
+  }
+  
        
+}
+function LoadHoursCmb(){
+  if (intPos > -1 ){
+    for (let i = 0; i < Hours.length; i++) {
+      if (intPos >= Hours[i].key){
+        
+      }      
+    }
+  }
 }
