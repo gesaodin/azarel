@@ -214,8 +214,8 @@ function MakeTableAnimals(){
     for (var j = min; j < max; j++) {
       var animal = animals[j];
       icon += `
-      <div class="col s3 m1">
-        <div class="cardAnimals cardAnimals-1 ">
+      <div class="col s3 m1" >
+        <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="OpenModalAnimals('${animal.key}', ${j})">
         <div class="footcard ">${animal.value}</div>
@@ -255,8 +255,8 @@ function MakeTableAnimalsWeb(){
     for (var j = min; j < max; j++) {
       var animal = animals[j];
       icon += `
-      <div class="col m3 l1 ">
-        <div class="cardAnimals cardAnimals-1 ">
+      <div class="col m3 l1" >
+        <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="OpenModalAnimals('${animal.key}', ${j})">
         <div class="footcard ">${animal.value}</div>
@@ -447,7 +447,6 @@ var Banks = [
   {key: 12, code: "0163", value: "BANCO DEL TESORO"},
   {key: 13, code: "0176", value: "BANCO ESPIRITO SANTO, S.A."},
   {key: 14, code: "0115", value: "BANCO EXTERIOR C.A."},
-  //{key: 0, code: "0003", value: "BANCO INDUSTRIAL DE VENEZUELA."},
   {key: 15, code: "0173", value: "BANCO INTERNACIONAL DE DESARROLLO, C.A."},
   {key: 16, code: "0105", value: "BANCO MERCANTIL C.A."},
   {key: 17, code: "0191", value: "BANCO NACIONAL DE CREDITO"},
@@ -472,7 +471,10 @@ var Banks = [
 function LoadCmbTransferens(){
   LoadCmbBank('cmbName');
   
-
+  if (Settings.bank == undefined ){
+    Materialize.toast('Fallo de conexión intente mas tarde', 3000);
+    return false;
+  }
   var Cmb = '';
   var select = $('#cmbNameTransferens');
   for (let i = 0; i < Settings.bank.length; i++) {
@@ -532,16 +534,16 @@ function getPosCmb(value, id){
 let pos = ['LOACT', 'LAGRAN', 'RULEACT'];
 
 let Hours = [
-  {key: 0, code: 0, val : 9, des : "9:00 AM", opt: "9AM"}, 
-  {key: 1, code: 0, val : 10, des : "10:00 AM", opt: "10AM"}, 
-  {key: 2, code: 0, val : 11, des : "11:00 AM", opt: "11AM"}, 
-  {key: 3, code: 0, val : 12, des : "12:00 AM", opt: "12AM"}, 
-  {key: 4, code: 0, val : 1, des : "1:00 PM", opt: "1PM"}, 
-  {key: 5, code: 0, val : 3, des : "3:00 PM", opt: "3PM"}, 
-  {key: 6, code: 0, val : 4, des : "4:00 PM", opt: "4PM"}, 
-  {key: 7, code: 0, val : 5, des : "5:00 PM", opt: "5PM"}, 
-  {key: 8, code: 0, val : 6, des : "6:00 PM", opt: "6PM"}, 
-  {key: 9, code: 0, val : 7, des : "7:00 PM", opt: "7PM"} 
+  {key: 0, code: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
+  {key: 1, code: 0, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
+  {key: 2, code: 0, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
+  {key: 3, code: 0, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
+  {key: 4, code: 0, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
+  {key: 5, code: 0, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
+  {key: 6, code: 0, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
+  {key: 7, code: 0, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
+  {key: 8, code: 0, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
+  {key: 9, code: 0, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
 ]
 
 let intPos = -1;
@@ -564,13 +566,13 @@ function LoadHours(time){
   var shours = stime[1].split(':');
   var hrs = parseInt(shours[0]);
   var min =  parseInt(shours[1]);
-  
+  var turn = stime[2];
   
   
 
-  for (let i = 0; i < Hours.length; i++) {
-    if (hrs == Hours[i].val){
-     intPos = Hours[i].key + 1;
+  for (let i = 0; i < Hours.length; i++) {    
+    if (hrs == Hours[i].val && turn == Hours[i].turn){
+     intPos = Hours[i].key;
     }
   }
 
@@ -583,12 +585,13 @@ function LoadHours(time){
     }
   }
 
-
+  
   if (min > 54 ) intPos++;
   LoadHoursCmb();    
 }
 function LoadHoursCmb(){
   var Cmb = `<option value='00x' disabled>---------</option>`;
+  console.log(intPos);
   if (intPos > -1 ){    
     for (let i = intPos; i < Hours.length; i++) {      
       Cmb += `<option value="${Hours[i].opt}">${Hours[i].des}</option>`;
