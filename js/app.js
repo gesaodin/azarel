@@ -236,8 +236,8 @@ function MakeTableAnimalsWeb(){
       <div class="col m3 l1" >
         <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
-          onclick="OpenModalAnimals('${animal.key}', ${j})">
-        <div class="footcard ">${animal.value}</div>
+          onclick="SelectModalAnimals('${animal.key}', ${j})">
+        <div class="footcard" id="divfooter${j}" >${animal.value}</div>
         </div>
       </div>`;
 
@@ -252,6 +252,11 @@ function MakeTableAnimalsWeb(){
   $('#pagWeb').show();  
 }
 
+function SelectModalAnimals(id, pos){
+  var animal = ANIMALS[pos];  
+  //lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
+  getID('divfooter'+pos).classList.add('blue');
+}
 
 function OpenModalAnimals(id, pos){
   var animal = ANIMALS[pos];
@@ -510,7 +515,6 @@ function getPosCmb(value, id){
 let TIME = 0;
 let HOURS = [];
 function SelectionLottery(){
-  console.log("Entrando");
   $("#lblLoadGames").show();
   switch ($("#cmbLottery").val()) {
     case 'LOTAC':
@@ -532,6 +536,7 @@ function SelectionLottery(){
       MakeTableAnimals();
       break;
     default:
+      $("#lblLoadGames").hide();
       break;
   }
 }
