@@ -9,6 +9,7 @@ class Config{
     this.URL = '';
     this.IMG = '';
   }
+
 }
 
 class Ticket{
@@ -227,3 +228,114 @@ function LoadComponentGeneral(){
           }
         );
 }
+
+let pos = ['LOTAC', 'LGRAN', 'RULEACT'];
+
+let LOTAC = { 
+  animals : [
+    {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
+    {key : "01",value : "CARNERO"},{key : "02",value : "TORO"},
+    {key : "03",value : "CIEMPIES"},{key : "04",value : "ALACRAN"},
+    {key : "05",value : "LEON"},{key : "06",value : "RANA"},
+    {key : "07",value : "PERICO"},{key : "08",value : "RATON"},
+    {key : "09",value : "AGUILA"},{key : "10",value : "TIGRE"},
+    {key : "11",value : "GATO"},{key : "12",value : "CABALLO"},
+    {key : "13",value : "MONO"},{key : "14",value : "PALOMA"},
+    {key : "15",value : "ZORRO"},{key : "16",value : "OSO"},
+    {key : "17",value : "PAVO"},{key : "18",value : "BURRO"},
+    {key : "19",value : "CHIVO"},{key : "20",value : "COCHINO"},
+    {key : "21",value : "GALLO"},{key : "22",value : "CAMELLO"},
+    {key : "23",value : "CEBRA"},{key : "24",value : "IGUANA"},
+    {key : "25",value : "GALLINA"},{key : "26",value : "VACA"},
+    {key : "27",value : "PERRO"},{key : "28",value : "ZAMURO"},
+    {key : "29",value : "ELEFANTE"},{key : "30",value : "CAIMAN"},
+    {key : "31",value : "LAPA"},{key : "32",value : "ARDILLA"},
+    {key : "33",value : "PESCADO"},{key : "34",value : "VENADO"},
+    {key : "35",value : "JIRAFA"},{key : "36",value : "CULEBRA"}
+  ],
+  hours : [
+    {key: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
+    {key: 1, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
+    {key: 2, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
+    {key: 3, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
+    {key: 4, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
+    {key: 5, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
+    {key: 6, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
+    {key: 7, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
+    {key: 8, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
+    {key: 9, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
+  ]
+};
+
+let LGRAN = { 
+  animals : [
+    {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
+    {key : "01",value : "CARNERO"},{key : "02",value : "TORO"},
+    {key : "03",value : "CIEMPIES"},{key : "04",value : "ALACRAN"},
+    {key : "05",value : "LEON"},{key : "06",value : "RANA"},
+    {key : "07",value : "PERICO"},{key : "08",value : "RATON"},
+    {key : "09",value : "AGUILA"},{key : "10",value : "TIGRE"},
+    {key : "11",value : "GATO"},{key : "12",value : "CABALLO"},
+    {key : "13",value : "MONO"},{key : "14",value : "PALOMA"},
+    {key : "15",value : "ZORRO"},{key : "16",value : "OSO"},
+    {key : "17",value : "PAVO"},{key : "18",value : "BURRO"},
+    {key : "19",value : "CHIVO"},{key : "20",value : "COCHINO"},
+    {key : "21",value : "GALLO"},{key : "22",value : "CAMELLO"},
+    {key : "23",value : "CEBRA"},{key : "24",value : "IGUANA"},
+    {key : "25",value : "GALLINA"},{key : "26",value : "VACA"},
+    {key : "27",value : "PERRO"},{key : "28",value : "ZAMURO"},
+    {key : "29",value : "ELEFANTE"},{key : "30",value : "CAIMAN"},
+    {key : "31",value : "LAPA"},{key : "32",value : "ARDILLA"},
+    {key : "33",value : "PESCADO"},{key : "34",value : "VENADO"},
+    {key : "35",value : "JIRAFA"},{key : "36",value : "CULEBRA"}
+  ],
+  hours : [
+    {key: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
+    {key: 1, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
+    {key: 2, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
+    {key: 3, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
+    {key: 4, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
+    {key: 5, val : 2, des : "2:00 PM", opt: "2PM", turn: 'p.'}, 
+    {key: 6, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
+    {key: 7, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
+    {key: 8, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
+    {key: 9, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
+    {key: 10, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
+  ]
+};
+
+let RULET = { 
+  animals : [
+    {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
+    {key : "01",value : "CARNERO"},{key : "02",value : "TORO"},
+    {key : "03",value : "CIEMPIES"},{key : "04",value : "ALACRAN"},
+    {key : "05",value : "LEON"},{key : "06",value : "RANA"},
+    {key : "07",value : "PERICO"},{key : "08",value : "RATON"},
+    {key : "09",value : "AGUILA"},{key : "10",value : "TIGRE"},
+    {key : "11",value : "GATO"},{key : "12",value : "CABALLO"},
+    {key : "13",value : "MONO"},{key : "14",value : "PALOMA"},
+    {key : "15",value : "ZORRO"},{key : "16",value : "OSO"},
+    {key : "17",value : "PAVO"},{key : "18",value : "BURRO"},
+    {key : "19",value : "CHIVO"},{key : "20",value : "COCHINO"},
+    {key : "21",value : "GALLO"},{key : "22",value : "CAMELLO"},
+    {key : "23",value : "CEBRA"},{key : "24",value : "IGUANA"},
+    {key : "25",value : "GALLINA"},{key : "26",value : "VACA"},
+    {key : "27",value : "PERRO"},{key : "28",value : "ZAMURO"},
+    {key : "29",value : "ELEFANTE"},{key : "30",value : "CAIMAN"},
+    {key : "31",value : "LAPA"},{key : "32",value : "ARDILLA"},
+    {key : "33",value : "PESCADO"},{key : "34",value : "VENADO"},
+    {key : "35",value : "JIRAFA"},{key : "36",value : "CULEBRA"}
+  ],
+  hours : [
+    {key: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
+    {key: 1, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
+    {key: 2, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
+    {key: 3, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
+    {key: 4, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
+    {key: 5, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
+    {key: 6, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
+    {key: 7, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
+    {key: 8, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
+    {key: 9, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
+  ]
+};

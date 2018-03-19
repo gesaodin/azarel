@@ -38,52 +38,32 @@ var database = firebase.database();
 var dbfirestore = firebase.firestore();
 
 
-const animals = [
-    {key : "0",value : "DELFIN"},{key : "00",value : "BALLENA"},
-    {key : "01",value : "CARNERO"},{key : "02",value : "TORO"},
-    {key : "03",value : "CIEMPIES"},{key : "04",value : "ALACRAN"},
-    {key : "05",value : "LEON"},{key : "06",value : "RANA"},
-    {key : "07",value : "PERICO"},{key : "08",value : "RATON"},
-    {key : "09",value : "AGUILA"},{key : "10",value : "TIGRE"},
-    {key : "11",value : "GATO"},{key : "12",value : "CABALLO"},
-    {key : "13",value : "MONO"},{key : "14",value : "PALOMA"},
-    {key : "15",value : "ZORRO"},{key : "16",value : "OSO"},
-    {key : "17",value : "PAVO"},{key : "18",value : "BURRO"},
-    {key : "19",value : "CHIVO"},{key : "20",value : "COCHINO"},
-    {key : "21",value : "GALLO"},{key : "22",value : "CAMELLO"},
-    {key : "23",value : "CEBRA"},{key : "24",value : "IGUANA"},
-    {key : "25",value : "GALLINA"},{key : "26",value : "VACA"},
-    {key : "27",value : "PERRO"},{key : "28",value : "ZAMURO"},
-    {key : "29",value : "ELEFANTE"},{key : "30",value : "CAIMAN"},
-    {key : "31",value : "LAPA"},{key : "32",value : "ARDILLA"},
-    {key : "33",value : "PESCADO"},{key : "34",value : "VENADO"},
-    {key : "35",value : "JIRAFA"},{key : "36",value : "CULEBRA"}
-  ];
+let Animals = [];
 
 
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {    
-      var emailVerified = user.emailVerified;
-      var isAnonymous = user.isAnonymous;
-      var providerData = user.providerData;
-      
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {    
+    var emailVerified = user.emailVerified;
+    var isAnonymous = user.isAnonymous;
+    var providerData = user.providerData;
     
-      UserAPIKey = user.ca.a;
-      lblEmail.innerHTML = user.email;
-      lblNameUser.innerHTML = user.displayName;
-      imgPhotoUser.src = user.photoURL; 
-      UserUID = user.uid;
-      $("#divLoading").hide();
-      $("#divNav").show();
-      LoadMoneyTotal();
-      LoadClaims();
-      readPlayingDay();
-      loadUser();
-      getSettings();
-      SendTokenOnServer(user.email, TokenNotification);
-    } else {
-      location.href = "index.html";
-    }
+  
+    UserAPIKey = user.ca.a;
+    lblEmail.innerHTML = user.email;
+    lblNameUser.innerHTML = user.displayName;
+    imgPhotoUser.src = user.photoURL; 
+    UserUID = user.uid;
+    $("#divLoading").hide();
+    $("#divNav").show();
+    LoadMoneyTotal();
+    LoadClaims();
+    readPlayingDay();
+    loadUser();
+    getSettings();
+    SendTokenOnServer(user.email, TokenNotification);
+  } else {
+    location.href = "index.html";
+  }
 });
 
 
@@ -209,9 +189,9 @@ function MakeTableAnimals(){
   for (var i = 1; i < maxPageNumber; i++) {
     var pag = `<div class="row" id="pag${i}" style="display:none;padding-left:0px">`;
     var icon = "";
-    if (max > animals.length) max = animals.length;
+    if (max > ANIMALS.length) max = ANIMALS.length;
     for (var j = min; j < max; j++) {
-      var animal = animals[j];
+      var animal = ANIMALS[j];
       icon += `
       <div class="col s3 m1" >
         <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
@@ -245,13 +225,13 @@ function MakeTableAnimalsWeb(){
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
-  var max = animals.length;
+  var max = ANIMALS.length;
  
     var pag = `<div class="row" id="pagWeb" style="padding-left:0px">`;
     var icon = "";
     
     for (var j = min; j < max; j++) {
-      var animal = animals[j];
+      var animal = ANIMALS[j];
       icon += `
       <div class="col m3 l1" >
         <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
@@ -274,7 +254,7 @@ function MakeTableAnimalsWeb(){
 
 
 function OpenModalAnimals(id, pos){
-  var animal = animals[pos];
+  var animal = ANIMALS[pos];
   var lblNumberAnimalsModal = getID('numberAnimals');
   var txtNumberAnimalsModal = getID('txtMonto');
   lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
@@ -527,40 +507,56 @@ function getPosCmb(value, id){
   select.material_select(); 
 }
 
+let TIME = 0;
+let HOURS = [];
+function SelectionLottery(){
+  console.log("Entrando");
+  $("#lblLoadGames").show();
+  switch ($("#cmbLottery").val()) {
+    case 'LOTAC':
+      ANIMALS = LOTAC.animals; 
+      HOURS = LOTAC.hours;
+      LoadTimes();
+      MakeTableAnimals();
+      break;
+    case 'RULET':
+      ANIMALS = RULET.animals; 
+      HOURS = RULET.hours;
+      LoadTimes();
+      MakeTableAnimals();
+      break;
+    case 'LGRAN':
+      ANIMALS = LGRAN.animals; 
+      HOURS = LGRAN.hours;
+      LoadTimes();
+      MakeTableAnimals();
+      break;
+    default:
+      break;
+  }
+}
 
 
-let pos = ['LOACT', 'LAGRAN', 'RULEACT'];
-
-let Hours = [
-  {key: 0, code: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
-  {key: 1, code: 0, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
-  {key: 2, code: 0, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
-  {key: 3, code: 0, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
-  {key: 4, code: 0, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
-  {key: 5, code: 0, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
-  {key: 6, code: 0, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
-  {key: 7, code: 0, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
-  {key: 8, code: 0, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
-  {key: 9, code: 0, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
-]
 
 let intPos = -1;
-function LoadTimes(){
-  
+function LoadTimes(){  
   database.ref("/.info/serverTimeOffset").once('value', function(offset) {
     var offsetVal = offset.val() || 0;
     var serverTime = Date.now() + offsetVal;
-    LoadHours(GetTimeStamp(serverTime));    
+    TIME = GetTimeStamp(serverTime);
+    $("#lblLoadGames").hide();
+    LoadHours();
   });
+  $("#lblLoadGames").hide();
 }
-function LoadHours(time){
+function LoadHours(){
   intPos = -1;
-  if (time == 0 ){
+  if (TIME == 0 ){
     Materialize.toast('No hay conexión para las apuestas', 3000);
     return false;
   }
 
-  var stime = time.split(' ');
+  var stime = TIME.split(' ');
   var shours = stime[1].split(':');
   var hrs = parseInt(shours[0]);
   var min =  parseInt(shours[1]);
@@ -568,9 +564,9 @@ function LoadHours(time){
   
   
 
-  for (let i = 0; i < Hours.length; i++) {    
-    if (hrs == Hours[i].val && turn == Hours[i].turn){
-     intPos = Hours[i].key;
+  for (let i = 0; i < HOURS.length; i++) {    
+    if (hrs == HOURS[i].val && turn == HOURS[i].turn){
+     intPos = HOURS[i].key+1;
     }
   }
 
@@ -584,23 +580,20 @@ function LoadHours(time){
   }
   
   if(intPos >= 0 && min > 54 ) intPos++;
-  
-        
-  
-
   LoadHoursCmb();
   
 }
 function LoadHoursCmb(){
   var Cmb = `<option value='00x' disabled>---------</option>`;
-  console.log(intPos);
   if (intPos > -1 ){    
-    for (let i = intPos; i < Hours.length; i++) {      
-      Cmb += `<option value="${Hours[i].opt}">${Hours[i].des}</option>`;
+    for (let i = intPos; i < HOURS.length; i++) {      
+      Cmb += `<option value="${HOURS[i].opt}">${HOURS[i].des}</option>`;
     }
     var select = $('#cmbHours');
     getID('cmbHours').innerHTML = Cmb;
     select.prop('selectedIndex', 0);  
     select.material_select(); 
   }
+
+  // 
 }
