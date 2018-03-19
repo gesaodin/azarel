@@ -5,7 +5,7 @@ function activeData(doc){
     .doc(UserUID).set({active:true})
     .then(doc => {})
     .catch(e => {  
-        Materialize.toast('Ocurrio un error al enviar los datos', 4000, 'rounded');                  
+        Materialize.toast('Ocurrio un error al enviar los datos', 4000);                  
     })
 }
 
@@ -17,7 +17,7 @@ function loadUser(){
         if(snap.exists){
             User = snap.data();
         }else{
-            Materialize.toast('Recuerde actualizar sus datos', 3000, 'rounded');
+            Materialize.toast('Recuerde actualizar sus datos', 3000);
         }
     })
     .catch( e => {
@@ -29,10 +29,10 @@ function writeUserDataPerson() {
     var btn = getID('btnUserData');
     ConexionUser = 0;
     if(getID('txtcid').value == ""){
-      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      Materialize.toast('Por favor verifique los campos', 3000);
       return false;
     }
-    Materialize.toast('Enviando actualización...', 2000, 'rounded');
+    Materialize.toast('Enviando actualización...', 2000);
     btn.classList.add('disabled');
     var person = {
       cid: getID('txtcid').value,
@@ -50,12 +50,12 @@ function writeUserDataPerson() {
         .doc(UserUID)
         .update({person:person})
         .then(doc => {
-            Materialize.toast('Tus datos han sido actualizados', 4000, 'rounded');    
+            Materialize.toast('Tus datos han sido actualizados', 4000);    
             btn.classList.remove('disabled');
             User.person = person;
         })
         .catch(e => {
-            Materialize.toast('Ocurrio un error al enviar los datos', 4000, 'rounded');      
+            Materialize.toast('Ocurrio un error al enviar los datos', 4000);      
             btn.classList.remove('disabled');
         })
 
@@ -74,13 +74,13 @@ function LoadUserData(){
     .then(snapshot => {
         var person = snapshot.data().person;   
         if(person == undefined){
-            Materialize.toast('Por favor actualizar datos personales', 3000, 'rounded');
+            Materialize.toast('Por favor actualizar datos personales', 3000);
         }else{
             assingPerson(person);    
         }
     }).catch(e => {
         activeData();
-        Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');
+        Materialize.toast('Por favor recuerde actualizar sus datos', 3000);
        
     });
 
@@ -107,10 +107,10 @@ function writeUserDataBank() {
     var btn = getID('btnUserDataBank');
     
     if(getID('txtNumber').value == ""){
-      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      Materialize.toast('Por favor verifique los campos', 3000);
       return false;
     }
-    Materialize.toast('Enviando actualización...', 2000, 'rounded');
+    Materialize.toast('Enviando actualización...', 2000);
     btn.classList.add('disabled');
 
     var bank = {
@@ -124,12 +124,12 @@ function writeUserDataBank() {
         .doc(UserUID)
         .update({bank : bank})
         .then(d => {
-            Materialize.toast('Tus datos han sido actualizados', 3000, 'rounded');
+            Materialize.toast('Tus datos han sido actualizados', 3000);
             btn.classList.remove('disabled');
             User.bank = bank;
         })
         .catch( e => {
-            Materialize.toast('Ocurrio un error al enviar los datos', 3000, 'rounded');
+            Materialize.toast('Ocurrio un error al enviar los datos', 3000);
             btn.classList.remove('disabled');
         });
   }
@@ -149,14 +149,14 @@ function writeUserDataBank() {
     .then(snapshot => {
         var bank = snapshot.data().bank;   
         if(bank == undefined){
-            Materialize.toast('Por favor actualizar datos bancarios', 3000, 'rounded');
+            Materialize.toast('Por favor actualizar datos bancarios', 3000);
         }else{            
             assingPersonBank(bank);     
         }
     })
     .catch(e => {
         activeData();
-        Materialize.toast('Por favor recuerde actualizar sus datos', 3000, 'rounded');       
+        Materialize.toast('Por favor recuerde actualizar sus datos', 3000);       
     });
   }
 
@@ -175,14 +175,14 @@ function writeUserDataBank() {
 function writeUserDataTransferens() {
     var btn = getID('btnUserDataTransferens');
     if(User.person == undefined){
-        Materialize.toast('Actualiza tus datos personales', 3000, 'rounded');
+        Materialize.toast('Actualiza tus datos personales', 3000);
         return false;
     }
     if(getID('txtNumber').value == ""){
-      Materialize.toast('Por favor verifique los campos', 3000, 'rounded');
+      Materialize.toast('Por favor verifique los campos', 3000);
       return false;
     }
-    Materialize.toast('Enviando actualización...', 2000, 'rounded');
+    Materialize.toast('Enviando actualización...', 2000);
     btn.classList.add('disabled');
     var transferens = {
         uid : UserUID,
@@ -210,7 +210,7 @@ function writeUserDataTransferens() {
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)
         .then(d => {
-            Materialize.toast('Registro exitoso...', 2000, 'rounded');
+            Materialize.toast('Registro exitoso...', 2000);
             getID('txtDate').value = '';
             getID('txtNumber').value = '';
             getID('txtMoney').value = '';
@@ -256,23 +256,23 @@ function writeUserDataTransferens() {
 function wClaimsTransf() {
     var fmoney = parseFloat(getID('txtMoney').value);
     if(User.person == undefined){
-        Materialize.toast('Actualiza tus datos personales', 3000, 'rounded');
+        Materialize.toast('Actualiza tus datos personales', 3000);
         return false;
     }
     if(User.bank == undefined){
-        Materialize.toast('Actualiza tus datos bancarios', 3000, 'rounded');
+        Materialize.toast('Actualiza tus datos bancarios', 3000);
         return false;
     }
 
     if(getID('txtMoney').value == ""){
-      Materialize.toast('Verifique los campos', 3000, 'rounded');
+      Materialize.toast('Verifique los campos', 3000);
       return false;
     }
     if(UserMoneyTotal <= fmoney){
-        Materialize.toast('El retiro debe ser menor que el saldo', 3000, 'rounded');
+        Materialize.toast('El retiro debe ser menor que el saldo', 3000);
         return false;   
     }
-    Materialize.toast('Enviando información...', 2000, 'rounded');
+    Materialize.toast('Enviando información...', 2000);
     
     var transferens = {
         uid : UserUID,
@@ -299,7 +299,7 @@ function wClaimsTransf() {
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)
         .then(d => {
-            Materialize.toast('Solicitud en proceso...', 2000, 'rounded');
+            Materialize.toast('Solicitud en proceso...', 2000);
             LoadUserDataTransferens();
         })
         .catch(e => {
@@ -364,7 +364,7 @@ function wClaimsTransf() {
 
   function GetTransferensMoney(){
     if(UserMoneyTotal <= 0){
-        Materialize.toast('No posee saldo suficiente!!!', 2000, 'rounded');
+        Materialize.toast('No posee saldo suficiente!!!', 2000);
         return false;
     }
     $("#modAlertTransf").modal();
@@ -380,14 +380,14 @@ function wClaimsTransf() {
 async function writeUserDataBets() {
 
     if(UserMoneyTotal <= 0){
-        Materialize.toast('Debe realizar un tramite de depósito o transferencia', 3000, 'rounded');
+        Materialize.toast('Debe realizar un tramite de depósito o transferencia', 3000);
         return false;
     }
     var btn = getID('btnGame');
     var btnAcept= getID('btnAcept');
     var btnGo = getID('btnGo');
     if(UserPlayingActive == ''){
-      Materialize.toast('Intente mas tarde', 3000, 'rounded');
+      Materialize.toast('Intente mas tarde', 3000);
       return false;
     }
     var loadhtml = LoadIndeterminate();
@@ -510,7 +510,7 @@ function LoadMoneyTotal(){
         if (ConexionUser == 0){
             ConexionUser++;
         } else{
-            Materialize.toast('Sus datos han sido actualizados', 3000, 'rounded');
+            Materialize.toast('Sus datos han sido actualizados', 3000);
         }
     });
   }
@@ -637,7 +637,7 @@ function LoadMoneyTotal(){
 
   function SignedPrize(idPostkey, idWinn, dateplay){
     if(dateplay == undefined) {
-        Materialize.toast('Error de red intente más tarde...', 4000, 'rounded');
+        Materialize.toast('Error de red intente más tarde...', 4000);
         return false;
     }
     var postKey = '';
@@ -710,7 +710,7 @@ function LoadMoneyTotal(){
     dbfirestore.collection("competitor").doc(UserUID)
     .collection("money").add(detail)
     .then(d => {
-        Materialize.toast('Felicitaciones, verifica el monedero...', 2000, 'rounded');
+        Materialize.toast('Felicitaciones, verifica el monedero...', 2000);
     })
     .catch(e => {
         console.log('Error: ', e);
@@ -740,8 +740,9 @@ function LoadMoneyTotal(){
   
   function getSettings(){
     dbfirestore.collection('settings').doc('description').get()
-    .then( doc => {      
-      Settings = doc.data();
-      
+    .then( doc => {
+        if(doc.exists){
+            Settings = doc.data();
+        }     
     })
   }

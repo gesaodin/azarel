@@ -202,7 +202,6 @@ if('serviceWorker' in navigator){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimals(){
-  console.log('Cargando animalitos...');
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
@@ -214,8 +213,8 @@ function MakeTableAnimals(){
     for (var j = min; j < max; j++) {
       var animal = animals[j];
       icon += `
-      <div class="col s3 m1">
-        <div class="cardAnimals cardAnimals-1 ">
+      <div class="col s3 m1" >
+        <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="OpenModalAnimals('${animal.key}', ${j})">
         <div class="footcard ">${animal.value}</div>
@@ -242,7 +241,7 @@ function MakeTableAnimals(){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimalsWeb(){
-  console.log('Cargando animalitos Web...');
+  LoadTimes();
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
@@ -254,8 +253,8 @@ function MakeTableAnimalsWeb(){
     for (var j = min; j < max; j++) {
       var animal = animals[j];
       icon += `
-      <div class="col m3 l1 ">
-        <div class="cardAnimals cardAnimals-1 ">
+      <div class="col m3 l1" >
+        <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="OpenModalAnimals('${animal.key}', ${j})">
         <div class="footcard ">${animal.value}</div>
@@ -279,7 +278,7 @@ function OpenModalAnimals(id, pos){
   var lblNumberAnimalsModal = getID('numberAnimals');
   var txtNumberAnimalsModal = getID('txtMonto');
   lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
-  txtNumberAnimalsModal.value = '';
+  //txtNumberAnimalsModal.value = '';
   $('#modAnimals').modal('open');
   $('#mdlPag1').show();
   $('#mdlPag2').hide();
@@ -446,7 +445,6 @@ var Banks = [
   {key: 12, code: "0163", value: "BANCO DEL TESORO"},
   {key: 13, code: "0176", value: "BANCO ESPIRITO SANTO, S.A."},
   {key: 14, code: "0115", value: "BANCO EXTERIOR C.A."},
-  //{key: 0, code: "0003", value: "BANCO INDUSTRIAL DE VENEZUELA."},
   {key: 15, code: "0173", value: "BANCO INTERNACIONAL DE DESARROLLO, C.A."},
   {key: 16, code: "0105", value: "BANCO MERCANTIL C.A."},
   {key: 17, code: "0191", value: "BANCO NACIONAL DE CREDITO"},
@@ -471,7 +469,10 @@ var Banks = [
 function LoadCmbTransferens(){
   LoadCmbBank('cmbName');
   
-
+  if (Settings.bank == undefined ){
+    Materialize.toast('Fallo de conexión intente mas tarde', 3000);
+    return false;
+  }
   var Cmb = '';
   var select = $('#cmbNameTransferens');
   for (let i = 0; i < Settings.bank.length; i++) {
@@ -531,34 +532,75 @@ function getPosCmb(value, id){
 let pos = ['LOACT', 'LAGRAN', 'RULEACT'];
 
 let Hours = [
-  {code: 0, val : 9, des : "9AM"}, 
-  {code: 0, val : 10, des : "10AM"}, 
-  {code: 0, val : 11, des : "11AM"}, 
-  {code: 0, val : 12, des : "12AM"}, 
-  {code: 0, val : 1, des : "1PM"}, 
-  {code: 0, val : 3, des : "3PM"}, 
-  {code: 0, val : 4, des : "4PM"}, 
-  {code: 0, val : 5, des : "5PM"}, 
-  {code: 0, val : 6, des : "6PM"}, 
-  {code: 0, val : 7, des : "7PM"} 
+  {key: 0, code: 0, val : 9, des : "9:00 AM", opt: "9AM", turn: 'a.'}, 
+  {key: 1, code: 0, val : 10, des : "10:00 AM", opt: "10AM", turn: 'a.'}, 
+  {key: 2, code: 0, val : 11, des : "11:00 AM", opt: "11AM", turn: 'a.'}, 
+  {key: 3, code: 0, val : 12, des : "12:00 AM", opt: "12AM", turn: 'p.'}, 
+  {key: 4, code: 0, val : 1, des : "1:00 PM", opt: "1PM", turn: 'p.'}, 
+  {key: 5, code: 0, val : 3, des : "3:00 PM", opt: "3PM", turn: 'p.'}, 
+  {key: 6, code: 0, val : 4, des : "4:00 PM", opt: "4PM", turn: 'p.'}, 
+  {key: 7, code: 0, val : 5, des : "5:00 PM", opt: "5PM", turn: 'p.'}, 
+  {key: 8, code: 0, val : 6, des : "6:00 PM", opt: "6PM", turn: 'p.'}, 
+  {key: 9, code: 0, val : 7, des : "7:00 PM", opt: "7PM", turn: 'p.'} 
 ]
 
+let intPos = -1;
 function LoadTimes(){
-  var time = 0;
-  fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
+  
+  database.ref("/.info/serverTimeOffset").once('value', function(offset) {
     var offsetVal = offset.val() || 0;
     var serverTime = Date.now() + offsetVal;
-    time = GetTimeStamp(serverTime); 
+    LoadHours(GetTimeStamp(serverTime));    
   });
-  return time;
 }
-function LoadHours(){
-  var time = LoadTimes();
+function LoadHours(time){
+  intPos = -1;
   if (time == 0 ){
     Materialize.toast('No hay conexión para las apuestas', 3000);
     return false;
   }
 
   var stime = time.split(' ');
-       
+  var shours = stime[1].split(':');
+  var hrs = parseInt(shours[0]);
+  var min =  parseInt(shours[1]);
+  var turn = stime[2];
+  
+  
+
+  for (let i = 0; i < Hours.length; i++) {    
+    if (hrs == Hours[i].val && turn == Hours[i].turn){
+     intPos = Hours[i].key;
+    }
+  }
+
+  if( intPos == -1 ){
+    if( hrs >= 7 ){
+      intPos = 0;
+    }
+    if( hrs == 2 ){
+      intPos = 5
+    }
+  }
+  
+  if(intPos >= 0 && min > 54 ) intPos++;
+  
+        
+  
+
+  LoadHoursCmb();
+  
+}
+function LoadHoursCmb(){
+  var Cmb = `<option value='00x' disabled>---------</option>`;
+  console.log(intPos);
+  if (intPos > -1 ){    
+    for (let i = intPos; i < Hours.length; i++) {      
+      Cmb += `<option value="${Hours[i].opt}">${Hours[i].des}</option>`;
+    }
+    var select = $('#cmbHours');
+    getID('cmbHours').innerHTML = Cmb;
+    select.prop('selectedIndex', 0);  
+    select.material_select(); 
+  }
 }
