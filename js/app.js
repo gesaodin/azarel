@@ -1,4 +1,3 @@
-
 let pageNumber = 1;
 let maxPageNumber = 5;
 let User = {};
@@ -197,7 +196,7 @@ function MakeTableAnimals(){
         <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="OpenModalAnimals('${animal.key}', ${j})">
-        <div class="footcard ">${animal.value}</div>
+        <div class="footcard" id="divfooter${j}" >${animal.value}</div>
         </div>
       </div>`;
 
@@ -237,7 +236,7 @@ function MakeTableAnimalsWeb(){
         <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="SelectModalAnimals('${animal.key}', ${j})">
-        <div class="footcard" id="divfooter${j}" >${animal.value}</div>
+        <div class="footcard" id="divfooterw${j}" >${animal.value}</div>
         </div>
       </div>`;
 
@@ -251,11 +250,28 @@ function MakeTableAnimalsWeb(){
   // getID('totalmoney').innerHTML = UserMoney;
   $('#pagWeb').show();  
 }
-
+let ANIMALGAMES = [];
 function SelectModalAnimals(id, pos){
-  var animal = ANIMALS[pos];  
-  //lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
-  getID('divfooter'+pos).classList.add('blue');
+  var cant = $('#divfooterw'+pos).attr('class').split(' ');
+  if ( cant.length > 1 ) {
+    getID('divfooter'+pos).classList.remove('blue');
+    getID('divfooterw'+pos).classList.remove('blue');
+    var animalgamespos = -1;
+    var status = false;
+    for (let i = 0; i < ANIMALGAMES.length; i++) {
+      const ipos = ANIMALGAMES[i];
+      if (ipos == pos){    
+        ANIMALGAMES.splice(i, 1);
+      }
+    }
+  }else{
+    //var animal = ANIMALS[pos];  
+    getID('divfooter'+pos).classList.add('blue');
+    getID('divfooterw'+pos).classList.add('blue');
+    ANIMALGAMES.push(pos);
+
+  }
+
 }
 
 function OpenModalAnimals(id, pos){
