@@ -202,7 +202,6 @@ if('serviceWorker' in navigator){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimals(){
-  console.log('Cargando animalitos...');
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
@@ -243,7 +242,6 @@ function MakeTableAnimals(){
 //Agregar Escuchadores a los elementos
 function MakeTableAnimalsWeb(){
   LoadTimes();
-  console.log('Cargando animalitos Web...');
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
@@ -584,10 +582,14 @@ function LoadHours(time){
       intPos = 5
     }
   }
-
   
-  if (min > 54 ) intPos++;
-  LoadHoursCmb();    
+  if(intPos >= 0 && min > 54 ) intPos++;
+  
+        
+  
+
+  LoadHoursCmb();
+  
 }
 function LoadHoursCmb(){
   var Cmb = `<option value='00x' disabled>---------</option>`;
