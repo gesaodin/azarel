@@ -1,4 +1,3 @@
-
 let pageNumber = 1;
 let maxPageNumber = 5;
 let User = {};
@@ -196,8 +195,8 @@ function MakeTableAnimals(){
       <div class="col s3 m1" >
         <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
-          onclick="OpenModalAnimals('${animal.key}', ${j})">
-        <div class="footcard ">${animal.value}</div>
+          onclick="SelectModalAnimals('${animal.key}', ${j})">
+        <div class="footcard" id="divfooter${j}" >${animal.value}</div>
         </div>
       </div>`;
 
@@ -208,8 +207,11 @@ function MakeTableAnimals(){
   }
 
   var page = `<div class="row hide-on-large-only hide-on-med-and-up">
-     <div class="center">       
-       <a class="btn-floating red" onclick="ChangeNumberPage()"><i class="material-icons">send</i></a>
+     <div>
+       <a class="btn waves-effect blue left" onclick="OpenModalAnimals()" style="display:none" id="btnOpen"> 
+        Apostar
+       </a>      
+       <a class="btn red right" onclick="ChangeNumberPage()"><i class="material-icons">arrow_forward</i></a>
      </div>
    </div>`;
   pagBodyTableAnimals.innerHTML = `<div class="col s12 hide-on-large-only hide-on-med-and-up">${makeTable}${page}</div>`;
@@ -237,7 +239,7 @@ function MakeTableAnimalsWeb(){
         <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
         <img src="img/${animal.key}.jpeg" width="65px" 
           onclick="SelectModalAnimals('${animal.key}', ${j})">
-        <div class="footcard" id="divfooter${j}" >${animal.value}</div>
+        <div class="footcard" id="divfooterw${j}" >${animal.value}</div>
         </div>
       </div>`;
 
@@ -247,26 +249,57 @@ function MakeTableAnimalsWeb(){
 
 
  
-  pagBodyTableAnimals.innerHTML += `<div class="col m12 l12 hide-on-small-only">${makeTable}</div>`;
+  pagBodyTableAnimals.innerHTML += `<div class="col m12 l12 hide-on-small-only">${makeTable}
+    <div class="center">
+      <a class="btn waves-effect blue right" onclick="OpenModalAnimals()" style="display:none" id="btnOpenW"> 
+        Apostar
+      </a>       
+     </div>
+  </div>`;
   // getID('totalmoney').innerHTML = UserMoney;
   $('#pagWeb').show();  
 }
-
+let ANIMALGAMES = [];
 function SelectModalAnimals(id, pos){
-  var animal = ANIMALS[pos];  
-  //lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
-  getID('divfooter'+pos).classList.add('blue');
+  $('#btnOpen').show();
+  $('#btnOpenW').show();
+  var cant = $('#divfooterw'+pos).attr('class').split(' ');
+  if ( cant.length > 1 ) {
+    getID('divfooter'+pos).classList.remove('blue');
+    getID('divfooterw'+pos).classList.remove('blue');
+    var animalgamespos = -1;
+    var status = false;
+    for (let i = 0; i < ANIMALGAMES.length; i++) {
+      const ipos = ANIMALGAMES[i];
+      if (ipos == pos){    
+        ANIMALGAMES.splice(i, 1);
+      }
+    }
+  }else{
+    //var animal = ANIMALS[pos];  
+    getID('divfooter'+pos).classList.add('blue');
+    getID('divfooterw'+pos).classList.add('blue');
+    ANIMALGAMES.push(pos);
+
+  }
+
 }
 
-function OpenModalAnimals(id, pos){
+function OpenModalAnimals(){
+  var cant = ANIMALGAMES.length;
+  if( cant == 0 ){
+    Materialize.toast('Debe seleccionar una apuesta', 3000);
+    return true;
+  }
   var animal = ANIMALS[pos];
   var lblNumberAnimalsModal = getID('numberAnimals');
   var txtNumberAnimalsModal = getID('txtMonto');
-  lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
+  // lblNumberAnimalsModal.innerHTML = `${animal.key} - ${animal.value}`;
+  lblNumberAnimalsModal.innerHTML = `Se han elejido ( ${cant} ) animalitos`
   //txtNumberAnimalsModal.value = '';
   $('#modAnimals').modal('open');
   $('#mdlPag1').show();
-  $('#mdlPag2').hide();
+  
 }
 
 function ChangeNumberPage(){
@@ -319,20 +352,23 @@ function AddGame(){
     Materialize.toast('Debe seleccionar sorteo', 3000);
     return true;
   }
-  MoneyGame = MoneyGame + (parseFloat(monto) * hours.length);
+  MoneyGame += (parseFloat(monto) * hours.length) * ANIMALGAMES.length;
   var animals = getID('numberAnimals').innerHTML;
   var lottery = getID('cmbLottery').value;
   var fil = '';
   var table = getID('tblBody');
   for (var i = 0; i < hours.length; i++) {
     var elem = hours[i];
-    
-    fil += `<tr><td>${animals}</td>
+    for (let j = 0; j < ANIMALGAMES.length; j++) {
+
+      const animal = ANIMALGAMES[j];
+      fil += `<tr><td>${animals}</td>
               <td>${lottery}</td>
               <td>${elem}</td>
               <td>${parseFloat(monto).toLocaleString()}</td>
               <td style="display:none">${parseFloat(monto)}</td>            
-          </tr>`;
+          </tr>`;  
+    }
   }
   //console.log(fil);
   table.innerHTML += fil;  
@@ -340,7 +376,16 @@ function AddGame(){
   getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
   getID('btnGame').classList.remove('hide');
   Materialize.toast('Verifica tu lista de apuestas', 3000);
+  ANIMALGAMES = [];
   return false;
+}
+
+function getAnimalsKeyValue(key){
+  var name = '';
+  for (let i = 0; i < ANIMALS.length; i++) {
+    const animal = ANIMALS[i];
+    name = animal.key + ' ' + animal.va
+  }
 }
 
 function getValuesSelectMultiple(id){
@@ -512,6 +557,7 @@ function getPosCmb(value, id){
   select.material_select(); 
 }
 
+let intPos = -1;
 let TIME = 0;
 let HOURS = [];
 function SelectionLottery(){
@@ -520,30 +566,27 @@ function SelectionLottery(){
     case 'LOTAC':
       ANIMALS = LOTAC.animals; 
       HOURS = LOTAC.hours;
-      LoadTimes();
-      MakeTableAnimals();
+      LoadTimes();     
       break;
     case 'RULET':
       ANIMALS = RULET.animals; 
       HOURS = RULET.hours;
       LoadTimes();
-      MakeTableAnimals();
       break;
     case 'LGRAN':
       ANIMALS = LGRAN.animals; 
       HOURS = LGRAN.hours;
       LoadTimes();
-      MakeTableAnimals();
       break;
     default:
       $("#lblLoadGames").hide();
       break;
   }
+  if (intPos >= 0)MakeTableAnimals();
 }
 
 
 
-let intPos = -1;
 function LoadTimes(){  
   database.ref("/.info/serverTimeOffset").once('value', function(offset) {
     var offsetVal = offset.val() || 0;
@@ -576,10 +619,11 @@ function LoadHours(){
   }
 
   if( intPos == -1 ){
+    // if( hrs >= 7 && turn == 'a.'){
     if( hrs >= 7 ){
       intPos = 0;
     }
-    if( hrs == 2 ){
+    if( hrs == 2 && turn == 'p.' ){
       intPos = 5
     }
   }
@@ -598,6 +642,7 @@ function LoadHoursCmb(){
     getID('cmbHours').innerHTML = Cmb;
     select.prop('selectedIndex', 0);  
     select.material_select(); 
+    
   }
 
   // 
