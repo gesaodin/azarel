@@ -682,6 +682,9 @@ function PrintTicket(HTML){
   </style>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
+  <script>
+      $("#barcode").JsBarcode("lRAKFpEDF59LzXhCsGCA",{width:0.8,height:22,fontSize: 12});
+  </script>
     `;
 
 }
