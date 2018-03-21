@@ -217,11 +217,16 @@
               </div>            
         </div>
         <div class="modal-footer green">
-          <a href="#!" id="btnAcept"
+          <a id="btnAcept"
             class="modal-action modal-close white-text waves-effect 
-            waves-green btn-flat right" onclick="ChangeTabs('test-swipe-1', true)">Aceptar
+            waves-green btn-flat left" onclick="ChangeTabs('test-swipe-1', true)">Aceptar
           </a> 
-          <a href="#!" id="btnGo"
+          <a id="btnPrint"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right hide-on-small-only" onclick="IprimirWEB()">Imprimir
+          </a> 
+          
+          <a id="btnGo"
             class="modal-action modal-close white-text waves-effect 
             waves-green btn-flat right" onclick="LoadLocalFile('ticket','',LoadTickets);">Ir a tickets
           </a> 
@@ -281,6 +286,7 @@
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/wnumb.js"></script>
     <script type="text/javascript" src="js/nouislider.min.js"></script>
+    
     
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/util.js"></script>

@@ -11,6 +11,7 @@ let MoneyGame = 0;
 let UserPlayingActive = '';
 let Prize = [];
 let Settings = {};
+let HTMLPrint = '';
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -335,7 +336,7 @@ function ChangeTabs(id, val){
     }
   }
   $('ul.tabs').tabs('select_tab', id);
-
+  HTMLPrint = '';
 }
 
 function ShowDisplayModal(){
@@ -376,7 +377,7 @@ function AddGame(){
   getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
   getID('btnGame').classList.remove('hide');
   Materialize.toast('Verifica tu lista de apuestas', 3000);
-  ANIMALGAMES = [];
+  cleanAnimals();
   return false;
 }
 
@@ -655,4 +656,32 @@ function LoadHoursCmb(){
   }
 
   // 
+}
+
+
+function PrintTicket(HTML){
+  var ventana = window.open("", "_blank");
+  ventana.document.write(HTML);    
+  ventana.document.head.innerHTML = `<style>
+  @charset "utf-8";
+  @page {
+      margin: 0cm;
+      size: 5.5cm;
+  }
+  body {
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-seri;
+    font-size: 8px;
+    font-weight: normal;
+  }
+  table {
+      border: 0px solid black;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+  }
+  </style>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
+    `;
+
 }
