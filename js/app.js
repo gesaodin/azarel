@@ -12,6 +12,7 @@ let UserPlayingActive = '';
 let Prize = [];
 let Settings = {};
 let HTMLPrint = '';
+let TicketPrint = '';
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -66,7 +67,9 @@ firebase.auth().onAuthStateChanged(user => {
   }
 });
 
-
+function LoadMoneyBets(){
+  if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = UserMoney;
+}
 
 function readNotification(){
   var ref = database.ref('notification')
@@ -337,6 +340,14 @@ function ChangeTabs(id, val){
   }
   $('ul.tabs').tabs('select_tab', id);
   HTMLPrint = '';
+  TicketPrint = '';
+}
+
+function PrintWEB(){
+  PrintTicket(HTMLPrint, TicketPrint);
+  ChangeTabs('test-swipe-1', true);
+  HTMLPrint = '';
+  TicketPrint = '';
 }
 
 function ShowDisplayModal(){
@@ -354,6 +365,17 @@ function AddGame(){
     return true;
   }
   MoneyGame += (parseFloat(monto) * hours.length) * ANIMALGAMES.length;
+  if(MoneyGame > UserMoneyTotal){
+    Materialize.toast('Debe realizar un tramite de transferencia', 3000);
+    MoneyGame = 0;
+    cleanSelect('cmbHours');
+    ChangeTabs('test-swipe-1', true);
+    HTMLPrint = '';
+    TicketPrint = '';
+    cleanAnimals();
+    return false;
+  }
+
   var animals = getID('numberAnimals').innerHTML;
   var lottery = getID('cmbLottery').value;
   var fil = '';
@@ -659,14 +681,21 @@ function LoadHoursCmb(){
 }
 
 
-function PrintTicket(HTML){
+function PrintTicket(HTML, tickeID){
   var ventana = window.open("", "_blank");
+  HTML = `<center>${HTML}  
+  </center>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
+  <script>
+      $("#barcode").JsBarcode("${tickeID}",{width:0.8,height:22,fontSize: 12});
+  </script>`;
   ventana.document.write(HTML);    
   ventana.document.head.innerHTML = `<style>
   @charset "utf-8";
   @page {
       margin: 0cm;
-      size: 5.5cm;
+      size: 5cm 20cm;
   }
   body {
     margin: 0px;
@@ -679,12 +708,6 @@ function PrintTicket(HTML){
       font-family: Arial, Helvetica, sans-serif;
       font-size: 8px;
   }
-  </style>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
-  <script>
-      $("#barcode").JsBarcode("lRAKFpEDF59LzXhCsGCA",{width:0.8,height:22,fontSize: 12});
-  </script>
-    `;
+  </style>`;
 
 }

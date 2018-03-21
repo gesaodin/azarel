@@ -380,7 +380,7 @@ function wClaimsTransf() {
 async function writeUserDataBets() {
 
     if(UserMoneyTotal <= 0){
-        Materialize.toast('Debe realizar un tramite de depósito o transferencia', 3000);
+        Materialize.toast('Debe realizar un tramite de transferencia', 3000);
         return false;
     }
     var btn = getID('btnGame');
@@ -397,7 +397,7 @@ async function writeUserDataBets() {
     btn.classList.add('disabled');   
     btnAcept.classList.add('disabled');
     btnGo.classList.add('disabled');
-    HTMLPrint = getID('divPrint').innerHTML;
+    HTMLPrint = '<center>' + getID('divPrint').innerHTML;
     var fil = getID('tblBody');
     if(fil == null || fil.length == 0 )return false;
     fil = fil.rows;
@@ -454,14 +454,19 @@ async function writeUserDataBets() {
         console.log('Bets Error: ', e);
         
     })
-
+    UserMoneyTotal = UserMoneyTotal - total;
+    UserMoney = parseFloat(UserMoneyTotal) + ' Bs.';
+    LoadMoneyBets();
     getID('btnGame').classList.add('hide');
     getID('tblBody').innerHTML = '';
     getID('spsaldo').innerHTML = '0';
     getID('thTotal').innerHTML = '0 Bs.';
+    MoneyGame = 0;
     cleanSelect('cmbHours');
     getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
-    HTMLPrint += `<br>${ticket} `;
+    TicketPrint = ticket;
+    HTMLPrint += `<br>
+    <canvas id="barcode"></canvas></center>`
     btn.classList.remove('disabled');   
     btnAcept.classList.remove('disabled');
     btnGo.classList.remove('disabled');

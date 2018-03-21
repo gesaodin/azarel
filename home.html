@@ -91,7 +91,7 @@
                       <i class="material-icons left" >payment</i>Tramites</a></li>
           
                     <li class="hide-on-med-only"><div class="divider"></div></li>
-                    <li><a onclick="LoadLocalFile('bets');" class="waves-effect">
+                    <li><a onclick="LoadLocalFile('bets','',LoadMoneyBets);" class="waves-effect">
                       <i class="material-icons left green-text" >casino</i>Apostar</a></li>
                     <li><a onclick="LoadLocalFile('ticket','',LoadTickets);" class="waves-effect">
                       <i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
@@ -136,7 +136,7 @@
                         </a>
                     </div><!-- End Target -->
                     <div class="col s12 m4">
-                            <a onclick="LoadLocalFile('bets');">
+                            <a onclick="LoadLocalFile('bets','',LoadMoneyBets);">
                               <div class="card horizontal">
                                 <div class="card-image">
                                   <i class="material-icons purple-text" style="font-size:70px">casino</i>
@@ -223,7 +223,7 @@
           </a> 
           <a id="btnPrint"
             class="modal-action modal-close white-text waves-effect 
-            waves-green btn-flat right hide-on-small-only" onclick="IprimirWEB()">Imprimir
+            waves-green btn-flat right hide-on-small-only" onclick="PrintWEB()">Imprimir
           </a> 
           
           <a id="btnGo"
