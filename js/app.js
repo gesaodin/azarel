@@ -11,6 +11,7 @@ let MoneyGame = 0;
 let UserPlayingActive = '';
 let Prize = [];
 let Settings = {};
+let HTMLPrint = '';
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -335,7 +336,7 @@ function ChangeTabs(id, val){
     }
   }
   $('ul.tabs').tabs('select_tab', id);
-
+  HTMLPrint = '';
 }
 
 function ShowDisplayModal(){
@@ -361,8 +362,8 @@ function AddGame(){
     var elem = hours[i];
     for (let j = 0; j < ANIMALGAMES.length; j++) {
 
-      const animal = ANIMALGAMES[j];
-      fil += `<tr><td>${animals}</td>
+      const animal = getAnimalsKeyValue(ANIMALGAMES[j]);
+      fil += `<tr><td>${animal}</td>
               <td>${lottery}</td>
               <td>${elem}</td>
               <td>${parseFloat(monto).toLocaleString()}</td>
@@ -376,7 +377,7 @@ function AddGame(){
   getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
   getID('btnGame').classList.remove('hide');
   Materialize.toast('Verifica tu lista de apuestas', 3000);
-  ANIMALGAMES = [];
+  cleanAnimals();
   return false;
 }
 
@@ -384,8 +385,17 @@ function getAnimalsKeyValue(key){
   var name = '';
   for (let i = 0; i < ANIMALS.length; i++) {
     const animal = ANIMALS[i];
-    name = animal.key + ' ' + animal.va
+    if (key == i) name = animal.key + ' ' + animal.value;
   }
+  return name;
+}
+function cleanAnimals(){
+  for (let i = 0; i < ANIMALS.length; i++) {
+    getID('divfooter'+i).classList.remove('blue');
+    getID('divfooterw'+i).classList.remove('blue');
+  }
+  ANIMALGAMES = [];
+  
 }
 
 function getValuesSelectMultiple(id){
@@ -619,7 +629,7 @@ function LoadHours(){
   }
 
   if( intPos == -1 ){
-    // if( hrs >= 7 && turn == 'a.'){
+    //if( hrs >= 7 && turn == 'a.'){
     if( hrs >= 7 ){
       intPos = 0;
     }
@@ -646,4 +656,32 @@ function LoadHoursCmb(){
   }
 
   // 
+}
+
+
+function PrintTicket(HTML){
+  var ventana = window.open("", "_blank");
+  ventana.document.write(HTML);    
+  ventana.document.head.innerHTML = `<style>
+  @charset "utf-8";
+  @page {
+      margin: 0cm;
+      size: 5.5cm;
+  }
+  body {
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-seri;
+    font-size: 8px;
+    font-weight: normal;
+  }
+  table {
+      border: 0px solid black;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+  }
+  </style>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
+    `;
+
 }

@@ -397,6 +397,7 @@ async function writeUserDataBets() {
     btn.classList.add('disabled');   
     btnAcept.classList.add('disabled');
     btnGo.classList.add('disabled');
+    HTMLPrint = getID('divPrint').innerHTML;
     var fil = getID('tblBody');
     if(fil == null || fil.length == 0 )return false;
     fil = fil.rows;
@@ -460,6 +461,7 @@ async function writeUserDataBets() {
     getID('thTotal').innerHTML = '0 Bs.';
     cleanSelect('cmbHours');
     getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
+    HTMLPrint += `<br>${ticket} `;
     btn.classList.remove('disabled');   
     btnAcept.classList.remove('disabled');
     btnGo.classList.remove('disabled');
