@@ -361,8 +361,8 @@ function AddGame(){
     var elem = hours[i];
     for (let j = 0; j < ANIMALGAMES.length; j++) {
 
-      const animal = ANIMALGAMES[j];
-      fil += `<tr><td>${animals}</td>
+      const animal = getAnimalsKeyValue(ANIMALGAMES[j]);
+      fil += `<tr><td>${animal}</td>
               <td>${lottery}</td>
               <td>${elem}</td>
               <td>${parseFloat(monto).toLocaleString()}</td>
@@ -384,8 +384,17 @@ function getAnimalsKeyValue(key){
   var name = '';
   for (let i = 0; i < ANIMALS.length; i++) {
     const animal = ANIMALS[i];
-    name = animal.key + ' ' + animal.va
+    if (key == i) name = animal.key + ' ' + animal.value;
   }
+  return name;
+}
+function cleanAnimals(){
+  for (let i = 0; i < ANIMALS.length; i++) {
+    getID('divfooter'+i).classList.remove('blue');
+    getID('divfooterw'+i).classList.remove('blue');
+  }
+  ANIMALGAMES = [];
+  
 }
 
 function getValuesSelectMultiple(id){
@@ -619,7 +628,7 @@ function LoadHours(){
   }
 
   if( intPos == -1 ){
-    // if( hrs >= 7 && turn == 'a.'){
+    //if( hrs >= 7 && turn == 'a.'){
     if( hrs >= 7 ){
       intPos = 0;
     }
