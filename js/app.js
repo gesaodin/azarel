@@ -683,7 +683,7 @@ function LoadHoursCmb(){
 
 function PrintTicket(HTML, tickeID){
   var ventana = window.open("", "_blank");
-  HTML = `<center>${HTML}  
+  HTML = `<center><script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>${HTML}  
   </center>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/jsbarcode.code128.min.js"></script>
