@@ -1,5 +1,5 @@
 let pageNumber = 1;
-let maxPageNumber = 5;
+let maxPageNumber = 6;
 let User = {};
 let UserUID = '';
 let UserMoney = '';
@@ -198,7 +198,7 @@ function MakeTableAnimals(){
       icon += `
       <div class="col s3 m1" >
         <div class="cardAnimals cardAnimals-1" id="cardanimal${j}">
-        <img src="img/${animal.key}.jpeg" width="65px" 
+        <img src="img/${animal.key}.png" width="65px" 
           onclick="SelectModalAnimals('${animal.key}', ${j})">
         <div class="footcard" id="divfooter${j}" >${animal.value}</div>
         </div>
@@ -241,7 +241,7 @@ function MakeTableAnimalsWeb(){
       icon += `
       <div class="col m3 l1" >
         <div class="cardAnimals cardAnimals-1" id="cardAnimalW${j}">
-        <img src="img/${animal.key}.jpeg" width="65px" 
+        <img src="img/${animal.key}.png" width="65px" 
           onclick="SelectModalAnimals('${animal.key}', ${j})">
         <div class="footcard" id="divfooterw${j}" >${animal.value}</div>
         </div>
@@ -608,6 +608,11 @@ function SelectionLottery(){
     case 'LGRAN':
       ANIMALS = LGRAN.animals; 
       HOURS = LGRAN.hours;
+      LoadTimes();
+      break;
+    case 'AZAN':
+      ANIMALS = AZAN.animals; 
+      HOURS = AZAN.hours;
       LoadTimes();
       break;
     default:
