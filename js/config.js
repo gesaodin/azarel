@@ -364,7 +364,7 @@ let AZAN = {
     {key : "37",value : "ARAÑA"},{key : "38",value : "BÚHO"},
     {key : "39",value : "COLIBRI"},{key : "40",value : "CONEJO"},
     {key : "41",value : "FOCA"},{key : "42",value : "GRILLO"},
-    {key : "43",value : "HIPOPÓTAMO"},{key : "44",value : "HORMIGA"},
+    {key : "43",value : "GUSANO"},{key : "44",value : "HORMIGA"},
     {key : "45",value : "LOBO"},{key : "46",value : "MARIPOSA"},
     {key : "47",value : "AVESTRUZ"},{key : "48",value : "PIRAÑA"}
   ],
