@@ -1,0 +1,86 @@
+<br>
+<div class="row">
+
+  <div class="col s12 m12 ">
+    <div class="card horizontal">
+
+      <div class="card-stacked green">
+        <div class="card-content white-text">
+          <font style="font-size:16px"><b> > Sorteo</b></font><br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m12 center">
+
+    <div class="row">
+      <form id="frmLottery">
+
+
+        <div class="input-field col s12 m6">
+
+          <input id="txtDate" type="tel" class="datepicker">
+          <label class="active" >Fecha del Sorteo</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <select id="cmbHours">
+            <option value='00x' disabled>---------</option>
+            <option value='9AM'>09:00 am</option>
+            <option value='10AM'>10:00 am</option>
+            <option value='11AM'>11:00 am</option>
+            <option value='12M'>12:00 m</option>
+            <option value='1PM'>01:00 pm</option>
+            <option value='3PM'>03:00 pm</option>
+            <option value='4PM'>04:00 pm</option>
+            <option value='5PM'>05:00 pm</option>
+            <option value='6PM'>06:00 pm</option>
+            <option value='7PM'>07:00 pm</option>
+          </select>
+          <label for="cmbLoteria">Seleccionar Sorteo</label>
+        </div>
+
+        <div class="input-field col s12 m12">
+
+          <select id="cmbLottery">
+            <option value='LOTAC'>LOTTOACTIVO</option>
+            <option value='LGRAN'>LAGRANJITA</option>
+            <option value='RULET'>RULETAACTIVA</option>
+          </select>
+          <label for="cmbLoteria">Seleccionar loteria</label>
+        </div>
+
+
+
+      </form>
+    </div>
+  </div> 
+  <div class="col s12 m12 center"> 
+    <div class="row">  
+      <div id="test-swipe-2"  class="input-field col s12 m12" style="padding-left:0px; padding-top:5px">
+
+      </div>  
+    </div>
+  </div>       
+
+</div>
+
+
+<div class="center">
+<a class="waves-effect waves-light btn  deep-orange">Enviar</a>
+</div>
+
+
+<div id="modAnimals" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    Estas seguro que desea premiar el numero <label id='lblPremio'></label>
+  </div>
+  <div class="modal-footer green">
+    <a  
+    class="modal-action modal-close white-text waves-effect waves-green btn-flat right"
+    onclick="SignedPrize()" >Aceptar
+  </a>
+  <a 
+  class="modal-action modal-close white-text waves-effect waves-green btn-flat right" >Cancelar
+</a> 
+</div>
+</div>

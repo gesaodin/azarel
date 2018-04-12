@@ -1,0 +1,55 @@
+
+curl -H "Content-Type: application/json" \
+-H "Authorization: key=YOUR_SERVER_KEY" \
+-d '{
+      "notification": {
+        "title": "New chat message!",
+        "body": "There is a new message in FriendlyChat",
+        "icon": "/images/profile_placeholder.png",
+        "click_action": "http://localhost:5000"
+      },
+      "to": "YOUR_DEVICE_TOKEN"
+    }' \
+https://fcm.googleapis.com/fcm/send
+
+
+
+
+curl -H "Content-Type: application/json" \
+-H "Authorization: key=AAAA4GkH1Rs:APA91bHttI8SZGQv9rCfr-_rmL9c7gOPYTwze9rHXj6OHuj1T1YJo_SNgk2fEqGo1YjzlnCwMKKnWQKvBfuL2L3hzqi1yM7hojmxqtciQ5DsOWLt6mm7Iv4PWw5AB1KFWH91Z_AODES_" \
+-d '{
+      "notification": {
+        "title": "Test de Azarel!",
+        "body": "Gracias por preferirnos, Ratón",
+        "icon": "/images/profile_placeholder.png",
+        "click_action": "http://localhost:5000"
+      },
+      "to": "fojHQydI6-I:APA91bH2r3XAH1CpRWeiu0rfWC7F7Cpe1EZnrA26zJU3a0YvE4xKBlteftBAN-TcDw4SyaCLkNz1RaCueJ8TdlpPmosUfpU8Vq4hVII0lcZF3qsDHk_hfTnWc8xyi-vcK7B4-svKJJc7"
+    }' \
+https://fcm.googleapis.com/fcm/send
+
+
+curl -H "Content-Type: application/json" \
+-H "Authorization: key=AAAA4GkH1Rs:APA91bHttI8SZGQv9rCfr-_rmL9c7gOPYTwze9rHXj6OHuj1T1YJo_SNgk2fEqGo1YjzlnCwMKKnWQKvBfuL2L3hzqi1yM7hojmxqtciQ5DsOWLt6mm7Iv4PWw5AB1KFWH91Z_AODES_" \
+-d '{
+      "notification": {
+        "title": "Test de Azarel!",
+        "body": "Gracias por preferirnos, te llegó jean",
+        "icon": "/images/profile_placeholder.png",
+        "click_action": "http://localhost:5000"
+      },
+      "to": "cFL7aF81Wk8:APA91bFHv4wvbaInyqyghZEVl-yM8YZXddE615nbbgfw0q-GI5n7yVAzwk7DUmqItTeCF-EOox-NlMwmfYCzaDY-zuFQ331aXbddcsUweKbAxbh_NVWDbvR7fEiGvWWG46amNn9IAOlM"
+    }' \
+https://fcm.googleapis.com/fcm/send
+
+
+                                                                       
+curl "https://azarel-1a865.firebaseio.com/bets.json?auth=eyJhbGciOiJSUzI1NiIsImtpZCI6ImUwZDU1NjQ5Yzk4MWI1ZWE2YTZkNzBhYTIyMDhiYWMxNjRkYTViMmMifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXphcmVsLTFhODY1IiwiYXVkIjoiYXphcmVsLTFhODY1IiwiYXV0aF90aW1lIjoxNTE5NTkzNTkwLCJ1c2VyX2lkIjoiS1kwSFhNS2VoMlJCdzhpNmFIcnZXWXBsdlB3MSIsInN1YiI6IktZMEhYTUtlaDJSQnc4aTZhSHJ2V1lwbHZQdzEiLCJpYXQiOjE1MTk2MDQyNDYsImV4cCI6MTUxOTYwNzg0NiwiZW1haWwiOiJjcmFzaC5tYWRvdmVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJjcmFzaC5tYWRvdmVyQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ui94EkQ4jKtG2LwK6sUmkVd-Bzr0ZvzCNAf3V7zWZcIU9bYL96D4CLjKkWaTJQaXbFhPgI5zI4OOXu6ANOWZzyn2RQP4GKbU420au3yzwm2-S7H8KmGvakU6IkrL944-1v4sYsVDVz6rh4utyAkqzqHPxpwy3meuyUXZosbDgdr3l8PbOe5Fbbuih4eu3698sYKrsIgAu_-Ftzo-WfziUTv7VTuXj8GK1OKX4Ux0kPzchvCXUcyoyTIzrPXJ_8PH50HuNeIivRGYQr2v4NY8gdl4_kG-A6Q3DqxbjbBbuz7K9sBbyazBldrHYJjl-_3eF-yjnqruHPprXYmqDOys4g"
+
+
+
+
+curl -X POST -d '{ "valor" : "Authenticated POST request"}' 
+'https://azarel-1a865.firebaseio.com/rest/saving/auth-example.json?auth=eyJhbGciOiJSUzI1NiIsImtpZCI6ImUwZDU1NjQ5Yzk4MWI1ZWE2YTZkNzBhYTIyMDhiYWMxNjRkYTViMmMifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXphcmVsLTFhODY1IiwiYXVkIjoiYXphcmVsLTFhODY1IiwiYXV0aF90aW1lIjoxNTE5NTkzNTkwLCJ1c2VyX2lkIjoiS1kwSFhNS2VoMlJCdzhpNmFIcnZXWXBsdlB3MSIsInN1YiI6IktZMEhYTUtlaDJSQnc4aTZhSHJ2V1lwbHZQdzEiLCJpYXQiOjE1MTk2MDU5NjAsImV4cCI6MTUxOTYwOTU2MCwiZW1haWwiOiJjcmFzaC5tYWRvdmVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJjcmFzaC5tYWRvdmVyQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.WYY0wkVIIXJ5mWPbz3NsvQFgLx3ICmkshFwK-8QNij0mJJc5bz1s9sImKvBCEb6dCnuv02u2jBmWrIdiaFSEaRurekEDPt2ndXPQ-3JdpybNKT8TQ2wEtXT8uNQ4gitKXI7EiDZtB0EDcbuVfydMBZu1ww-gRL_BGK-hZ5o2jk2cMZhaNLwWkFakkN06KjZ4OXCor33g4xjF95kXlcl_vvAC_Vl6wYqSRFkYSeGm4XyVO9Pn7n_omMA_Tmi7CQd5Zfzr6FWb0rX6Eh7IOlStsmKfTBk05jqbBlDkwqzJ8_9nt9KY4Nd_4OB5YOUneAdWUD1P2RYmUQ0-fWZYxYoHzw'
+
+

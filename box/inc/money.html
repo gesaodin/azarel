@@ -1,0 +1,59 @@
+<div class="row">
+    <br>
+    <div class="col s12 m12">
+        <div class="collection">
+            <a href="#!" class="collection-item">Saldo Total: 
+                <span class="new badge green" data-badge-caption="Bs." id="spbalance">Cargando...</span></a>
+            <a href="#!" class="collection-item">Saldo Diferido: 
+                <span class="new badge red" data-badge-caption="Bs." id="spdeferred">Cargando...</span></a>
+        </div>
+    </div>
+
+    <div class="col s12 m12">
+    <div class="collection white">
+        <table class="bordered striped" id="tblMoney" width="100%">
+        <thead>
+        <tr>
+            <th style="display:none">#</th>
+            <th>Detalle</th>
+            <th>Monto</th>
+            <th style="text-align:right">Estatus</th>
+        </tr>
+        </thead>
+        <tbody id="tblBody">
+            
+        </tbody>
+
+        </table>
+    </div>
+    </div>
+</div>
+
+<div class="fixed-action-btn" id="divMoneyTransf">
+    <a onclick="GetTransferensMoney();" class="waves-effect waves-light btn btn-floating pink pulse">
+        <i class="material-icons">swap_horiz</i>
+    </a>        
+</div>
+
+<div id="modAlertTransf" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h6 id="numberAnimals">Solicitud de transferencia de fondos</h6>            
+            <div class="row">
+                <div class="input-field col s12" id="modAlertBodyTransf">
+                    <input placeholder="Monto" id="txtMoney" type="number" class="validate">
+                    <label for="txtMonto" class="active">Monto</label>  
+                </div>            
+            </div>
+            
+        </div>
+        <div class="modal-footer green">
+          <a href="#!" id="btnAcept"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="">Cancelar
+          </a> 
+          <a href="#!" id="btnGo"
+            class="modal-action modal-close white-text waves-effect 
+            waves-green btn-flat right" onclick="wClaimsTransf()">Aceptar
+          </a> 
+        </div>
+      </div>
