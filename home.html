@@ -88,7 +88,7 @@
                     <li ><a onclick="LoadLocalFile('result')" class="waves-effect">
                       <i class="material-icons left blue-text " >assignment</i>Resultados</a></li>
                     <li><a onclick="LoadLocalFile('transferens','',LoadCmbTransferens)" class="waves-effect">
-                      <i class="material-icons left" >payment</i>Tramites</a></li>
+                      <i class="material-icons left pink-text" >payment</i>Tramites</a></li>
           
                     <li class="hide-on-med-only"><div class="divider"></div></li>
                     <li><a onclick="LoadLocalFile('bets','',LoadMoneyBets);" class="waves-effect">
@@ -103,11 +103,13 @@
 
 
                     <li><a onclick="LoadLocalFile('person','',LoadUserData);" class="waves-effect">
-                        <i class="material-icons left purple-text" >face</i>Cuenta Personal</i></a></li>
+                        <i class="material-icons left indigo-text text-darken-1" >face</i>Cuenta Personal</i></a></li>
                     <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)" class="waves-effect">
-                        <i class="material-icons left indigo-text" >account_balance</i>Cuenta Bancaria</a></li>
+                        <i class="material-icons left brown-text" >account_balance</i>Cuenta Bancaria</a></li>
                     <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)" class="waves-effect">
                       <i class="material-icons left pink-text" >chrome_reader_mode</i>Monedero</a></li>
+                    <li><a onclick="LoadLocalFile('getTotal')" class="waves-effect">
+                      <i class="material-icons left purple-text" >import_export</i>Obtener Saldo</a></li>
                     
                     <li><div class="divider"></div></li>
                     <li><a id="hrfCerrar" class="waves-effect">
@@ -293,6 +295,7 @@
     
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+    
 
     <script  type="text/javascript">
       $(document).ready(function(){
