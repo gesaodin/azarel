@@ -20,6 +20,11 @@ const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
 const imgPhotoUser = getID('imgPhotoUser');
 
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+  width : 160,
+  height : 160
+});
+
 var config = {  
   apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
   authDomain: "azarel-1a865.firebaseapp.com",
@@ -685,7 +690,6 @@ function LoadHoursCmb(){
   // 
 }
 
-
 function PrintTicket(HTML, tickeID){
   var ventana = window.open("", "_blank");
   HTML = `<center><script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>${HTML}  
@@ -716,3 +720,4 @@ function PrintTicket(HTML, tickeID){
   </style>`;
 
 }
+

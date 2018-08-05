@@ -362,14 +362,14 @@ function wClaimsTransf() {
 
   }
 
-  function GetTransferensMoney(){
+function GetTransferensMoney(){
     if(UserMoneyTotal <= 0){
         Materialize.toast('No posee saldo suficiente!!!', 2000);
         return false;
     }
     $("#modAlertTransf").modal();
     $("#modAlertTransf").modal("open");
-  }
+}
 
   /**
    * **************************
@@ -520,7 +520,7 @@ function LoadMoneyTotal(){
             Materialize.toast('Sus datos han sido actualizados', 3000);
         }
     });
-  }
+}
 
 
  //Load Tickets
@@ -753,3 +753,56 @@ function LoadMoneyTotal(){
         }     
     })
   }
+
+
+
+function GenerarQR(){
+    
+    var transferens = {
+        uid : UserUID,
+        name : "",
+        type : "",
+        bank : "",
+        date : "",
+        number : "",
+        timestamp : firebase.firestore.FieldValue.serverTimestamp(),
+        money : parseFloat("0"),
+        status : 'P',
+        user : User.person.fullname,
+        cid : User.person.cid
+    };
+    dbfirestore.collection("transferens").
+    add(transferens)
+    .then(d => {
+        var detail = {
+            money : transferens.money,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            status : 'P',
+            type:'A', //Assigned
+            idt: d.id
+        }
+        dbfirestore.collection("competitor").doc(UserUID)
+        .collection("money").doc(d.id).set(detail)
+        .then(d => {
+            Materialize.toast('Registro exitoso...', 2000);
+            btn.classList.remove('disabled');
+            UserMoneyTotal +=  transferens.money;
+        })
+        .catch(e => {
+            console.log('Error: ', e);
+        })
+    })
+    .catch(e => {
+        console.log('Error: ', e);
+    })
+    
+    qrcode.makeCode("elText.value");
+    $("#modAlertTransf").modal("close");
+    $("#modQR").modal();
+    $("#modQR").modal("open");
+
+
+
+  }
+  
+

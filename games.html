@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-   <title> Azarel - Venezuela </title>
+   <title> Apuestas - Venezuela </title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -41,23 +41,23 @@
       <header>            
         <div class="navbar-fixed ">
           <nav class="nav-extended">
-            <div class="nav-wrapper green">
-              <a href="#!" class="brand-logo center hide-on-small-only">Azarel</a>
+            <div class="nav-wrapper blue">
+              <a href="#!" class="brand-logo center hide-on-small-only">Apuestas</a>
               <a href="#" data-activates="slide-out" class="button-collapse">
-                <i class="material-icons left waves-effect">menu</i>Azarel
+                <i class="material-icons left waves-effect">menu</i>Apuestas
               </a>
               <a class="button-collapse right">
                 <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('transferens','',LoadCmbTransferens)">payment</i>
-                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">account_box</i>
-                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('home', '', LoadHomeAll)">home</i>
+                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">face</i>
+                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('apuestas/home', '', LoadHomeAll)">home</i>
               </a>                             
               <ul class="right hide-on-med-and-down">
                 <li><a onclick="LoadLocalFile('ticket','',LoadTickets);">
                   <i class="material-icons left" >style</i>Tickes</a></li>
                 <li><a onclick="LoadLocalFile('result')">
                   <i class="material-icons left" >assignment</i>Resultados</a></li>
-                <li><a onclick="LoadLocalFile('home', '', LoadHomeAll)">
-                  <i class="material-icons left" >home</i>Principal</a></li>
+                  <li><a onclick="LoadLocalFile('apuestas/home', '', LoadHomeAll)">
+                    <i class="material-icons left" >home</i>Principal</a></li>
               </ul>
             </div>
           </nav>               
@@ -73,21 +73,29 @@
                         <img src="img/laguna.jpg">
                       </div>
                       <a href="#!user"><img class="circle" id="imgPhotoUser" /></a>
-                      <a href="#!name"><span class="white-text name" id="lblNameUser">Azar en linea</span></a>
+                      <a href="#!name"><span class="white-text name" id="lblNameUser">Apuesta en linea</span></a>
                       <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
                     </div></li>
+                    
+                    <li ><a onclick="LoadLocalFile('result')" class="waves-effect">
+                      <i class="material-icons left blue-text " >assignment</i>Resultados</a></li>
                     <li><a onclick="LoadLocalFile('transferens','',LoadCmbTransferens)" class="waves-effect">
                       <i class="material-icons left pink-text" >payment</i>Tramites</a></li>
-                    <li ><a  href="remesas.html"  class="waves-effect">
-                      <i class="material-icons left blue-text " >monetization_on</i>Remesas</a></li>
+          
+                    <li class="hide-on-med-only"><div class="divider"></div></li>
+                    <li><a onclick="LoadLocalFile('bets','',LoadMoneyBets);" class="waves-effect">
+                      <i class="material-icons left green-text" >casino</i>Apostar</a></li>
+                    <li><a onclick="LoadLocalFile('ticket','',LoadTickets);" class="waves-effect">
+                      <i class="material-icons left deep-orange-text" >style</i>Tickes</a></li>
                     
-                    <li><a href="games.html" class="waves-effect">
-                      <i class="material-icons left green-text" >casino</i>Juegos</a></li>                
                     
                     <li><div class="divider"></div></li>
 
+                    
+
+
                     <li><a onclick="LoadLocalFile('person','',LoadUserData);" class="waves-effect">
-                        <i class="material-icons left indigo-text text-darken-1" >face</i>Perfil</i></a></li>
+                        <i class="material-icons left indigo-text text-darken-1" >face</i>Cuenta Personal</i></a></li>
                     <li><a onclick="LoadLocalFile('bank','',LoadUserDataBank)" class="waves-effect">
                         <i class="material-icons left brown-text" >account_balance</i>Cuenta Bancaria</a></li>
                     <li><a onclick="LoadLocalFile('money','', LoadUserDataTransferens)" class="waves-effect">
@@ -96,10 +104,10 @@
                       <i class="material-icons left purple-text" >import_export</i>Obtener Saldo</a></li>
                     
                     <li><div class="divider"></div></li>
+                    <li><a href="home.html" class="waves-effect"><i class="material-icons left teal-text" >first_page</i>
+                      Ir a Azarel</a></li>
                     <li><a id="hrfCerrar" class="waves-effect">
-                      <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
-                    <li><a onclick="LoadLocalFile('info')" class="waves-effect"><i class="material-icons left teal-text" >more</i>
-                      Información</a></li>
+                      <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>   
                 </ul>
             </div>
             <div class="col s12 m9 l9"  id="divCuerpo">
@@ -122,40 +130,22 @@
                         </a>
                     </div><!-- End Target -->
                     <div class="col s12 m4">
-                            <a  href="remesas.html" >
+                            <a onclick="LoadLocalFile('bets','',LoadMoneyBets);">
                               <div class="card horizontal">
                                 <div class="card-image">
-                                  <i class="material-icons purple-text" style="font-size:70px">monetization_on</i>
+                                  <i class="material-icons purple-text" style="font-size:70px">casino</i>
                                 </div>
                                 <div class="card-stacked purple">
                                   <div class="card-content white-text" style="padding:10px">
-                                    <font style="font-size:16px"><b>Remesas</b></font><br>
+                                    <font style="font-size:16px"><b>Apostar</b></font><br>
                                     <font style="font-size:12px">
-                                      Transferencia al mundo.
+                                      Realiza tu apuesta.
                                     </font>
                                   </div>
                                 </div>
                               </div>
                             </a>
                             </div>
-                        
-                            <div class="col s12 m4">
-                                <a href="games.html">
-                                  <div class="card horizontal">
-                                    <div class="card-image">
-                                      <i class="material-icons teal-text" style="font-size:70px">casino</i>
-                                    </div>
-                                    <div class="card-stacked teal">
-                                      <div class="card-content white-text" style="padding:10px">
-                                        <font style="font-size:16px"><b>Juegos</b></font><br>
-                                        <font style="font-size:12px">
-                                          Realiza tu apuesta.
-                                        </font>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </a>
-                                </div>
                 
                 
                           <div class="col s12 m4">
