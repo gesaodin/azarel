@@ -806,3 +806,42 @@ function GenerarQR(){
   }
   
 
+/*
+* Control de Remesas
+*/
+
+
+function writeUserDataBeneficiario() {
+    var btn = getID('btnUserData');
+    ConexionUser = 0;
+    if(getID('txtID').value == ""){
+      Materialize.toast('Por favor verifique los campos', 3000);
+      return false;
+    }
+    Materialize.toast('Enviando actualización...', 2000);
+    btn.classList.add('disabled');
+    var beneficiario = {
+      nac: getID('cmbNacionalidad').value,
+      cid: getID('txtID').value,
+      fullname: getID('txtNombreCompleto').value,
+      alias : getID('txtAlias').value,
+      banco: getID('cmbBanco').value,
+      number: getID('txtNumber').value,
+      cel : getID('txtcel').value,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    
+    dbfirestore
+        .collection('competitor')
+        .doc(UserUID)
+        .add(beneficiario )
+        .then(doc => {
+            Materialize.toast('Tus datos han sido actualizados', 4000);    
+            btn.classList.remove('disabled');            
+        })
+        .catch(e => {
+            Materialize.toast('Ocurrio un error al enviar los datos', 4000);      
+            btn.classList.remove('disabled');
+        })
+
+}
