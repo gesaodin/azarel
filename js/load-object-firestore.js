@@ -814,7 +814,7 @@ function LoadBeneficiario(){
     LoadCmbBank('cmbName');    
 }
 function LoadTramite(){
-    LoadCmbBank('cmbName');
+    //LoadCmbBank('cmbName');
   
     if (Settings.bank == undefined ){
       Materialize.toast('Fallo de conexión intente mas tarde', 3000);

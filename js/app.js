@@ -20,10 +20,7 @@ const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
 const imgPhotoUser = getID('imgPhotoUser');
 
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-  width : 160,
-  height : 160
-});
+
 
 var config = {  
   apiKey: "AIzaSyCtWgfZWdUQVRyC0W1NdlV3Zx9Q16I6Nf4",
