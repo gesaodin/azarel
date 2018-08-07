@@ -811,7 +811,26 @@ function GenerarQR(){
 */
 
 function LoadBeneficiario(){
+    LoadCmbBank('cmbName');    
+}
+function LoadTramite(){
     LoadCmbBank('cmbName');
+  
+    if (Settings.bank == undefined ){
+      Materialize.toast('Fallo de conexión intente mas tarde', 3000);
+      return false;
+    }
+    var Cmb = '';
+    var select = $('#cmbNameTransferens');
+    for (let i = 0; i < Settings.bank.length; i++) {
+      const bank = Settings.bank[i];
+      Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
+    }
+    getID('cmbNameTransferens').innerHTML = Cmb;
+    select.prop('selectedIndex', 0);  
+    select.material_select(); 
+    LoadCmbDataBeneficiario();
+
 }
 function writeUserDataBeneficiario() {
     var btn = getID('btnUserDataBeneficiario');
@@ -885,7 +904,6 @@ function writeUserDataBeneficiario() {
    function LoadCmbDataBeneficiario(){
     var Cmb = '';
     var select = $('#cmbBeneficiario');
-
     dbfirestore.collection("competitor")
     .doc(UserUID).collection("beneficiario")
     .orderBy('timestamp', "desc")
@@ -894,7 +912,7 @@ function writeUserDataBeneficiario() {
         snapshot.forEach(function(ele) {
             var key = ele.id;    
             var bnf  = ele.data();
-            Cmb += `<option value="${key}">${bnf.fullname}</option>`; 
+            Cmb += `<option value="${key}">${bnf.alias}</option>`; 
         });
 
         getID('cmbBeneficiario').innerHTML = Cmb;
