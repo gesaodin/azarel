@@ -38,16 +38,25 @@
                         <input id="txtAlias" type="text" class="validate">
                         <label class="active">Alias</label>
                     </div>
-                    <div class="input-field col s12 m4">
-                    <select id='cmbBanco'>
+                <div class="input-field col s12 m4">
+                    <select id='cmbName' onchange="AssignedBank()">
                         
                     </select>
                     <label >Seleccionar Banco</label>
-                    </div>
-
-                   
+                </div>
+                
                 <div class="input-field col s12 m6">
-                    <input id="txtNumber" type="number" class="validate">
+                  <select id="cmbType">
+                      <option value="0">---------------</option>
+                      <option value="1">AHORRO</option>
+                      <option value="2">CORRIENTE</option>
+                      <option value="3">ELECTRONICA</option>
+                  </select>
+                  <label>Seleccionar tipo de cuenta</label>
+                  </div>
+                
+                <div class="input-field col s12 m6">
+                    <input id="txtNumber" type="number" class="validate" maxlength="20">
                     <label class="active">Número de Cuenta</label>
                 </div>
                </div>
@@ -59,7 +68,7 @@
       
           <div class="center">
                     <a class="waves-effect waves-light btn pulse green"  
-                    onclick="writeUserDataBeneficiario" id="btnUserDataBeneficiario">
+                    onclick="writeUserDataBeneficiario()" id="btnUserDataBeneficiario">
                     <i class="material-icons right">send</i>Guardar</a>
           </div>
       

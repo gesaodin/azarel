@@ -810,9 +810,11 @@ function GenerarQR(){
 * Control de Remesas
 */
 
-
+function LoadBeneficiario(){
+    LoadCmbBank('cmbName');
+}
 function writeUserDataBeneficiario() {
-    var btn = getID('btnUserData');
+    var btn = getID('btnUserDataBeneficiario');
     ConexionUser = 0;
     if(getID('txtID').value == ""){
       Materialize.toast('Por favor verifique los campos', 3000);
@@ -825,23 +827,26 @@ function writeUserDataBeneficiario() {
       cid: getID('txtID').value,
       fullname: getID('txtNombreCompleto').value,
       alias : getID('txtAlias').value,
-      banco: getID('cmbBanco').value,
+      banco: getID('cmbName').value,
+      tipo: getID('cmbType').value,
       number: getID('txtNumber').value,
-      cel : getID('txtcel').value,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     };
-    
+    console.log(beneficiario);
     dbfirestore
         .collection('competitor')
         .doc(UserUID)
-        .add(beneficiario )
+        .collection("beneficiario")
+        .add(beneficiario)
         .then(doc => {
             Materialize.toast('Tus datos han sido actualizados', 4000);    
-            btn.classList.remove('disabled');            
+            btn.classList.remove('disabled');
+            LoadLocalFile('remesas/addbeneficiario','',LoadBeneficiario);
         })
         .catch(e => {
             Materialize.toast('Ocurrio un error al enviar los datos', 4000);      
             btn.classList.remove('disabled');
+            LoadLocalFile('remesas/addbeneficiario','',LoadBeneficiario);
         })
 
 }
