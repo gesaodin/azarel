@@ -696,7 +696,7 @@ function LoadMoneyTotal(){
 
   function updateWinner(postKey){
     
-    console.log(postKey);
+    //console.log(postKey);
     dbfirestore.collection('competitor').doc(UserUID)
     .collection('winner').doc(postKey)
     .update({'status' : 'A'})
@@ -850,3 +850,32 @@ function writeUserDataBeneficiario() {
         })
 
 }
+
+
+  //Loading data for LoadUserDataBeneficiario
+  function LoadUserDataBeneficiario(){
+    dbfirestore.collection("competitor")
+    .doc(UserUID).collection("beneficiario")
+    .orderBy('timestamp', "desc")
+    .get()
+    .then(snapshot => {
+        var table = getID('tblBodyBeneficiario');
+        var fil = '';        
+        var row = 0;
+        snapshot.forEach(function(ele) {
+            var key = ele.id;    
+            var bnf  = ele.data();
+            var text = "modificar";
+            row++;
+            fil += `<tr><td>${row}</td><td>${bnf.fullname}</td></tr>`;
+        });
+        table.innerHTML = fil;
+        $("#divClaimsList").hide();
+        $("#divBnf").show();
+         
+    }).catch( e => {
+        $("#divClaimsList").hide();
+        Materialize.toast('Debe crear un beneficiario', 4000); 
+    });
+
+  }
