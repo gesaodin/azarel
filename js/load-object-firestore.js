@@ -879,3 +879,31 @@ function writeUserDataBeneficiario() {
     });
 
   }
+
+
+   //Loading data for LoadUserDataBeneficiario
+   function LoadCmbDataBeneficiario(){
+    var Cmb = '';
+    var select = $('#cmbBeneficiario');
+
+    dbfirestore.collection("competitor")
+    .doc(UserUID).collection("beneficiario")
+    .orderBy('timestamp', "desc")
+    .get()
+    .then(snapshot => {       
+        snapshot.forEach(function(ele) {
+            var key = ele.id;    
+            var bnf  = ele.data();
+            Cmb += `<option value="${key}">${bnf.fullname}</option>`; 
+        });
+
+        getID('cmbBeneficiario').innerHTML = Cmb;
+        select.prop('selectedIndex', 0);  
+        select.material_select();
+         
+    }).catch( e => {
+        $("#divClaimsList").hide();
+        Materialize.toast('Debe crear un beneficiario', 4000); 
+    });
+
+  }
