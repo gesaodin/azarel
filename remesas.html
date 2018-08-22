@@ -47,9 +47,18 @@
                 <i class="material-icons left waves-effect">menu</i>Remesas
               </a>
               <a class="button-collapse right">
-                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('remesas/beneficiarios','',LoadUserDataBeneficiario)">group</i>
-                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('person','',LoadUserData)">face</i>
-                <i class="material-icons waves-effect waves-light left" onclick="LoadLocalFile('remesas/home', '', LoadHomeAll)">home</i>
+                <i class="material-icons waves-effect waves-light left" 
+                  onclick="LoadLocalFile('remesas/beneficiarios','',LoadUserDataBeneficiario)">group
+                </i>
+                <i class="material-icons waves-effect waves-light left" 
+                  onclick="LoadLocalFile('person','',LoadUserData)">face
+                </i>
+                <i class="material-icons waves-effect waves-light left" 
+                  onclick="LoadLocalFile('remesas/home', '', LoadHomeAll)">home
+                </i>
+                <i class="material-icons waves-effect waves-light left" 
+                  onclick="LoadLocalFile('remesas/ayuda')">help_outline
+                </i>
               </a>                             
               <ul class="right hide-on-med-and-down">
                 <li><a onclick="LoadLocalFile('person','',LoadUserData);">
@@ -78,7 +87,11 @@
                     </div></li>
                     
                     <li><a onclick="LoadLocalFile('remesas/transferens','',LoadTramite)" class="waves-effect">
-                      <i class="material-icons left pink-text" >payment</i>Operaciones</a></li>
+                      <i class="material-icons left pink-text" >payment</i>Operaciones</a>
+                    </li>
+                    
+
+                      
                     <li ><a onclick="LoadLocalFile('remesas/pendientes')" class="waves-effect">
                       <i class="material-icons left blue-text " >assignment</i>Pendientes</a></li>
           
@@ -101,11 +114,20 @@
                     <li><a href="getmoney.html " class="waves-effect">
                       <i class="material-icons left purple-text" >import_export</i>Obtener Saldo</a></li>
                     
+                    
+                    
                     <li><div class="divider"></div></li>
+                    
+
                     <li><a href="home.html" class="waves-effect"><i class="material-icons left teal-text" >first_page</i>
                       Ir a Azarel</a></li>
+                    <li><a onclick="LoadLocalFile('remesas/buyazarel','',LoadTramite)" class="waves-effect">
+                      <i class="material-icons left orange-text" >attach_money</i>Comprar Azarel</a>
+                     </li>
+
                     <li><a id="hrfCerrar" class="waves-effect">
                       <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
+                      
                 </ul>
             </div>
             <div class="col s12 m9 l9"  id="divCuerpo">
@@ -114,7 +136,7 @@
                     <a onclick="LoadLocalFile('money', '', LoadUserDataTransferens)">
                         <div class="card horizontal">
                         <div class="card-image">
-                            <i class="material-icons green-text" style="font-size:70px">chrome_reader_mode</i>
+                            <i class="material-icons green-text" style="font-size:70px">attach_money</i>
                         </div>
                         <div class="card-stacked green" >
                             <div class="card-content white-text" style="padding:10px">
@@ -135,7 +157,7 @@
                                 </div>
                                 <div class="card-stacked amber">
                                   <div class="card-content white-text" style="padding:10px">
-                                    <font style="font-size:16px"><b>Indicador Financiera</b></font><br>
+                                    <font style="font-size:16px"><b>Indicador Financiero</b></font><br>
                                     <font style="font-size:12px">
                                       Valor monetario
 
@@ -151,7 +173,7 @@
                             <a onclick="LoadLocalFile('remesas/addbeneficiario','',LoadBeneficiario);">
                               <div class="card horizontal">
                                 <div class="card-image">
-                                  <i class="material-icons teal-text" style="font-size:70px">assignment_ind</i>
+                                  <i class="material-icons teal-text" style="font-size:70px">wc</i>
                                 </div>
                                 <div class="card-stacked teal">
                                   <div class="card-content white-text" style="padding:10px">
@@ -164,6 +186,25 @@
                               </div>
                               </a>
                             </div>
+
+
+                            <div class="col s12 m4">
+                                <a onclick="LoadLocalFile('remesas/transferens','',LoadTramite);">
+                                  <div class="card horizontal">
+                                    <div class="card-image">
+                                      <i class="material-icons purple-text" style="font-size:70px">chrome_reader_mode</i>
+                                    </div>
+                                    <div class="card-stacked purple">
+                                      <div class="card-content white-text" style="padding:10px">
+                                        <font style="font-size:16px"><b>Operaciones</b></font><br>
+                                        <font style="font-size:12px">
+                                          Enviar remesas a Vzla.
+                                        </font>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </a>
+                                </div>
 
                                 
                           </div> <!-- Fin de div left -->
@@ -180,27 +221,6 @@
                       
 
 
-     <div id="modAnimals" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h6 id="numberAnimals">0 - DELFIN</h6>
-            <div class="row" id="mdlPag1" style="padding:0;display:none">
-              <div class="input-field col s12">
-                <input placeholder="Monto" id="txtMonto" type="number" class="validate">
-                <label for="txtMonto" class="active">Monto</label>
-              </div>
-              <div class="col s12">
-                 
-                  <div id="test-slider"></div>
-              </div>
-            </div> 
-        </div>
-        <div class="modal-footer green">
-          <a class="modal-action modal-close white-text waves-effect waves-green btn-flat left" onclick="AddGame()" >Aceptar
-          </a> 
-          <a class="modal-action modal-close white-text waves-effect waves-green btn-flat right">Cancelar
-          </a> 
-        </div>
-      </div>
 
 
 

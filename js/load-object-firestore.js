@@ -455,12 +455,12 @@ async function writeUserDataBets() {
         
     })
     UserMoneyTotal = UserMoneyTotal - total;
-    UserMoney = parseFloat(UserMoneyTotal) + ' Bs.';
+    UserMoney = parseFloat(UserMoneyTotal) + ' ' + MoneyType;
     LoadMoneyBets();
     getID('btnGame').classList.add('hide');
     getID('tblBody').innerHTML = '';
     getID('spsaldo').innerHTML = '0';
-    getID('thTotal').innerHTML = '0 Bs.';
+    getID('thTotal').innerHTML = '0 ' + MoneyType;
     MoneyGame = 0;
     cleanSelect('cmbHours');
     getID('modAlertBody').innerHTML = `Te deseamos suerte en la jugada <br> ticket: ${ticket}`;
@@ -511,8 +511,8 @@ function LoadMoneyTotal(){
             var assigned = ele.data();
             saldo += parseFloat(assigned.money);
         });
-        if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' Bs.';
-        UserMoney = saldo.toLocaleString() + ' Bs.';
+        if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' ' + MoneyType;
+        UserMoney = saldo.toLocaleString() + ' ' + MoneyType;
         UserMoneyTotal = saldo;
         if (ConexionUser == 0){
             ConexionUser++;
@@ -559,7 +559,7 @@ function LoadMoneyTotal(){
             <div class="collapsible-header">
                 <i class="material-icons">local_offer</i>
                 
-                ${key.substring(0,6)}... ${format} <br> ${parseFloat(total).toLocaleString()} Bs.
+                ${key.substring(0,6)}... ${format} <br> ${parseFloat(total).toLocaleString()} ${MoneyType}
                 
                 <span class="new badge white rigth" data-badge-caption="">
                     <a href="#" onclick="OpenModalAlertMail()">
@@ -631,7 +631,7 @@ function LoadMoneyTotal(){
         <img src="img/${img[1]}.jpeg" alt="" class="circle">
         <span class="title">${prize.dateplay}</span>
         <p>${prize.playin} 
-        <br> ${prize.money} Bs.
+        <br> ${prize.money} ${MoneyType}
         </p>
         <a class="secondary-content btn-floating green waves-effect waves-light" onclick="SignedPrize('${prize.id}','${prize.key}','${prize.dateplay}')">
         <i class="material-icons">thumb_up</i></a>

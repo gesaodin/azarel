@@ -1,5 +1,6 @@
 let pageNumber = 1;
 let maxPageNumber = 6;
+let MoneyType = 'Azr.';
 let User = {};
 let UserUID = '';
 let UserMoney = '';
@@ -398,7 +399,7 @@ function AddGame(){
   //console.log(fil);
   table.innerHTML += fil;  
   getID('spsaldo').innerHTML = MoneyGame.toLocaleString();
-  getID('thTotal').innerHTML = MoneyGame.toLocaleString() + " Bs.";
+  getID('thTotal').innerHTML = MoneyGame.toLocaleString() + MoneyType;
   getID('btnGame').classList.remove('hide');
   Materialize.toast('Verifica tu lista de apuestas', 3000);
   cleanAnimals();
