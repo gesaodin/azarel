@@ -265,7 +265,7 @@ function wClaimsTransf() {
     }
 
     if(getID('txtMoney').value == ""){
-      Materialize.toast('Verifique los campos', 3000);
+      Materialize.toast('Introduzca un monto', 3000);
       return false;
     }
     if(UserMoneyTotal <= fmoney){
@@ -758,11 +758,26 @@ function LoadMoneyTotal(){
 
 function GenerarQR(){
     
+    var fmoney = parseFloat(getID('txtMoney').value);
+    if(User.person == undefined){
+        Materialize.toast('Actualiza tus datos personales', 3000);
+        return false;
+    }
+
+    if(getID('txtMoney').value == ""){
+      Materialize.toast('Introduzca un monto', 3000);
+      return false;
+    }
+    if(UserMoneyTotal <= fmoney){
+        Materialize.toast('El retiro debe ser menor al saldo', 3000);
+        return false;   
+    }
+
     var transferens = {
         uid : UserUID,
-        name : "",
-        type : "",
-        bank : "",
+        name : "TxQR",
+        type : "Qr",
+        bank : "I",
         date : "",
         number : "",
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
@@ -787,6 +802,11 @@ function GenerarQR(){
             Materialize.toast('Registro exitoso...', 2000);
             btn.classList.remove('disabled');
             UserMoneyTotal +=  transferens.money;
+            
+            qrcode.makeCode(UserUID + "|" + d.id);
+            $("#modAlertTransf").modal("close");
+            $("#modQR").modal();
+            $("#modQR").modal("open");
         })
         .catch(e => {
             console.log('Error: ', e);
@@ -796,10 +816,7 @@ function GenerarQR(){
         console.log('Error: ', e);
     })
     
-    qrcode.makeCode("elText.value");
-    $("#modAlertTransf").modal("close");
-    $("#modQR").modal();
-    $("#modQR").modal("open");
+
 
 
 

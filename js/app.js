@@ -21,6 +21,10 @@ const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
 const imgPhotoUser = getID('imgPhotoUser');
 
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+  width : 160,
+  height : 160
+});
 
 
 var config = {  

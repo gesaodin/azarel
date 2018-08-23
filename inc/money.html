@@ -30,7 +30,7 @@
 </div>
 
 <div class="fixed-action-btn" id="divMoneyTransf">
-    <a onclick="GetTransferensMoney();" class="waves-effect waves-light btn btn-floating pink pulse">
+    <a onclick="GetTransferensMoney();" class="waves-effect waves-light btn btn-large btn-floating pink pulse">
         <i class="material-icons">swap_horiz</i>
     </a>        
 </div>
@@ -40,19 +40,24 @@
             <h6 id="numberAnimals">Solicitud de transferencia de fondos</h6>            
             <div class="row">
                 <div class="input-field col s12" id="modAlertBodyTransf">
-                    <input placeholder="Monto" id="txtMoney" type="number" class="validate">
-                    
+                    <input placeholder="Monto" id="txtMoney" type="number" class="validate">                    
                 </div>
-
             </div>
             <div class="row">
                 <div class="col s6">
-                        <a class="btn waves-effect waves-light btn-small blue">
+                        <a class="btn waves-effect waves-light btn-small blue" onclick="wClaimsTransf()">
                                 <i class="large material-icons">account_balance</i>                           
                         </a>
                 </div>
                 <div class="col s6">
-                        <a class="waves-effect waves-light btn orange" onclick="GenerarQR();">QR</a>                        
+                    <a class="waves-effect waves-light btn orange" onclick="GenerarQR();">QR</a>                        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <a class="waves-effect waves-light btn green" onclick="GenerarMAIL();">
+                            <i class="large material-icons">mail</i>
+                    </a>                        
                 </div>
             </div>
         </div>
@@ -60,10 +65,6 @@
           <a href="#!" id="btnAcept"
             class="modal-action modal-close white-text waves-effect 
             waves-green btn-flat right" onclick="">Cancelar
-          </a> 
-          <a href="#!" id="btnGo"
-            class="modal-action modal-close white-text waves-effect 
-            waves-green btn-flat right" onclick="wClaimsTransf()">Aceptar
-          </a> 
+          </a>         
         </div>
       </div>
