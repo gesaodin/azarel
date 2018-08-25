@@ -18,7 +18,7 @@
           <div class="col s12 m12 center">
               <div class="row">
                 <div class="input-field col s12 m3">
-                  <select id='cmbOrigen'>
+                  <select id='cmbOrigen' onChange='LoadCmbOperation()'>
                     <option value="0">--------------------</option>
                     <option value="PER">PERU</option>
                     <option value="VEN" disabled>VENEZUELA</option>
@@ -39,15 +39,17 @@
                 </div>          
       
                   <div class="input-field col s12 m3">
-                    <select id='cmbType'>
+                    <select id='cmbType' onChange='SelectTypeAccount()'>
+                      <option value="9">--------------------</option>
                       <option value="1">DEPOSITO</option>
                       <option value="0">TRANSFERENCIA</option>                        
                     </select>
                     <label >Tipo de Operación</label>
                   </div>
                   
-                  <div class="input-field col s12 m3">
+                  <div class="input-field col s12 m3" id='divNameBank' style="display: none">
                     <select id='cmbName'>
+                        <option value="0">--------------------</option>
                     </select>
                     <label >Seleccionar Banco</label>
                   </div>
@@ -73,7 +75,12 @@
                 </div>
                 <div class="input-field col s12 m6">
                         <input id="txtMoney" type="number" class="validate">
-                        <label class="active" >Monto</label>
+                        <label class="active" id="lblMontoDepositado">Monto Depositado en: Soles</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input id="txtMoneyTransf" type="number" class="validate" disabled>
+                    <label class="active" >Monto a transferir</label>
                 </div>
 
                 <div class="input-field col s12 m6">

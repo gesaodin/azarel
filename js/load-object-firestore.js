@@ -914,23 +914,64 @@ function LoadBeneficiario(){
 }
 function LoadTramite(){
     //LoadCmbBank('cmbName');
-  
     if (Settings.bank == undefined ){
       Materialize.toast('Fallo de conexión intente mas tarde', 3000);
       return false;
     }
+    // var Cmb = '';
+    // var select = $('#cmbNameTransferens');
+    // for (let i = 0; i < Settings.bank.length; i++) {
+    //   const bank = Settings.bank[i];
+    //   Cmb += `<option value="${bank.name}">${getPosBankText(bank.name)} - ${bank.number}</option>`;    
+    // }
+    // getID('cmbNameTransferens').innerHTML = Cmb;
+    // select.prop('selectedIndex', 0);  
+    // select.material_select(); 
+    LoadCmbDataBeneficiario();
+}
+
+function LoadCmbOperation(){
     var Cmb = '';
     var select = $('#cmbNameTransferens');
     for (let i = 0; i < Settings.bank.length; i++) {
-      const bank = Settings.bank[i];
-      Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
+        const bank = Settings.bank[i];
+        
+        if( $('#cmbOrigen').val() == bank.naci ){
+            Cmb += `<option value="${bank.name}">${bank.desc} - ${bank.number}</option>`;            
+        }
     }
     getID('cmbNameTransferens').innerHTML = Cmb;
     select.prop('selectedIndex', 0);  
-    select.material_select(); 
-    LoadCmbDataBeneficiario();
-
+    select.material_select();
+    switch ($('#cmbOrigen').val()) {
+        case 'VEN':
+            LoadCmbBank('cmbName', Banks);
+            
+            break;
+        case 'PER':
+            LoadCmbBank('cmbName', BanksPERU);
+            
+            break;
+        default:
+            LoadCmbBank('cmbName', BanksUS);
+            break;
+    }
 }
+
+function SelectTypeAccount(){
+    switch ($("#cmbType").val()) {
+        case "0":
+            $("#divNameBank").show()
+            break;
+        case "1":
+            $("#divNameBank").hide();
+            break;
+        default:
+            $("#divNameBank").hide();
+            break;
+    }
+}
+
 function writeUserDataBeneficiario() {
     var btn = getID('btnUserDataBeneficiario');
     ConexionUser = 0;

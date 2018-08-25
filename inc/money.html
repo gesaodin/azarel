@@ -35,8 +35,12 @@
         <i class="material-icons">more_vert</i>
     </a>
     <ul>
-        <li class="waves-effect waves-light"><a href="#!" onclick="GetTransferensMoney();"><i class="material-icons">swap_horiz</i></a></li>
-        <li class="waves-effect waves-light"><a href="#!" onclick="GetRetiroMoney();"><i class="material-icons">screen_share</i></a></li>
+        <li class="waves-effect waves-light"><a href="#!" onclick="GetRetiroMoney();">
+            <i class="material-icons">screen_share</i></a>
+        </li>
+        <li class="waves-effect waves-light"><a href="#!" onclick="GetTransferensMoney();">
+            <i class="material-icons">swap_horiz</i></a>
+        </li>
     </ul>
 </div>
 
@@ -51,17 +55,10 @@
                 <input placeholder="Azarel's" id="txtAzarel" type="number" class="validate">                    
             </div> -->
         </div>
-        <div class="row">
-            <div class="col s6">
-                    <a class="btn waves-effect waves-light btn-small blue" onclick="wClaimsTransf()">
-                            <i class="large material-icons">account_balance</i>                           
-                    </a>
-            </div>
+        <div class="row">            
             <div class="col s6">
                 <a class="waves-effect waves-light btn orange" onclick="GenerarQR();">QR</a>                        
             </div>
-        </div>
-        <div class="row">
             <div class="col s6">
                 <a class="waves-effect waves-light btn green" onclick="GenerarMAIL();">
                         <i class="large material-icons">mail</i>
@@ -101,7 +98,7 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <a class="btn waves-effect waves-light btn-small blue" onclick="wClaimsRetiro()">
+                    <a class="btn waves-effect waves-light btn-small blue" onclick="wClaimsTransf()">
                         <i class="large material-icons">account_balance</i>         
                     </a>
                 </div>

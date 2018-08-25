@@ -719,6 +719,11 @@ function LoadHoursCmb(){
 
   // 
 }
+function LoadIndicator(){
+  getID('bolivar').innerHTML = Settings.limit.bolivar;
+  getID('sol').innerHTML = Settings.limit.sol;
+  getID('dolar').innerHTML = Settings.limit.dolar;
+}
 
 function TotalAzarel(){
   var azr =  parseFloat(getID('txtMoney').value) * SelMountMoney(getID('cmbMoney').value);
