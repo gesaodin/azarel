@@ -228,7 +228,10 @@ function RequestTransferens(){
     return false;
   }
   $("#tblRequest").html('<tr><td colspan=7>Cargando...</td></tr>');
-  dbfirestore.collection('claimstransf').where("status", "==", "P").where("bankname", "==", bank)
+  var country = $('#cmbCountry').val();
+  var Bnk = SelectedBankText(country);
+  console.log(Bnk);
+  dbfirestore.collection('claimstransf').where("status", "==", "P").where("bank", "==", bank)
   .get()
   .then( snap => {
     var body = '';
@@ -242,7 +245,7 @@ function RequestTransferens(){
         <td style="display:none">${obj.uid}</td>
         <td>${obj.user}</td>
         <td>${obj.cid}</td>
-        <td>${getPosBankText(obj.bank.substring(0, 4))}</td>
+        <td>${getPosBankText(obj.bank.substring(0, 4), Bnk)}</td>
         <td>${getBankType(obj.banktype)}</td>
         <td>${obj.bank}</td>
         <td>${obj.money}</td>
@@ -354,6 +357,7 @@ function GetInterfaceSettings(){
   $("#txtDolar").val(Settings.limit.dolar);
   $("#txtSol").val(Settings.limit.sol);
   $("#txtBolivar").val(Settings.limit.bolivar);
+  $("#txtsolbolivar").val(Settings.limit.solbolivar);
   if (Settings.bank == undefined){
     return
   }
@@ -393,6 +397,7 @@ function saveSettings(){
     dolar : parseFloat($("#txtDolar").val()),  
     sol : parseFloat($("#txtSol").val()), 
     bolivar: parseFloat($("#txtBolivar").val()), 
+    solbolivar: parseFloat($("#txtsolbolivar").val()),
     min : $("#txtMin").val(), 
     max : $("#txtMax").val()
   }
@@ -411,6 +416,7 @@ function saveSettings(){
     console.log('Err. Settings', e);
   })
 }
+
 
 function loadBankSettings(){
   
@@ -463,8 +469,13 @@ function SelectedBankText(str){
       break;
   }
 }
-function SelectListBank(){
-  switch ($('#cmbNaci option:selected').val()) {
+function SelectListBank(str){
+  if (str == undefined){
+    str = $('#cmbNaci option:selected').val();
+  }else{
+    str = $('#' + str + ' option:selected').val();
+  }
+  switch (str) {
     case 'VEN':
       LoadCmbBank('cmbName', app.BANKS);
       break;
@@ -477,3 +488,4 @@ function SelectListBank(){
       break;
   }
 }
+

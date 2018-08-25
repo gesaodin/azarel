@@ -723,6 +723,7 @@ function LoadIndicator(){
   getID('bolivar').innerHTML = Settings.limit.bolivar;
   getID('sol').innerHTML = Settings.limit.sol;
   getID('dolar').innerHTML = Settings.limit.dolar;
+  getID('solbolivar').innerHTML = Settings.limit.solbolivar;
 }
 
 function TotalAzarel(){
@@ -732,8 +733,12 @@ function TotalAzarel(){
 
 function SelectionMontoRetiro(){
   var azr =  parseFloat(getID('txtMoneyR').value) / SelMountMoney(getID('cmbMoneyR').value);
-  $('#txtAzarelR').val(azr);
-   
+  $('#txtAzarelR').val(azr);  
+}
+
+function SelectMoneyRemesa(){
+  var azr =  parseFloat(getID('txtMoney').value) * Settings.limit.solbolivar;
+  $('#txtMoneyTransf').val(azr); 
 }
 
 function PrintTicket(HTML, tickeID){

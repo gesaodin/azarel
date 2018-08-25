@@ -385,7 +385,62 @@ function wClaimsTransf() {
 
     });
 
+}
+
+
+
+//Loading data for Remesas
+function LoadUserDataRemesas(){
+    
+
+    dbfirestore.collection("competitor")
+    .doc(UserUID).collection("remesas")
+    .orderBy('timestamp', "desc")
+    .get()
+    .then(snapshot => {
+        var table = getID('tblBody');
+        var fil = '';
+        var balance = 0;
+        var deferred = 0;
+        var row = 0;
+        snapshot.forEach(function(ele) {
+            var key = ele.id;    
+            var transf  = ele.data();
+            var text = SelectCaseStatus('P');
+            var load = '<i>TRNS</i>';
+            var money = parseFloat(transf.bolivar);
+            if(transf.status != undefined){
+                text = SelectCaseStatus(transf.status);
+                if(transf.status == 'P')deferred += money;               
+            }
+            if(transf.load != undefined)load = 'RETIRO';
+            if(transf.bets != undefined)load = 'APUESTA';
+            var stype = transf.type == undefined?'': transf.type;
+            if(stype == 'G'){
+                load = 'PREMIO';
+            }                        
+            row++;
+            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money.toLocaleString()}</td>
+            <td style="text-align:right">${text}</td></tr>`;
+            balance += money;
+            $("#divClaimsList").hide();
+            $("#divTable").show();
+        });
+        table.innerHTML = fil;
+        if(row == 0){
+            $("#divClaimsList").hide();
+            $("#divTable").show();
+            table.innerHTML = `<tr><td colspan="4"><i>Sin Operaciones Pendientes</i></td></tr>`;
+        }
+        return snapshot;        
+    }).catch( e => {
+        
+        
+    });
+
   }
+
+
 
 function GetTransferensMoney(){
     if(UserMoneyTotal <= 0){
@@ -1095,4 +1150,80 @@ function writeUserDataBeneficiario() {
     select.prop('selectedIndex', 0);  
     select.material_select();
 
+  }
+
+
+   /**
+   * **************************
+   * Write Remesas
+   * **************************
+   */
+//Write Data Remesas for user
+function writeUserDataRemesas() {
+    var btn = getID('btnUserDataRemesas');
+    if(User.person == undefined){
+        Materialize.toast('Actualiza tus datos personales', 3000);
+        return false;
+    }
+    if(getID('txtNumber').value == ""){
+      Materialize.toast('Por favor verifique los campos', 3000);
+      return false;
+    }
+    var bolivar =  parseFloat(getID('txtMoney').value) * Settings.limit.solbolivar;
+    var azr =  parseFloat(getID('txtMoney').value) * Settings.limit.sol;
+
+    Materialize.toast('Enviando actualización...', 2000);
+    btn.classList.add('disabled');
+    var transferens = {
+        uid : UserUID,
+        origen: getID('cmbOrigen').value,
+        destino: getID('cmbDestino').value,
+        type : getID('cmbType').value,
+        name : getID('cmbName').value,
+        bank : getID('cmbNameTransferens').value,
+        date : getID('txtDate').value,
+        number : getID('txtNumber').value,
+        timestamp : firebase.firestore.FieldValue.serverTimestamp(),
+        money : parseFloat(getID('txtMoney').value),
+        status : 'P',
+        user : User.person.fullname,
+        cid : User.person.cid,
+        moneda : getID('cmbOrigen').value,
+        benef : getID('cmbBeneficiario').value,
+        azr: azr,
+        bolivar: bolivar
+    };
+    dbfirestore.collection("claimstransf").
+    add(transferens)
+    .then(d => {
+        var detail = {
+            money : transferens.money * -1  ,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            status : 'P',
+            type:'A', //Assigned
+            idt: d.id,
+            bolivar: transferens.bolivar,
+            moneda: transferens.moneda,
+            azr: transferens.azr * -1
+        }
+        dbfirestore.collection("competitor").doc(UserUID)
+        .collection("remesas").doc(d.id).set(detail)
+        .then(d => {
+            getID('txtDate').value = '';
+            getID('txtNumber').value = '';
+            getID('txtMoney').value = '';
+            getID('txtMoneyTransf').value = '';
+            cleanSelect('cmbName');
+            cleanSelect('cmbNameTransferens');
+            btn.classList.remove('disabled');
+            UserMoneyTotal +=  transferens.money;
+            Materialize.toast('Registro exitoso...', 2000);
+        })
+        .catch(e => {
+            console.log('Error: ', e);
+        })
+    })
+    .catch(e => {
+        console.log('Error: ', e);
+    })
   }

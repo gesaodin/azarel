@@ -74,7 +74,7 @@
                     <label class="active">Número de operación</label>
                 </div>
                 <div class="input-field col s12 m6">
-                        <input id="txtMoney" type="number" class="validate">
+                        <input id="txtMoney" type="number" class="validate" onBlur="SelectMoneyRemesa()">
                         <label class="active" id="lblMontoDepositado">Monto Depositado en: Soles</label>
                 </div>
 
@@ -96,8 +96,8 @@
           </div>
       
           <div class="center">
-              <a class="waves-effect waves-light btn pulse green" onclick="writeDTB()" 
-                  id="btnUserDataTransferens">
+              <a class="waves-effect waves-light btn pulse green" onclick="writeUserDataRemesas()" 
+                  id="btnUserDataRemesas">
                   <i class="material-icons right">send</i>Guardar</a>
               </a>
 
