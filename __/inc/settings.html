@@ -39,38 +39,50 @@
        <div class="step-title waves-effect">Cuenta Bancaria</div>
        <div class="step-content">
           <div class="row"><br>
-                <div class="input-field col s12 m12">                           
+                <div class="input-field col s12 m6">                           
+                    <select id="cmbNaci" onchange="SelectListBank()">
+                        <option value="0">---------------</option>
+                        <option value="VEN">VENEZUELA</option>
+                        <option value="PER">PERU</option>                        
+                        <option value="COL">COLOMBIA</option>
+                    </select>
+                    <label>Seleccionar un país</label>
+                </div>
+                <div class="input-field col s12 m6">                           
                     <input id="txtNameBank" type="text" class="validate">
                     <label class="active" >Nombre de la cuenta</label>
                 </div>
                 <div class="input-field col s12 m6">
-                        <select id="cmbName" onchange="AssignedBank()">
-                          
-                        </select>
-                        <label>Seleccionar un banco</label>
-                      </div>
-    
-                        <div class="input-field col s12 m6">
-                        <select id="cmbType">
-                            <option value="0">---------------</option>
-                            <option value="1">AHORRO</option>
-                            <option value="2">CORRIENTE</option>
-                            <option value="3">ELECTRONICA</option>
-                        </select>
-                        <label>Seleccionar tipo de cuenta</label>
-                        </div>
-                        <div class="input-field col s12 m6">                           
-                            <input id="txtNumber" type="tel" class="validate" maxlength="20">
-                            <label class="active" >Número de cuenta</label>
-                        </div>
-                        <div class="input-field col s2" >
-                            <a class="btn-floating indigo" onclick="AddBank()"><i class="material-icons">add</i></a>
-                        </div> 
+                    <select id="cmbName" onchange="AssignedBank()">
+                        
+                    </select>
+                    <label>Seleccionar un banco</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <select id="cmbType">
+                        <option value="0">---------------</option>
+                        <option value="1">AHORRO</option>
+                        <option value="2">CORRIENTE</option>
+                        <option value="3">ELECTRONICA</option>
+                    </select>
+                    <label>Seleccionar tipo de cuenta</label>
+                </div>
+                <div class="input-field col s12 m6">                           
+                        <input id="txtNumber" type="tel" class="validate" maxlength="20">
+                        <label class="active" >Número de cuenta</label>
+                </div>
+                <div class="input-field col s2" >
+                        <a class="btn-floating indigo" onclick="AddBank()"><i class="material-icons">add</i></a>
+                </div> 
           </div>
           <div class="row">
             <table>
                 <thead>
+                    <th style="display:none">BANK</th>
+                    <th style="display:none">TYPE</th>
                     <th>NOMBRE</th>
+                    <th>PAIS</th>
                     <th>BANCO</th>
                     <th>TIPO</th>
                     <th>NÚMERO</th>
@@ -93,12 +105,24 @@
        <div class="step-title waves-effect">Limites</div>
        <div class="step-content">
             <div class="row">
-                <br>  
-                <div class="input-field col s12 m6">                           
+                <br> 
+                <div class="input-field col s12 m4">                           
+                    <input id="txtBolivar" type="number" class="validate" maxlength="20">
+                    <label class="active" >Bolivar - 1 Azarel</label>
+                </div>
+                <div class="input-field col s12 m4">                           
+                    <input id="txtSol" type="number" class="validate" maxlength="20">
+                    <label class="active" >Sol Peruano - 1 Azarel</label>
+                </div>    
+                <div class="input-field col s12 m4">                           
+                    <input id="txtDolar" type="number" class="validate" maxlength="20">
+                    <label class="active" >Dolar - 1 Azarel</label>
+                </div>
+                <div class="input-field col s12 m4">                           
                     <input id="txtMin" type="tel" class="validate" maxlength="20">
                     <label class="active" >Limite mínimo</label>
                 </div>
-                <div class="input-field col s12 m6">                           
+                <div class="input-field col s12 m4">                           
                     <input id="txtMax" type="tel" class="validate" maxlength="20">
                     <label class="active" >Limite máximo</label>
                 </div> 
@@ -107,7 +131,7 @@
 
 
           <div class="step-actions">
-             <a class="waves-effect waves-dark btn green" onclick="saveSettings()">Salvar</a>
+             <a id="btnAddBanks" class="waves-effect waves-dark btn green" onclick="saveSettings()">Salvar</a>
              <button class="waves-effect waves-dark btn-flat previous-step">Atrás</button>
           </div>
        </div>

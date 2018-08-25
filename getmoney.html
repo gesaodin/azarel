@@ -95,7 +95,7 @@
                     <li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
                   </transition-group> 
                   <ul v-if="scans.length === 0">
-                    <li class="empty">No hay scans</li>
+                    <li class="empty">Procesando...</li>
                   </ul>
                 </div>
             </center>

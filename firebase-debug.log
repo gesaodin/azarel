@@ -1,44 +1,80 @@
-[debug] [2018-08-23T01:35:47.230Z] ----------------------------------------------------------------------
-[debug] [2018-08-23T01:35:47.232Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase deploy
-[debug] [2018-08-23T01:35:47.232Z] CLI Version:   3.18.4
-[debug] [2018-08-23T01:35:47.232Z] Platform:      linux
-[debug] [2018-08-23T01:35:47.232Z] Node Version:  v9.11.2
-[debug] [2018-08-23T01:35:47.232Z] Time:          Wed Aug 22 2018 21:35:47 GMT-0400 (-04)
-[debug] [2018-08-23T01:35:47.232Z] ----------------------------------------------------------------------
+[debug] [2018-08-23T15:57:30.573Z] ----------------------------------------------------------------------
+[debug] [2018-08-23T15:57:30.575Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
+[debug] [2018-08-23T15:57:30.575Z] CLI Version:   3.18.4
+[debug] [2018-08-23T15:57:30.575Z] Platform:      linux
+[debug] [2018-08-23T15:57:30.575Z] Node Version:  v9.11.2
+[debug] [2018-08-23T15:57:30.575Z] Time:          Thu Aug 23 2018 11:57:30 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:30.575Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-08-23T01:35:47.239Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-08-23T01:35:47.239Z] > authorizing via signed-in user
-[debug] [2018-08-23T01:35:47.241Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-08-23T01:35:47.241Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2018-08-23T15:57:30.596Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-23T15:57:30.596Z] > authorizing via signed-in user
+[debug] [2018-08-23T15:57:30.597Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-08-23T15:57:30.598Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
   client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
   client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
   grant_type: 'refresh_token',
   scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Wed Aug 22 2018 21:35:47 GMT-0400 (-04)
-[debug] [2018-08-23T01:35:48.420Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-23T01:35:48.463Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+ Thu Aug 23 2018 11:57:30 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:31.314Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-23T15:57:31.345Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
   
- Wed Aug 22 2018 21:35:48 GMT-0400 (-04)
-[debug] [2018-08-23T01:35:50.185Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-23T01:35:50.185Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+ Thu Aug 23 2018 11:57:31 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:33.438Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-23T15:57:33.439Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
   
- Wed Aug 22 2018 21:35:50 GMT-0400 (-04)
-[debug] [2018-08-23T01:35:50.816Z] <<< HTTP RESPONSE 200
+ Thu Aug 23 2018 11:57:33 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:34.088Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-23T15:57:34.088Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
+  
+ Thu Aug 23 2018 11:57:34 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:34.637Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Deploying to 'azarel-1a865'...
+[info] === Serving from '/home/crash/development/azarel'...
 [info] 
-[info] i  deploying hosting
-[info] i  hosting: preparing  directory for upload...
-[debug] [2018-08-23T01:35:58.170Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/azarel-1a865/uploads/-LKZPQ1WsqiHBWOIBPr7?fileCount=1021&message=  
+[debug] [2018-08-23T15:57:34.638Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
   
- Wed Aug 22 2018 21:35:58 GMT-0400 (-04)
-[debug] [2018-08-23T01:43:11.814Z] Error: socket hang up
-    at createHangUpError (_http_client.js:336:15)
-    at TLSSocket.socketOnEnd (_http_client.js:429:23)
-    at TLSSocket.emit (events.js:185:15)
-    at TLSSocket.emit (domain.js:422:20)
-    at endReadableNT (_stream_readable.js:1106:12)
-    at process._tickCallback (internal/process/next_tick.js:178:19)
-[error] 
-[error] Error: Server Error. socket hang up
+ Thu Aug 23 2018 11:57:34 GMT-0400 (-04)
+[debug] [2018-08-23T15:57:35.415Z] <<< HTTP RESPONSE 200
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[debug] [2018-08-24T13:32:18.994Z] ----------------------------------------------------------------------
+[debug] [2018-08-24T13:32:18.996Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
+[debug] [2018-08-24T13:32:18.996Z] CLI Version:   3.18.4
+[debug] [2018-08-24T13:32:18.996Z] Platform:      linux
+[debug] [2018-08-24T13:32:18.996Z] Node Version:  v9.11.2
+[debug] [2018-08-24T13:32:18.996Z] Time:          Fri Aug 24 2018 09:32:18 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:18.996Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-08-24T13:32:19.046Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-24T13:32:19.046Z] > authorizing via signed-in user
+[debug] [2018-08-24T13:32:19.048Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-08-24T13:32:19.048Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Fri Aug 24 2018 09:32:19 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:20.780Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-24T13:32:20.810Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+  
+ Fri Aug 24 2018 09:32:20 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:23.651Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-24T13:32:23.652Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
+  
+ Fri Aug 24 2018 09:32:23 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:24.676Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-24T13:32:24.677Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
+  
+ Fri Aug 24 2018 09:32:24 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:26.035Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/crash/development/azarel'...
+[info] 
+[debug] [2018-08-24T13:32:26.036Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
+  
+ Fri Aug 24 2018 09:32:26 GMT-0400 (-04)
+[debug] [2018-08-24T13:32:27.689Z] <<< HTTP RESPONSE 200
+[info] ✔  hosting: Local server: http://localhost:5000
+

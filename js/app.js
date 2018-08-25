@@ -5,6 +5,7 @@ let User = {};
 let UserUID = '';
 let UserMoney = '';
 let UserMoneyTotal = 0;
+let UserMoneyTotalDeferred = 0;
 let ConexionUser = 0;
 let CantTime = 0; //Cantidad de Sorteos 
 let TokenNotification = '';
@@ -14,6 +15,8 @@ let Prize = [];
 let Settings = {};
 let HTMLPrint = '';
 let TicketPrint = '';
+let MntAzr = 0;
+let MntDolar = 0;
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');
@@ -21,10 +24,15 @@ const lblNameUser = getID('lblNameUser');
 const hrfCerrar = getID('hrfCerrar');
 const imgPhotoUser = getID('imgPhotoUser');
 
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-  width : 160,
-  height : 160
-});
+if (document.getElementById("qrcode") == undefined ){
+  console.log("Desactivando visor QR");
+}else{
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width : 160,
+    height : 160
+  });
+}
+
 
 
 var config = {  
@@ -535,6 +543,24 @@ var Banks = [
   {key: 33, code: "0137", value: "SOFITASA"}
 ];
 
+var BanksUS = [
+  {key: 0, code: "0", value: "---------------"},
+  {key: 0, code: "paypal", value: "---------------"}
+];
+
+var BanksPERU = [
+  {key: 0, code: "0", value: "---------------"},
+  {key: 1, code: "4323", value: "BANCO DE COMERCIO"},
+  {key: 2, code: "4202", value: "BANCO DE CRÉDITO DEL PERU"},
+  {key: 3, code: "4538", value: "BANCO INTERAMERICANO DE FINANZAS (BIF)"},
+  {key: 4, code: "4218", value: "BANCO FINANCIERO DEL PERÚ"},
+  {key: 5, code: "4111", value: "BBVA BANCO CONTINENTAL"},
+  {key: 6, code: "4507", value: "CITIBANK DEL PERÚ S.A."},
+  {key: 7, code: "4103", value: "BANCO INTERNACIONAL DEL PERÚ (INTERBANK)"},
+  {key: 8, code: "4249", value: "BANCO DE LA MICROEMPRESA MIBANCO"},
+  {key: 9, code: "4209", value: "SCOTIABANK PERÚ S.A.A."}
+];
+
 function LoadCmbTransferens(){
   LoadCmbBank('cmbName');
   
@@ -564,12 +590,12 @@ function getPosBankText(code){
 }
 
 
-function LoadCmbBank(id){
-  
+function LoadCmbBank(id, ObjBanks){
+  if (ObjBanks == undefined){ObjBanks = Banks;}
   var Cmb = '';
   var select = $('#'+ id);
-  for (let i = 0; i < Banks.length; i++) {
-    const bank = Banks[i];
+  for (let i = 0; i < ObjBanks.length; i++) {
+    const bank = ObjBanks[i];
     Cmb += `<option value="${bank.code}">${bank.value}</option>`;    
   }
   getID(id).innerHTML = Cmb;
@@ -641,6 +667,7 @@ function LoadTimes(){
   });
   $("#lblLoadGames").hide();
 }
+
 function LoadHours(){
   intPos = -1;
   if (TIME == 0 ){
@@ -676,6 +703,7 @@ function LoadHours(){
   LoadHoursCmb();
   
 }
+
 function LoadHoursCmb(){
   var Cmb = `<option value='00x' disabled>---------</option>`;
   if (intPos > -1 ){    
@@ -690,6 +718,17 @@ function LoadHoursCmb(){
   }
 
   // 
+}
+
+function TotalAzarel(){
+  var azr =  parseFloat(getID('txtMoney').value) * SelMountMoney(getID('cmbMoney').value);
+  $('#txtAzarel').val(azr);
+}
+
+function SelectionMontoRetiro(){
+  var azr =  parseFloat(getID('txtMoneyR').value) / SelMountMoney(getID('cmbMoneyR').value);
+  $('#txtAzarelR').val(azr);
+   
 }
 
 function PrintTicket(HTML, tickeID){

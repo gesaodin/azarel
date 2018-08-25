@@ -148,7 +148,7 @@ function GetTransferensLocal(){
     return false;
   }
   $("#tblTransf").html('<tr><td colspan=4>Cargando...</td></tr>');
-  dbfirestore.collection('transferens').where("status", "==", "P").where("bank", "==", bank).where("date", "==", f)
+  dbfirestore.collection('transferens').where("status", "==", "P").where("name", "==", bank).where("date", "==", f)
   .get()
   .then( snap => {
     var body = '';
@@ -308,10 +308,11 @@ function loadTableBanks(idTbl){
   for (let i = 0; i < fil.length; i++) {
     var obj = fil[i].cells;   
     lst.push({
-        bank: obj[0].innerHTML,
+        name: obj[0].innerHTML,
         type: obj[1].innerHTML,
         desc: obj[2].innerHTML,
-        number: obj[5].innerHTML,
+        naci: obj[3].innerHTML,
+        number: obj[6].innerHTML,
         status: true,
       });
   }
@@ -331,7 +332,6 @@ function LoadSettingsBegin(){
 
 }
 function LoadSettings(){
-  LoadCmbBank('cmbName');
   if (Settings.data != undefined){
     GetInterfaceSettings();
   }else{
@@ -349,13 +349,23 @@ function GetInterfaceSettings(){
   $("#txtDirection").val(Settings.data.dir);
   $("#txtPhone").val(Settings.data.phone);
   $("#txtCel").val(Settings.data.cel);
+  $("#txtMin").val(Settings.limit.min);
+  $("#txtMax").val(Settings.limit.max);
+  $("#txtDolar").val(Settings.limit.dolar);
+  $("#txtSol").val(Settings.limit.sol);
+  $("#txtBolivar").val(Settings.limit.bolivar);
+  if (Settings.bank == undefined){
+    return
+  }
   for (let i = 0; i < Settings.bank.length; i++) {
     const bank =  Settings.bank[i];
+    var OBJBANKS = SelectedBankText(bank.naci);
     $('#tblListBank').append(`<tr>
       <td style="display:none">${bank.name}</td>
       <td style="display:none">${bank.type}</td>
       <td>${bank.desc}</td>
-      <td>${getPosBankText(bank.name)}</td>
+      <td>${bank.naci}</td>
+      <td>${getPosBankText(bank.name, OBJBANKS)}</td>
       <td>${getBankType(bank.type)}</td>
       <td>${bank.number}</td>
       <td style="text-align:right"><div class="switch right">
@@ -366,11 +376,11 @@ function GetInterfaceSettings(){
       </div></td>
     </tr>`);   
   }
-  $("#txtMin").val(Settings.limit.min);
-  $("#txtMax").val(Settings.limit.max);
 }
 
 function saveSettings(){
+  var btnAddBanks = document.getElementById("btnAddBanks");
+  btnAddBanks.classList.add('disabled');
   var data = {
     rif : $("#txtRif").val(),
     name : $("#txtSocial").val(),
@@ -380,6 +390,9 @@ function saveSettings(){
   }
   var bank = loadTableBanks('tblListBank');
   var limit = {
+    dolar : parseFloat($("#txtDolar").val()),  
+    sol : parseFloat($("#txtSol").val()), 
+    bolivar: parseFloat($("#txtBolivar").val()), 
     min : $("#txtMin").val(), 
     max : $("#txtMax").val()
   }
@@ -388,16 +401,79 @@ function saveSettings(){
     bank : bank,
     limit: limit
   }
-  console.log(settings);
-  
+
   dbfirestore.collection('settings').doc('description').set(settings)
   .then( doc => {
     Materialize.toast('Proceso finalizado', 3000, 'rounded');
-    console.log('Save settings...');
+    Settings = settings;
+    btnAddBanks.classList.remove('disabled');
   }).catch(e => {
     console.log('Err. Settings', e);
   })
 }
+
 function loadBankSettings(){
   
+}
+
+
+function AddBank(){
+  if($("#txtNameBank").val() == ''){
+    Materialize.toast('Todos los campos son requeridos', 3000, 'rounded');
+    return false;
+  }
+  var bank = {
+    naci : $("#cmbNaci option:selected").val(),
+    desc : $("#txtNameBank").val(), 
+    name: $("#cmbName option:selected").val(),
+    number: $("#txtNumber").val(),
+    type: $("#cmbType option:selected").val(),
+    status : true
+  };
+  
+  $('#tblListBank').append(`<tr>
+    <td style="display:none">${bank.name}</td>
+    <td style="display:none">${bank.type}</td>
+    <td>${bank.desc}</td>
+    <td>${bank.naci}</td>
+    <td>${$("#cmbName option:selected").text()}</td>
+    <td>${getBankType(bank.type)}</td>
+    <td>${bank.number}</td>
+    <td style="text-align:right"><div class="switch right">
+    <label>
+      <input type="checkbox" checked=true>
+      <span class="lever"></span>
+    </label>
+    </div></td>
+    </tr>`);
+  $("#txtNumber").val('');
+  $("#txtNameBank").val('');
+  
+}
+function SelectedBankText(str){
+  switch (str) {
+    case 'VEN':
+      return app.BANKS;
+      break;
+    case 'PER':
+      return app.BANKSPERU;
+      break;
+    default:
+      return app.BANKSUS;      
+      break;
+  }
+}
+function SelectListBank(){
+  switch ($('#cmbNaci option:selected').val()) {
+    case 'VEN':
+      LoadCmbBank('cmbName', app.BANKS);
+      break;
+    case 'PER':
+      LoadCmbBank('cmbName', app.BANKSPERU);
+      break;
+    default:
+      LoadCmbBank('cmbName', app.BANKSUS);
+      Materialize.toast('Debe seleccionar un banco', 3000, 'rounded');
+      break;
+  }
 }

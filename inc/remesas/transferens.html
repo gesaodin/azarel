@@ -4,11 +4,11 @@
         <div class="col s12 m12">
                 <div class="card horizontal">
                  
-                  <div class="card-stacked teal">
+                  <div class="card-stacked orange">
                     <div class="card-content white-text">
-                      <font style="font-size:16px"><b> > Reportar Tramite</b></font><br>
+                      <font style="font-size:16px"><b>Reportar Operación</b></font><br>
                       <font style="font-size:12px">
-                        1.- Los tramites serán verificadas cada 30 minutos.<br>
+                        Las compras serán verificadas cada 30 minutos.<br>
                         <!-- 2.- No podrá hacer retiro de premios mientras aún no se confirme la transferencia -->
                       </font>
                     </div>
@@ -16,9 +16,29 @@
                 </div>
               </div>
           <div class="col s12 m12 center">
-                <div class="row">
+              <div class="row">
+                <div class="input-field col s12 m3">
+                  <select id='cmbOrigen'>
+                    <option value="0">--------------------</option>
+                    <option value="PER">PERU</option>
+                    <option value="VEN" disabled>VENEZUELA</option>
+                    <option value="COL" disabled>COLOMBIA</option>
+                    <option value="ECU" disabled>ECUADOR</option>
+                  </select>
+                  <label >País de Origen</label>
+                </div>
+                <div class="input-field col s12 m3">
+                  <select id='cmbDestino'>
+                    <option value="0">--------------------</option>
+                    <option value="VEN">VENEZUELA</option>
+                    <option value="PER" disabled>PERU</option>
+                    <option value="COL" disabled>COLOMBIA</option>
+                    <option value="ECU" disabled>ECUADOR</option>                     
+                  </select>
+                  <label >País de Destino</label>
+                </div>          
       
-                  <div class="input-field col s12 m6">
+                  <div class="input-field col s12 m3">
                     <select id='cmbType'>
                       <option value="1">DEPOSITO</option>
                       <option value="0">TRANSFERENCIA</option>                        
@@ -26,33 +46,20 @@
                     <label >Tipo de Operación</label>
                   </div>
                   
-                  <div class="input-field col s12 m6">
+                  <div class="input-field col s12 m3">
                     <select id='cmbName'>
-                      <option value="4323">BANCO DE COMERCIO</option>
-                      <option value="4202">BANCO DE CRÉDITO DEL PERÚ</option>
-                      <option value="4538">BANCO INTERAMERICANO DE FINANZAS (BIF)</option>
-                      <option value="4218">BANCO FINANCIERO DEL PERÚ</option>
-                      <option value="4111">BBVA BANCO CONTINENTAL</option>
-                      <option value="4507">CITIBANK DEL PERÚ S.A.</option>
-                      <option value="4103">BANCO INTERNACIONAL DEL PERÚ (INTERBANK)</option>
-                      <option value="4249">BANCO DE LA MICROEMPRESA MIBANCO</option>
-                      <option value="4209">SCOTIABANK PERÚ S.A.A. </option>
-                      <!-- <option value="">BANCO GNB Perú</option>
-                      <option value="">BANCO Falabella</option>
-                      <option value="">BANCO Ripley</option>
-                      <option value="">BANCO Santander Perú</option>
-                      <option value="">BANCO Azteca</option>
-                      <option value="">BANCO Cencosud</option>
-                      <option value="">ICBC PERU BANK</option> -->
                     </select>
                     <label >Seleccionar Banco</label>
                   </div>
-                 
+                
+                </div>  
+                <div class="row">
+
                   <div class="input-field col s12 m6">
                       <select id='cmbNameTransferens'>                        
                          
                         </select>
-                      <label >Banco a donde transfirio</label>
+                      <label >Cuenta donde transfirio</label>
                     </div>
                   <div class="input-field col s12 m6">
       

@@ -85,24 +85,46 @@
                                     <a href="#!email"><span class="white-text email" id="lblEmail"></span></a>
                                     <a href="#!name"><span class="white-text name" id="lblDateInfo"></span></a>
                                   </div></li>
-                                  <li ><a onclick="LoadLocalFile('begingames','',BeginGames)" class="waves-effect waves-purple">
-                                    <i class="material-icons left green-text" >play_circle_outline</i>Iniciar Jugadas</a></li> 
-                                  <li ><a onclick="LoadLocalFile('games','',ViewGames)" class="waves-effect waves-purple">
-                                      <i class="material-icons left blue-text" >insert_chart</i>Ver Jugadas</a></li>                                                                  
-                                  <li ><a onclick="LoadLocalFile('lotery','',MakeTableAnimalsWeb);" class="waves-effect waves-purple">
-                                          <i class="material-icons left yellow-text" >stars</i>Asignar Premio</a></li>
-                                  <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('transferens', '', LoadingTransfBank);">
-                                    <i class="material-icons left deep-orange-text" >swap_horiz</i>Transferencias</a></li>   
-                                    
-                                  <li><div class="divider"></div></li>
+                                   
+                                    <li><a onclick="LoadLocalFile('settings','',LoadSettings)" class="waves-effect waves-purple">
+                                        <i class="material-icons left orange-text" >settings</i>Configuracion</a></li> 
+                                                                        
+
+                                    <li><div class="divider"></div></li>
                                     <li >
-                                        <ul class="collapsible collapsible-accordion">
+                                        <ul class="collapsible collapsible-accordion active">
                                           <li>
-                                              <a class="collapsible-header waves-effect waves-purple" onclick="">                                                                                     
+                                              <a class="collapsible-header waves-effect waves-purple active" onclick="">                                                                                     
+                                                  Juegos<i class="material-icons right deep-purple-text">arrow_drop_down</i></a>
+                                                 
+                                            <div class="collapsible-body">
+                                              <ul>
+                                                  <li ><a onclick="LoadLocalFile('begingames','',BeginGames)" class="waves-effect waves-purple">
+                                                      <i class="material-icons left green-text" >play_circle_outline</i>Iniciar Jugadas</a></li> 
+                                                    <li ><a onclick="LoadLocalFile('games','',ViewGames)" class="waves-effect waves-purple">
+                                                        <i class="material-icons left blue-text" >insert_chart</i>Ver Jugadas</a></li>                                                                  
+                                                    <li ><a onclick="LoadLocalFile('lotery','',MakeTableAnimalsWeb);" class="waves-effect waves-purple">
+                                                            <i class="material-icons left yellow-text" >stars</i>Asignar Premio</a></li>
+                                                    <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('transferens', '', LoadingTransfBank);">
+                                                      <i class="material-icons left deep-orange-text" >swap_horiz</i>Transferencias</a></li>  
+                                              </ul>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                    
+
+                                      <li><div class="divider"></div></li>
+                                    <li >
+                                        <ul class="collapsible  collapsible-accordion">
+                                          <li>
+                                              <a class="collapsible-header waves-effect waves-purple active" onclick="">                                                                                     
                                                   Mis Pagos<i class="material-icons right deep-purple-text">arrow_drop_down</i></a>
                                                  
                                             <div class="collapsible-body">
                                               <ul>
+                                                  <li ><a onclick="LoadLocalFile('remesasnacio','',BeginGames)" class="waves-effect waves-purple">
+                                                      <i class="material-icons left green-text" >attach_money</i>Remesas</a></li> 
                                                   <li><a class="waves-effect waves-purple" onclick="LoadLocalFile('requesttransf', '', LoadingRequestBank);">
                                                       <i class="material-icons left indigo-text" >transfer_within_a_station</i>Solicitudes</a></li>
                                                                                                
@@ -118,9 +140,7 @@
                                                                                                      
                                     
                          
-                                    <li class="hide-on-med-only"><div class="divider"></div></li> 
-                                    <li><a onclick="LoadLocalFile('settings','',LoadSettings)" class="waves-effect waves-purple">
-                                        <i class="material-icons left orange-text" >settings</i>Configuracion</a></li>  
+                                      <li><div class="divider"></div></li>
                                   <li><a id="hrfCerrar" class="waves-effect waves-purple">
                                     <i class="material-icons left red-text" >close</i>Cerrar Sesión</a></li>           
                                   <li><a onclick="LoadLocalFile('info')" class="waves-effect waves-purple"><i class="material-icons left teal-text" >more</i>

@@ -182,6 +182,8 @@ function writeUserDataTransferens() {
       Materialize.toast('Por favor verifique los campos', 3000);
       return false;
     }
+    var azr =  parseFloat(getID('txtMoney').value) * SelMountMoney(getID('cmbMoney').value);
+    $('#txtAzarel').val(azr);
     Materialize.toast('Enviando actualización...', 2000);
     btn.classList.add('disabled');
     var transferens = {
@@ -195,7 +197,9 @@ function writeUserDataTransferens() {
         money : parseFloat(getID('txtMoney').value),
         status : 'P',
         user : User.person.fullname,
-        cid : User.person.cid
+        cid : User.person.cid,
+        moneda : getID('cmbMoney').value,
+        azr: parseFloat(getID('txtMoney').value) * SelMountMoney(getID('cmbMoney').value)
     };
     dbfirestore.collection("transferens").
     add(transferens)
@@ -205,19 +209,22 @@ function writeUserDataTransferens() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             status : 'P',
             type:'A', //Assigned
-            idt: d.id
+            idt: d.id,
+            moneda: transferens.moneda,
+            azr: transferens.azr
         }
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)
         .then(d => {
-            Materialize.toast('Registro exitoso...', 2000);
             getID('txtDate').value = '';
             getID('txtNumber').value = '';
             getID('txtMoney').value = '';
+            getID('txtAzarel').value = '';
             cleanSelect('cmbName');
             cleanSelect('cmbNameTransferens');
             btn.classList.remove('disabled');
             UserMoneyTotal +=  transferens.money;
+            Materialize.toast('Registro exitoso...', 2000);
         })
         .catch(e => {
             console.log('Error: ', e);
@@ -226,6 +233,23 @@ function writeUserDataTransferens() {
     .catch(e => {
         console.log('Error: ', e);
     })
+  }
+
+  function SelMountMoney(str){
+      switch (str) {
+          case "VEN":
+            return Settings.limit.bolivar;  
+            break;
+          case "PER":
+            return Settings.limit.sol;
+            break;
+          case "DOL":
+            return Settings.limit.dolar;
+            break;
+          default:
+            return 0;
+            break;
+      }
   }
 
   /**
@@ -277,7 +301,7 @@ function wClaimsTransf() {
     var transferens = {
         uid : UserUID,
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-        money : parseFloat(getID('txtMoney').value),
+        azr : parseFloat(getID('txtMoney').value),
         status : 'P',
         bankname: User.bank.name,
         bank : User.bank.number,
@@ -289,7 +313,7 @@ function wClaimsTransf() {
     add(transferens)
     .then(d => {
         var detail = {
-            money : transferens.money * -1,
+            azr : transferens.azr * -1,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             status : 'P',
             type: 'R',
@@ -333,7 +357,7 @@ function wClaimsTransf() {
             var transf  = ele.data();
             var text = SelectCaseStatus('P');
             var load = 'CARGA';
-            var money = parseFloat(transf.money);
+            var money = parseFloat(transf.azr);
             if(transf.status != undefined){
                 text = SelectCaseStatus(transf.status);
                 if(transf.status == 'P')deferred += money;               
@@ -354,6 +378,7 @@ function wClaimsTransf() {
         table.innerHTML = fil;
         getID('spbalance').innerHTML = balance.toLocaleString();                   
         getID('spdeferred').innerHTML = deferred.toLocaleString();
+        UserMoneyTotalDeferred = balance - deferred;
         loadUser();
         return snapshot;        
     }).catch( e => {
@@ -370,6 +395,16 @@ function GetTransferensMoney(){
     $("#modAlertTransf").modal();
     $("#modAlertTransf").modal("open");
 }
+
+function GetRetiroMoney(){
+    if(UserMoneyTotal <= 0){
+        Materialize.toast('No posee saldo suficiente!!!', 2000);
+        return false;
+    }
+    $("#modAlertRetiro").modal();
+    $("#modAlertRetiro").modal("open");
+}
+
 
   /**
    * **************************
@@ -509,7 +544,7 @@ function LoadMoneyTotal(){
         saldo = 0;
         snap.forEach(ele => {                
             var assigned = ele.data();
-            saldo += parseFloat(assigned.money);
+            saldo += parseFloat(assigned.azr);
         });
         if (getID('totalmoney') != undefined) getID('totalmoney').innerHTML = saldo.toLocaleString() + ' ' + MoneyType;
         UserMoney = saldo.toLocaleString() + ' ' + MoneyType;
@@ -756,8 +791,7 @@ function LoadMoneyTotal(){
 
 
 
-function GenerarQR(){
-    
+function GenerarQR(){    
     var fmoney = parseFloat(getID('txtMoney').value);
     if(User.person == undefined){
         Materialize.toast('Actualiza tus datos personales', 3000);
@@ -768,7 +802,7 @@ function GenerarQR(){
       Materialize.toast('Introduzca un monto', 3000);
       return false;
     }
-    if(UserMoneyTotal <= fmoney){
+    if(UserMoneyTotalDeferred <= fmoney){
         Materialize.toast('El retiro debe ser menor al saldo', 3000);
         return false;   
     }
@@ -779,9 +813,9 @@ function GenerarQR(){
         type : "Qr",
         bank : "I",
         date : "",
-        number : "",
+        number : 9999,
         timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-        money : parseFloat("0"),
+        money : parseFloat(UserMoneyTotal),
         status : 'P',
         user : User.person.fullname,
         cid : User.person.cid
@@ -799,21 +833,21 @@ function GenerarQR(){
         dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id).set(detail)
         .then(d => {
-            Materialize.toast('Registro exitoso...', 2000);
-            btn.classList.remove('disabled');
-            UserMoneyTotal +=  transferens.money;
-            
-            qrcode.makeCode(UserUID + "|" + d.id);
+            //btn.classList.remove('disabled');
+            UserMoneyTotal +=  detail.money;
+            var codigoQR = UserUID + "|" + detail.idt;
+            qrcode.makeCode(codigoQR);
             $("#modAlertTransf").modal("close");
             $("#modQR").modal();
             $("#modQR").modal("open");
+            Materialize.toast('Registro exitoso...', 2000);
         })
         .catch(e => {
-            console.log('Error: ', e);
+            console.log('Error: ');
         })
     })
     .catch(e => {
-        console.log('Error: ', e);
+        console.log('Error: ');
     })
     
 
@@ -822,6 +856,54 @@ function GenerarQR(){
 
   }
   
+
+
+function GenerarMAIL(){
+    var fmoney = parseFloat(getID('txtMoney').value);
+    if(User.person == undefined){
+        Materialize.toast('Actualiza tus datos personales', 3000);
+        return false;
+    }
+    if(getID('txtMoney').value == ""){
+      Materialize.toast('Introduzca un monto', 3000);
+      return false;
+    }
+    if(UserMoneyTotal <= fmoney){
+        Materialize.toast('El retiro debe ser menor al saldo', 3000);
+        return false;   
+    }
+
+    Materialize.toast('Actualmente el area está en proceso', 3000);
+}
+
+
+function ObtenerQR(str){
+    var res = str.split("|");
+    console.log(res);
+    dbfirestore
+    .collection('transferens')
+    .doc(res[1])
+    .update( {
+        status : "A"
+    })
+    .then( e => {
+        dbfirestore
+        .collection('competitor')
+        .doc(res[0])
+        .collection('money')
+        .doc(res[1])
+        .update( {
+            status : "A"
+        })
+        .then( e => {
+            
+            Materialize.toast('Los fondos se han transferido', 3000);
+        })
+        
+    })
+    
+}
+
 
 /*
 * Control de Remesas
@@ -868,7 +950,7 @@ function writeUserDataBeneficiario() {
       number: getID('txtNumber').value,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     };
-    console.log(beneficiario);
+    //console.log(beneficiario);
     dbfirestore
         .collection('competitor')
         .doc(UserUID)
@@ -940,5 +1022,36 @@ function writeUserDataBeneficiario() {
         $("#divClaimsList").hide();
         Materialize.toast('Debe crear un beneficiario', 4000); 
     });
+
+  }
+
+  function SelectionBankTransferens(){
+    switch ($('#cmbMoney').val()) {
+      case 'VEN':
+        LoadCmbBank('cmbName', Banks);
+        SelectAccountBank('VEN');
+        break;
+      case 'PER':
+        LoadCmbBank('cmbName', BanksPERU);
+        SelectAccountBank('PER');
+        break;
+      default:
+        break;
+    }
+  }
+
+  function SelectAccountBank(str){
+    var Cmb = '';
+    var select = $('#cmbNameTransferens');
+    Cmb += `<option value="0">----------------</option>`; 
+    for (let i = 0; i < Settings.bank.length; i++) {
+        var bank = Settings.bank[i];
+        if(bank.naci == str){
+            Cmb += `<option value="${bank.number}">${bank.desc} - ${bank.number}</option>`; 
+        }
+    }
+    getID('cmbNameTransferens').innerHTML = Cmb;
+    select.prop('selectedIndex', 0);  
+    select.material_select();
 
   }

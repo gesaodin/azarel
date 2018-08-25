@@ -62,6 +62,22 @@
       {key: 32, code: "0169", value: "MIBANCO BANCO DE DESARROLLO, C.A."},
       {key: 33, code: "0137", value: "SOFITASA"}
     ];
+    this.BANKSPERU = [
+      {key: 0, code: "0", value: "---------------"},
+      {key: 1, code: "4323", value: "BANCO DE COMERCIO"},
+      {key: 2, code: "4202", value: "BANCO DE CRÉDITO DEL PERU"},
+      {key: 3, code: "4538", value: "BANCO INTERAMERICANO DE FINANZAS (BIF)"},
+      {key: 4, code: "4218", value: "BANCO FINANCIERO DEL PERÚ"},
+      {key: 5, code: "4111", value: "BBVA BANCO CONTINENTAL"},
+      {key: 6, code: "4507", value: "CITIBANK DEL PERÚ S.A."},
+      {key: 7, code: "4103", value: "BANCO INTERNACIONAL DEL PERÚ (INTERBANK)"},
+      {key: 8, code: "4249", value: "BANCO DE LA MICROEMPRESA MIBANCO"},
+      {key: 9, code: "4209", value: "SCOTIABANK PERÚ S.A.A."}
+    ];
+    this.BANKSUS = [
+      {key: 0, code: "0", value: "---------------"}
+      
+    ];
  	}
 
  	init(){
@@ -120,7 +136,7 @@ app.init();
 fb.ref("/.info/serverTimeOffset").once('value', function(offset) {
   var offsetVal = offset.val() || 0;
   var serverTime = Date.now() + offsetVal;
-  console.log(serverTime, "   --- ", offsetVal, " HUMAN ", GetTimeStamp(serverTime));
+  // console.log(serverTime, "   --- ", offsetVal, " HUMAN ", GetTimeStamp(serverTime));
   $("#lblDateInfo").text(GetTimeStamp(serverTime))
 
 }); 
@@ -176,7 +192,7 @@ function MakeTableAnimalsWeb(){
     icon += `
     <div class="col m3 l1 ">
       <div class="cardAnimals cardAnimals-1 ">
-      <img src="/img/${animal.key}.jpeg" width="65px" onclick="OpenModalAnimals('${animal.key}', ${j})">
+      <img src="/img/${animal.key}.png" width="65px" onclick="OpenModalAnimals('${animal.key}', ${j})">
       <div class="footcard ">${animal.value}</div>
       </div>
     </div>`;
@@ -222,7 +238,8 @@ function  LoadingTransfBank(){
   var select = $('#cmbName');
   for (let i = 0; i < Settings.bank.length; i++) {
     const bank = Settings.bank[i];
-    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
+    var OBJBANKS = SelectedBankText(bank.naci);
+    Cmb += `<option value="${bank.name}">${getPosBankText(bank.name, OBJBANKS)} - ${bank.number}</option>`;    
   }
   getID('cmbName').innerHTML = Cmb;
   select.prop('selectedIndex', 0);  
@@ -230,11 +247,12 @@ function  LoadingTransfBank(){
   
 }
 
-function LoadCmbBank(id){ 
+function LoadCmbBank(id, ObjBanks){ 
+  if (ObjBanks == undefined){ObjBanks = app.BANKS.length;}
   var Cmb = '';
   var select = $('#'+ id);
-  for (let i = 0; i < app.BANKS.length; i++) {
-    const bank = app.BANKS[i];
+  for (let i = 0; i < ObjBanks.length; i++) {
+    const bank = ObjBanks[i];
     Cmb += `<option value="${bank.code}">${bank.value}</option>`;    
   }
   getID(id).innerHTML = Cmb;
@@ -242,12 +260,13 @@ function LoadCmbBank(id){
   select.material_select(); 
 }
 
-function getPosBank(code, id){
+function getPosBank(code, id, ObjBanks){
+  if (ObjBanks == undefined){ObjBanks = app.BANKS.length;}
   var key = 0;
-  for (let i = 0; i < app.BANKS.length; i++) {    
-    if(app.BANKS[i].code == code){
+  for (let i = 0; i < ObjBanks.length; i++) {    
+    if(ObjBanks[i].code == code){
       var select = $("#" + id);
-      select.prop('selectedIndex',  app.BANKS[i].key);  
+      select.prop('selectedIndex',  ObjBanks[i].key);  
       select.material_select(); 
       return false;
     }
@@ -261,10 +280,11 @@ function getPosCmb(value, id){
   select.material_select(); 
 }
 
-function getPosBankText(code){
-  for (let i = 0; i < app.BANKS.length; i++) {    
-    if(app.BANKS[i].code == code){
-      return app.BANKS[i].value;            
+function getPosBankText(code, ObjBanks){
+  if (ObjBanks == undefined){ObjBanks = app.BANKS.length;}
+  for (let i = 0; i < ObjBanks.length; i++) {    
+    if(ObjBanks[i].code == code){
+      return ObjBanks[i].value;            
     }
   }
 
@@ -289,32 +309,6 @@ function getBankType(key){
       return "AHORRO";
       break;
   }
-}
-
-function AddBank(){
-  var bank = {
-    desc :$("#txtNameBank").val(), 
-    name: $("#cmbName").val(),
-    number: $("#txtNumber").val(),
-    type: $("#cmbType").val()
-  };
-
-  $('#tblListBank').append(`<tr>
-    <td style="display:none">${bank.name}</td>
-    <td style="display:none">${bank.type}</td>
-    <td>${bank.desc}</td>
-    <td>${getPosBankText(bank.name)}</td>
-    <td>${getBankType(bank.type)}</td>
-    <td>${bank.number}</td>
-    <td style="text-align:right"><div class="switch right">
-    <label>
-      <input type="checkbox" checked=true>
-      <span class="lever"></span>
-    </label>
-    </div></td>
-  </tr>`);
-  $("#txtNumber").val('');
-  $("#txtNameBank").val('');
 }
 
 function BeginGames(){
