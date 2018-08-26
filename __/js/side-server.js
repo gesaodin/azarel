@@ -8,6 +8,8 @@ function ViewGames(){
 function writePlayingDay() {
     var d = $("#txtDate").val();
     if (d == "")return false;
+    var btnBegin = document.getElementById("btnBegin");
+    btnBegin.classList.add('disabled');
     var f = d.split("/");
     var dateplay = f[2] + f[1] + f[0];
     Materialize.toast('Enviando actualización...', 2000, 'rounded');    
@@ -17,6 +19,8 @@ function writePlayingDay() {
         status: true
     })
     .then(d => {
+      $("#txtDate").val('');
+      btnBegin.classList.remove('disabled');
       Materialize.toast('El día ha sido iniciado', 4000, 'rounded');    
     })
     .catch( e => {
@@ -72,7 +76,6 @@ function assignedPrize(){
           total += parseFloat(money);
           winnerAll.push(winner);
 
-          console.log(assigned);
           dbfirestore.collection("competitor").doc(uid).collection("winner")
           .add(assigned)
           .then( d => {
@@ -230,7 +233,6 @@ function RequestTransferens(){
   $("#tblRequest").html('<tr><td colspan=7>Cargando...</td></tr>');
   var country = $('#cmbCountry').val();
   var Bnk = SelectedBankText(country);
-  console.log(Bnk);
   dbfirestore.collection('claimstransf').where("status", "==", "P").where("bank", "==", bank)
   .get()
   .then( snap => {

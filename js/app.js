@@ -690,8 +690,8 @@ function LoadHours(){
   }
 
   if( intPos == -1 ){
-    //if( hrs >= 7 && turn == 'a.'){
-    if( hrs >= 7 ){
+    if( hrs >= 7 && turn == 'a.'){ //Esta es la linea original
+    //if( hrs >= 7 ){
       intPos = 0;
     }
     if( hrs == 2 && turn == 'p.' ){

@@ -191,17 +191,17 @@ function LoadComponentGeneral(){
   var pipsSlider = document.getElementById('test-slider');
   noUiSlider.create(pipsSlider, {
     range: {
-        'min': 100,
-        '10%': 200,
-        '20%': 300,
-        '30%': 400,
-        '40%': 500,          
-        '50%': 600,
-        '60%': 700,
-        '70%': 800,
-        '80%': 900,
-        '100%': 1000,
-        'max': 1200
+        'min': 1,
+        '10%': 10,
+        '20%': 20,
+        '30%': 30,
+        '40%': 40,          
+        '50%': 50,
+        '60%': 60,
+        '70%': 70,
+        '80%': 80,
+        '100%': 90,
+        'max': 100
     },
     snap: true,
       start: [ 100 ],
