@@ -369,11 +369,13 @@ function wClaimsTransf() {
                 load = 'PREMIO';
             }
             
-            
-            row++;
-            fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money.toLocaleString()}</td>
-            <td style="text-align:right">${text}</td></tr>`;
-            balance += money;
+            if(money != 0){
+                row++;
+                fil += `<tr><td style="display:none">${row}</td><td>${load}</td><td>${money.toLocaleString()}</td>
+                <td style="text-align:right">${text}</td></tr>`;
+                balance += money;
+            }
+
         });
         table.innerHTML = fil;
         getID('spbalance').innerHTML = balance.toLocaleString();                   
@@ -848,6 +850,8 @@ function LoadMoneyTotal(){
 
 function GenerarQR(){    
     var fmoney = parseFloat(getID('txtMoney').value);
+    var btnQR = getID('btnQR');
+    var btnMail = getID('btnMail');
     if(User.person == undefined){
         Materialize.toast('Actualiza tus datos personales', 3000);
         return false;
@@ -857,57 +861,58 @@ function GenerarQR(){
       Materialize.toast('Introduzca un monto', 3000);
       return false;
     }
-    if(UserMoneyTotalDeferred <= fmoney){
+    if(UserMoneyTotal <= fmoney){
         Materialize.toast('El retiro debe ser menor al saldo', 3000);
         return false;   
     }
+    btnQR.classList.add('disabled');
+    btnMail.classList.add('disabled');
 
-    var transferens = {
-        uid : UserUID,
-        name : "TxQR",
-        type : "Qr",
-        bank : "I",
-        date : "",
-        number : 9999,
-        timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-        money : parseFloat(UserMoneyTotal),
+    var detail = {
+        azr : 0,
+        azrp : parseFloat(fmoney) * -1,
+        money : parseFloat(fmoney),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         status : 'P',
-        user : User.person.fullname,
-        cid : User.person.cid
-    };
-    dbfirestore.collection("transferens").
-    add(transferens)
+        claims : '',
+        type:'D' //Deduction
+    }
+    dbfirestore.collection("competitor").doc(UserUID)
+    .collection("money").add(detail)
     .then(d => {
-        var detail = {
-            money : transferens.money,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            status : 'P',
-            type:'A', //Assigned
-            idt: d.id
-        }
-        dbfirestore.collection("competitor").doc(UserUID)
-        .collection("money").doc(d.id).set(detail)
-        .then(d => {
-            //btn.classList.remove('disabled');
-            UserMoneyTotal +=  detail.money;
-            var codigoQR = UserUID + "|" + detail.idt;
-            qrcode.makeCode(codigoQR);
-            $("#modAlertTransf").modal("close");
-            $("#modQR").modal();
-            $("#modQR").modal("open");
-            Materialize.toast('Registro exitoso...', 2000);
-        })
-        .catch(e => {
-            console.log('Error: ');
-        })
+        btnQR.classList.remove('disabled');
+        btnMail.classList.remove('disabled');
+        console.log(d.id);
+        var codigoQR = UserUID + "|" + d.id + "|" + detail.money;
+        qrcode.makeCode(codigoQR);
+        $("#modAlertTransf").modal("close");
+        $("#modQR").modal();
+        $("#modQR").modal("open");
+        Materialize.toast('Registro exitoso...', 2000);        
+        return d;
+    })
+    .then( d => {
+        
+        var unsubscribe = dbfirestore.collection("competitor").doc(UserUID)
+        .collection("money").doc(d.id)
+        .onSnapshot({           
+                includeMetadataChanges: true
+            }, function(doc) {
+                AssignedMoney++;
+                if(AssignedMoney > 1){
+                    Materialize.toast('Se ha reclamado el saldo...', 2000);            
+                    $("#modQR").modal("close");
+                    LoadUserDataTransferens();
+                    AssignedMoney = 0;
+                    unsubscribe();
+                }
+           
+           
+        });
     })
     .catch(e => {
         console.log('Error: ');
     })
-    
-
-
-
 
   }
   
@@ -936,26 +941,43 @@ function ObtenerQR(str){
     var res = str.split("|");
     console.log(res);
     dbfirestore
-    .collection('transferens')
+    .collection('competitor')
+    .doc(res[0])
+    .collection('money')
     .doc(res[1])
-    .update( {
-        status : "A"
-    })
-    .then( e => {
-        dbfirestore
-        .collection('competitor')
-        .doc(res[0])
-        .collection('money')
-        .doc(res[1])
-        .update( {
-            status : "A"
-        })
-        .then( e => {
-            
-            Materialize.toast('Los fondos se han transferido', 3000);
-        })
+    .get()
+    .then(d => {
+        if ( d.data().status == "P" ){
+            dbfirestore.collection('competitor').doc(res[0]).collection('money')
+            .doc(res[1]).update( {
+                azr: parseFloat(res[2]),
+                status : "A",
+                claims : UserUID,
+            }).then( e => {
+                var detail = {
+                    azr : parseFloat(res[2]),
+                    money : parseFloat(res[2]),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status : 'A',
+                    type:'A' //Deduction
+                }
+                dbfirestore.collection("competitor").doc(UserUID)
+                .collection("money").add(detail)
+                .then(d => { 
+                    Materialize.toast('Los fondos se han transferido', 3000);
+                    location.href = "index.html";
+                })        
+            })
+        }else{
+            Materialize.toast('Este saldo ya se ha transferido...', 3000); 
+        }
         
     })
+    .catch(e => {
+        Materialize.toast('Verifique el QR', 3000);
+    })
+    
+  
     
 }
 

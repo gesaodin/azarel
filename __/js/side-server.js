@@ -249,8 +249,9 @@ function RequestTransferens(){
         <td>${obj.cid}</td>
         <td>${getPosBankText(obj.bank.substring(0, 4), Bnk)}</td>
         <td>${getBankType(obj.banktype)}</td>
-        <td>${obj.bank}</td>
+        <td>${obj.number}</td>
         <td>${obj.money}</td>
+        <td>${obj.bolivar}</td>
         <td style="text-align:right"><div class="switch right">
         <label>
           <input type="checkbox" id="chk${i}">

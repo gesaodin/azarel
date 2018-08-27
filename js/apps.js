@@ -10,8 +10,8 @@ var app = new Vue({
       var self = this;
       self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 3 });
       self.scanner.addListener('scan', function (content, image) {
-        //self.scans.unshift({ date: +(Date.now()), content: content });        
-        console.log("Contenido: ", content);
+        self.scans.unshift({ date: +(Date.now()), content: 'Transfiriendo saldo...' });        
+        //console.log("Contenido: ", content);
         ObtenerQR(content);
         //console.log("Image: ", image);
       });

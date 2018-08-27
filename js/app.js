@@ -17,6 +17,7 @@ let HTMLPrint = '';
 let TicketPrint = '';
 let MntAzr = 0;
 let MntDolar = 0;
+let AssignedMoney = 0;
 const limitAnimals = 12;
 const btnPerson = getID('btnPersona');
 const lblEmail = getID('lblEmail');

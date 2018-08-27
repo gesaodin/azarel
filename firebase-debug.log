@@ -1,80 +1,54 @@
-[debug] [2018-08-23T15:57:30.573Z] ----------------------------------------------------------------------
-[debug] [2018-08-23T15:57:30.575Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
-[debug] [2018-08-23T15:57:30.575Z] CLI Version:   3.18.4
-[debug] [2018-08-23T15:57:30.575Z] Platform:      linux
-[debug] [2018-08-23T15:57:30.575Z] Node Version:  v9.11.2
-[debug] [2018-08-23T15:57:30.575Z] Time:          Thu Aug 23 2018 11:57:30 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:30.575Z] ----------------------------------------------------------------------
+[debug] [2018-08-27T06:52:25.123Z] ----------------------------------------------------------------------
+[debug] [2018-08-27T06:52:25.125Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
+[debug] [2018-08-27T06:52:25.125Z] CLI Version:   4.2.0
+[debug] [2018-08-27T06:52:25.125Z] Platform:      linux
+[debug] [2018-08-27T06:52:25.125Z] Node Version:  v9.11.2
+[debug] [2018-08-27T06:52:25.125Z] Time:          Mon Aug 27 2018 02:52:25 GMT-0400 (-04)
+[debug] [2018-08-27T06:52:25.125Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-08-23T15:57:30.596Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-08-23T15:57:30.596Z] > authorizing via signed-in user
-[debug] [2018-08-23T15:57:30.597Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-08-23T15:57:30.598Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
-  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
-  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
-  grant_type: 'refresh_token',
-  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Thu Aug 23 2018 11:57:30 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:31.314Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-23T15:57:31.345Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
-  
- Thu Aug 23 2018 11:57:31 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:33.438Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-23T15:57:33.439Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
-  
- Thu Aug 23 2018 11:57:33 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:34.088Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-23T15:57:34.088Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
-  
- Thu Aug 23 2018 11:57:34 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:34.637Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T06:52:25.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-27T06:52:25.132Z] > authorizing via signed-in user
+[debug] [2018-08-27T06:52:25.133Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-08-27T06:52:25.133Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-08-27T06:52:26.127Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T06:52:26.165Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+ 
+[debug] [2018-08-27T06:52:26.975Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T06:52:26.976Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
+ 
+[debug] [2018-08-27T06:52:28.654Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/home/crash/development/azarel'...
 [info] 
-[debug] [2018-08-23T15:57:34.638Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
-  
- Thu Aug 23 2018 11:57:34 GMT-0400 (-04)
-[debug] [2018-08-23T15:57:35.415Z] <<< HTTP RESPONSE 200
-[info] ✔  hosting: Local server: http://localhost:5000
-
-[debug] [2018-08-24T13:32:18.994Z] ----------------------------------------------------------------------
-[debug] [2018-08-24T13:32:18.996Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
-[debug] [2018-08-24T13:32:18.996Z] CLI Version:   3.18.4
-[debug] [2018-08-24T13:32:18.996Z] Platform:      linux
-[debug] [2018-08-24T13:32:18.996Z] Node Version:  v9.11.2
-[debug] [2018-08-24T13:32:18.996Z] Time:          Fri Aug 24 2018 09:32:18 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:18.996Z] ----------------------------------------------------------------------
+[debug] [2018-08-27T06:52:28.656Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
+ 
+[debug] [2018-08-27T06:52:30.018Z] <<< HTTP RESPONSE 200
+[info] ✔  hosting[azarel-1a865]: Local server: http://localhost:5000
+[debug] [2018-08-27T20:07:56.231Z] ----------------------------------------------------------------------
+[debug] [2018-08-27T20:07:56.232Z] Command:       /usr/bin/node /home/crash/.npm-global/bin/firebase serve
+[debug] [2018-08-27T20:07:56.233Z] CLI Version:   4.2.0
+[debug] [2018-08-27T20:07:56.233Z] Platform:      linux
+[debug] [2018-08-27T20:07:56.233Z] Node Version:  v9.11.2
+[debug] [2018-08-27T20:07:56.233Z] Time:          Mon Aug 27 2018 16:07:56 GMT-0400 (-04)
+[debug] [2018-08-27T20:07:56.233Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-08-24T13:32:19.046Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-08-24T13:32:19.046Z] > authorizing via signed-in user
-[debug] [2018-08-24T13:32:19.048Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-08-24T13:32:19.048Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- { refresh_token: '1/jbrSBaH51NQGRTh8LSwMkqQqZhSduhSzagDEeUOv_Eg',
-  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
-  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
-  grant_type: 'refresh_token',
-  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Fri Aug 24 2018 09:32:19 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:20.780Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-24T13:32:20.810Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
-  
- Fri Aug 24 2018 09:32:20 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:23.651Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-24T13:32:23.652Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azarel-1a865/tokens  
-  
- Fri Aug 24 2018 09:32:23 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:24.676Z] <<< HTTP RESPONSE 200
-[debug] [2018-08-24T13:32:24.677Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
-  
- Fri Aug 24 2018 09:32:24 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:26.035Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T20:07:56.283Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-27T20:07:56.283Z] > authorizing via signed-in user
+[debug] [2018-08-27T20:07:56.285Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-08-27T20:07:56.285Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-08-27T20:07:57.359Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T20:07:57.390Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azarel-1a865  
+ 
+[debug] [2018-08-27T20:07:58.139Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-27T20:07:58.140Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/azarel-1a865  
+ 
+[debug] [2018-08-27T20:07:59.558Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/home/crash/development/azarel'...
 [info] 
-[debug] [2018-08-24T13:32:26.036Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
-  
- Fri Aug 24 2018 09:32:26 GMT-0400 (-04)
-[debug] [2018-08-24T13:32:27.689Z] <<< HTTP RESPONSE 200
-[info] ✔  hosting: Local server: http://localhost:5000
-
+[debug] [2018-08-27T20:07:59.560Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/963834795291/clients/_:getWebAppConfig  
+ 
+[debug] [2018-08-27T20:08:00.863Z] <<< HTTP RESPONSE 200
+[info] ✔  hosting[azarel-1a865]: Local server: http://localhost:5000
