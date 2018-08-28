@@ -515,6 +515,7 @@ async function writeUserDataBets() {
             hours: obj[2].innerHTML,
             number : number[0],
             detail : obj[0].innerHTML,
+            azr : money,
             money : money,
             key: newKey,                
             status : 'S'
@@ -532,6 +533,7 @@ async function writeUserDataBets() {
 
 
     var deduction = {
+        azr : total * -1,
         money : total * -1,
         ticket : ticket,
         bets: UserPlayingActive,
@@ -713,6 +715,7 @@ function LoadMoneyTotal(){
 
   function ClaimsPrize(){
     var maxprize = Prize.length;
+    getID('divClaimsList').innerHTML = '';
     var contents = '<ul class="collection">';
     var body = '';
     
@@ -720,7 +723,7 @@ function LoadMoneyTotal(){
         const prize = Prize[i];
         var img = prize.playin.split("M");
         body += `<li class="collection-item avatar blue  lighten-5">
-        <img src="img/${img[1]}.jpeg" alt="" class="circle">
+        <img src="img/${img[1]}.png" alt="" class="circle">
         <span class="title">${prize.dateplay}</span>
         <p>${prize.playin} 
         <br> ${prize.money} ${MoneyType}
@@ -801,6 +804,7 @@ function LoadMoneyTotal(){
 
   function updateMoney(money){
     var detail = {
+        money : azr * 30,
         money : money * 30,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         status : 'A',
@@ -829,7 +833,7 @@ function LoadMoneyTotal(){
         var body = ''
         snap.forEach(doc => {
             var obj = doc.data();
-            body += `<tr><td>${obj.playin}</td><td><img src="img/${obj.games}.jpeg" width="65px"></td></tr>`;
+            body += `<tr><td>${obj.playin}</td><td><img src="img/${obj.games}.png" width="65px"></td></tr>`;
         })        
         getID("tblResultGames").innerHTML = body;
         $("#divTable").show();
@@ -861,7 +865,7 @@ function GenerarQR(){
       Materialize.toast('Introduzca un monto', 3000);
       return false;
     }
-    if(UserMoneyTotal <= fmoney){
+    if(UserMoneyTotalDeferred <= fmoney){
         Materialize.toast('El retiro debe ser menor al saldo', 3000);
         return false;   
     }
@@ -882,7 +886,6 @@ function GenerarQR(){
     .then(d => {
         btnQR.classList.remove('disabled');
         btnMail.classList.remove('disabled');
-        console.log(d.id);
         var codigoQR = UserUID + "|" + d.id + "|" + detail.money;
         qrcode.makeCode(codigoQR);
         $("#modAlertTransf").modal("close");
@@ -892,13 +895,14 @@ function GenerarQR(){
         return d;
     })
     .then( d => {
-        
+        AssignedMoney = 0;
         var unsubscribe = dbfirestore.collection("competitor").doc(UserUID)
         .collection("money").doc(d.id)
         .onSnapshot({           
                 includeMetadataChanges: true
             }, function(doc) {
                 AssignedMoney++;
+                console.log(AssignedMoney);
                 if(AssignedMoney > 1){
                     Materialize.toast('Se ha reclamado el saldo...', 2000);            
                     $("#modQR").modal("close");
@@ -950,7 +954,7 @@ function ObtenerQR(str){
         if ( d.data().status == "P" ){
             dbfirestore.collection('competitor').doc(res[0]).collection('money')
             .doc(res[1]).update( {
-                azr: parseFloat(res[2]),
+                azr: parseFloat(res[2]) * -1,
                 status : "A",
                 claims : UserUID,
             }).then( e => {
@@ -965,7 +969,7 @@ function ObtenerQR(str){
                 .collection("money").add(detail)
                 .then(d => { 
                     Materialize.toast('Los fondos se han transferido', 3000);
-                    location.href = "index.html";
+                    location.href = "home.html";
                 })        
             })
         }else{
@@ -981,6 +985,17 @@ function ObtenerQR(str){
     
 }
 
+function selectCmbBnk(){
+    switch ($('#cmbType').val())  {
+        case "0":
+            $('#divBnk').show();
+            break;
+    
+        default:
+            $('#divBnk').hide();
+            break;
+    }
+}
 
 /*
 * Control de Remesas

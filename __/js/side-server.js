@@ -62,6 +62,7 @@ function assignedPrize(){
           var winner = {
               id : id,
               uid:uid,
+              azr: money,  
               money : money,
               playin: playing, 
               status : 'P'
@@ -69,6 +70,7 @@ function assignedPrize(){
           var assigned = {
             dateplay: dateplay,
             id : id,
+            azr: money * 30,
             money : money * 30,
             playin: playing, 
             status : 'P'
@@ -151,7 +153,7 @@ function GetTransferensLocal(){
     return false;
   }
   $("#tblTransf").html('<tr><td colspan=4>Cargando...</td></tr>');
-  dbfirestore.collection('transferens').where("status", "==", "P").where("name", "==", bank).where("date", "==", f)
+  dbfirestore.collection('transferens').where("status", "==", "P").where("bank", "==", bank).where("date", "==", f)
   .get()
   .then( snap => {
     var body = '';

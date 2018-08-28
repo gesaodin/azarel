@@ -31,25 +31,30 @@
       
                   
                   
+                  
                   <div class="input-field col s12 m6">
-                    <select id='cmbName'>
-                       
-                    </select>
-                    <label >Seleccionar Banco</label>
-                  </div>
-                  <div class="input-field col s12 m6">
-                      <select id='cmbType'>
+                      <select id='cmbType' onchange="selectCmbBnk()">
+                        <option value="99">--------------------</option>
                         <option value="0">TRANSFERENCIA</option>                        
                         <option value="1">DEPOSITO</option>
                       </select>
                       <label >Tipo de Operación</label>
-                    </div>
+                  </div>
+                  
                   <div class="input-field col s12 m6">
                       <select id='cmbNameTransferens'>                        
                          
                         </select>
                       <label >Cuenta donde transfirio</label>
                     </div>
+
+                  <div class="input-field col s12 m6" id="divBnk" style="display:none">
+                      <select id='cmbName'>
+                         
+                      </select>
+                      <label >Banco desde donde transfiere</label>
+                    </div>
+                  
                   <div class="input-field col s12 m6">
       
                     <input id="txtDate" type="tel" class="datepicker">

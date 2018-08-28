@@ -239,7 +239,7 @@ function  LoadingTransfBank(){
   for (let i = 0; i < Settings.bank.length; i++) {
     const bank = Settings.bank[i];
     var OBJBANKS = SelectedBankText(bank.naci);
-    Cmb += `<option value="${bank.name}">${getPosBankText(bank.name, OBJBANKS)} - ${bank.number}</option>`;    
+    Cmb += `<option value="${bank.number}">${getPosBankText(bank.name, OBJBANKS)} - ${bank.number}</option>`;    
   }
   getID('cmbName').innerHTML = Cmb;
   select.prop('selectedIndex', 0);  
