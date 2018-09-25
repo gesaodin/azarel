@@ -243,7 +243,7 @@ function MakeTableAnimals(){
 
 //Agregar Escuchadores a los elementos
 function MakeTableAnimalsWeb(){
-  LoadTimes();
+  //LoadTimes();
   var pagBodyTableAnimals = getID('test-swipe-2');
   var makeTable = "";
   var min = 0;
@@ -573,7 +573,9 @@ function LoadCmbTransferens(){
   var select = $('#cmbNameTransferens');
   for (let i = 0; i < Settings.bank.length; i++) {
     const bank = Settings.bank[i];
-    Cmb += `<option value="${bank.bank}">${getPosBankText(bank.bank)} - ${bank.number}</option>`;    
+    if(bank.naci == 'VEN'){
+      Cmb += `<option value="${bank.name}">${getPosBankText(bank.name)} - ${bank.number}</option>`;
+    }
   }
   getID('cmbNameTransferens').innerHTML = Cmb;
   select.prop('selectedIndex', 0);  
@@ -628,6 +630,7 @@ let TIME = 0;
 let HOURS = [];
 function SelectionLottery(){
   $("#lblLoadGames").show();
+  // Materialize.toast('Cargando horarios...', 2000);
   switch ($("#cmbLottery").val()) {
     case 'LOTAC':
       ANIMALS = LOTAC.animals; 
@@ -663,7 +666,8 @@ function LoadTimes(){
     var offsetVal = offset.val() || 0;
     var serverTime = Date.now() + offsetVal;
     TIME = GetTimeStamp(serverTime);
-    $("#lblLoadGames").hide();
+    // Materialize.toast('Obteniendo la hora...', 2000);
+    // $("#lblLoadGames").hide();
     LoadHours();
   });
   $("#lblLoadGames").hide();
@@ -675,19 +679,21 @@ function LoadHours(){
     Materialize.toast('No hay conexión para las apuestas', 3000);
     return false;
   }
-
   var stime = TIME.split(' ');
   var shours = stime[1].split(':');
   var hrs = parseInt(shours[0]);
   var min =  parseInt(shours[1]);
   var turn = stime[2];
   
-  
+  if (turn == undefined){
+    turn = hrs > 12?'p.':'a.';     
+    hrs = hrs>12? ConvertHours(hrs):hrs;
+  }
 
-  for (let i = 0; i < HOURS.length; i++) {    
-    if (hrs == HOURS[i].val && turn == HOURS[i].turn){
-     intPos = HOURS[i].key+1;
-    }
+  for (let i = 0; i < HOURS.length; i++) {
+     if (hrs == HOURS[i].val && turn == HOURS[i].turn){
+      intPos = HOURS[i].key+1;
+     }
   }
 
   if( intPos == -1 ){
@@ -701,25 +707,22 @@ function LoadHours(){
   }
   
   if(intPos >= 0 && min > 54 ) intPos++;
-  LoadHoursCmb();
+  LoadHoursCmb(intPos);
   
 }
 
-function LoadHoursCmb(){
-  var Cmb = `<option value='00x' disabled>---------</option>`;
-  if (intPos > -1 ){    
-    for (let i = intPos; i < HOURS.length; i++) {      
+function LoadHoursCmb(pos){
+  var Cmb = '<select multiple id="cmbHours"><option value="00x" disabled>---------</option>'; 
+  if (pos > -1 ){    
+    for (let i = pos; i < HOURS.length; i++) {      
       Cmb += `<option value="${HOURS[i].opt}">${HOURS[i].des}</option>`;
-    }
-    var select = $('#cmbHours');
-    getID('cmbHours').innerHTML = Cmb;
-    select.prop('selectedIndex', 0);  
-    select.material_select(); 
-    
+    }    
   }
-
-  // 
+  $('#divHours').html(Cmb + `</select><label for="cmbLoteria">Seleccionar Sorteo</label>`);
+  $('#btnContinuar').html(`<a class="btn-floating red" onclick="ChangeTabs('test-swipe-2')"><i class="material-icons">arrow_forward</i></a>`);
+  $('select').material_select();
 }
+
 function LoadIndicator(){
   getID('bolivar').innerHTML = Settings.limit.bolivar;
   getID('sol').innerHTML = Settings.limit.sol;
@@ -773,3 +776,59 @@ function PrintTicket(HTML, tickeID){
 
 }
 
+function ConvertHours(hours){
+  var intHours = 1;
+  switch (hours) {
+    case 13:
+      intHours = 1;
+      break;
+    case 14: 
+      intHours = 2;
+      break;
+    case 15: 
+      intHours = 3;
+      break;
+    case 16: 
+      intHours = 4;
+      break;
+    case 17: 
+      intHours = 5;
+      break;
+    case 18: 
+      intHours = 6;
+      break;
+    case 19: 
+      intHours = 7;
+      break;
+    case 20: 
+      intHours = 8;
+      break;
+    case 21: 
+      intHours = 9;
+      break;
+    case 22: 
+      intHours = 10;
+      break;
+    case 23: 
+      intHours = 11;
+      break;
+    case 24: 
+      intHours = 12;
+      break;
+    default:
+      intHours = 1;    
+      break;
+  }
+  return intHours;
+}
+
+function cmbSelectType(){
+  var opcion = $('#cmbType option:selected').val();  
+  if(opcion == '0'){
+    $('#divOrigen').show();
+  }else if (opcion == '1'){
+    $('#divOrigen').hide();
+  }else{
+    $('#divOrigen').hide();
+  }
+}

@@ -17,41 +17,41 @@
               </div>
           <div class="col s12 m12 center">
                 <div class="row">
+                  <div class="input-field col s12 m6">
+                      <select id='cmbType' onChange="cmbSelectType()">
+                          <option value="00x">--------------</option>
+                          <option value="1">DEPOSITO</option>
+                          <option value="0">TRANSFERENCIA</option>                        
+                      </select>
+                      <label >TIPO DE OPERACION</label>
+                    </div>
       
                   
                   
-                  <div class="input-field col s12 m6">
+                  <div class="input-field col s12 m6" style="display:none" id="divOrigen">
                     <select id='cmbName'>
                        
                     </select>
-                    <label >Seleccionar Banco</label>
+                    <label >BANCO ORIGEN</label>
                   </div>
                   <div class="input-field col s12 m6">
-                      <select id='cmbType'>
-                        <option value="0">TRANSFERENCIA</option>                        
-                        <option value="1">DEPOSITO</option>
+                      <select id='cmbNameTransferens'>                         
                       </select>
-                      <label >Tipo de Operación</label>
-                    </div>
-                  <div class="input-field col s12 m6">
-                      <select id='cmbNameTransferens'>                        
-                         
-                        </select>
-                      <label >Banco a donde transfirio</label>
+                      <label >CUENTA DONDE TRANSFIERE</label>
                     </div>
                   <div class="input-field col s12 m6">
       
                     <input id="txtDate" type="tel" class="datepicker">
-                    <label class="active" >Fecha de la operación</label>
+                    <label class="active" >FECHA OPERACION</label>
                   </div>
                 </div>
                 <div class="input-field col s12 m6">
                     <input id="txtNumber" type="number" class="validate">
-                    <label class="active">Número de operación</label>
+                    <label class="active">NUMERO DE LA OPERACION</label>
                 </div>
                 <div class="input-field col s12 m6">
                         <input id="txtMoney" type="number" class="validate">
-                        <label class="active" >Monto</label>
+                        <label class="active" >MONTO</label>
                 </div>
 
                               

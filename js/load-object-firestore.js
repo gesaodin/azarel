@@ -910,8 +910,6 @@ function GenerarQR(){
                     AssignedMoney = 0;
                     unsubscribe();
                 }
-           
-           
         });
     })
     .catch(e => {
