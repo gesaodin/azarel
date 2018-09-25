@@ -611,7 +611,7 @@ function LoadMoneyTotal(){
         if (ConexionUser == 0){
             ConexionUser++;
         } else{
-            Materialize.toast('Sus datos han sido actualizados', 3000);
+            Materialize.toast('Datos actualizados', 1000);
         }
     });
 }
@@ -690,6 +690,7 @@ function LoadMoneyTotal(){
   }
 
   function LoadClaims(){
+    Prize = [];
     dbfirestore
     .collection('competitor')
     .doc(UserUID).collection("winner").where("status", "==", "P")
