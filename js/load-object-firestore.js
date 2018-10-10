@@ -611,7 +611,7 @@ function LoadMoneyTotal(){
         if (ConexionUser == 0){
             ConexionUser++;
         } else{
-            Materialize.toast('Datos actualizados', 1000);
+            //Materialize.toast('Datos actualizados', 1000);
         }
     });
 }

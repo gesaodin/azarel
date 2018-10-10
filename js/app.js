@@ -660,6 +660,14 @@ function SelectionLottery(){
 }
 
 
+function LoadTimesActual(){  
+  database.ref("/.info/serverTimeOffset").once('value', function(offset) {
+    var offsetVal = offset.val() || 0;
+    var serverTime = Date.now() + offsetVal;
+    TIME = GetTimeStamp(serverTime);
+  });
+}
+
 
 function LoadTimes(){  
   database.ref("/.info/serverTimeOffset").once('value', function(offset) {
